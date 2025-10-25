@@ -1,8 +1,6 @@
 # Node.js
 frontend/node_modules/
-frontend/src/
 backend/node_modules/
-backend/src/
 
 # Python
 ai_service/venv/
