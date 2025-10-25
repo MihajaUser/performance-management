@@ -1,0 +1,14 @@
+# Node.js
+frontend/node_modules/
+frontend/src/
+backend/node_modules/
+backend/src/
+
+# Python
+ai_service/venv/
+
+# Logs et fichiers temporaires
+*.log
+*.pyc
+__pycache__/
+.DS_Store
