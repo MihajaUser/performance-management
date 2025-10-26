@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 const links = [
   { href: "/", label: "Dashboard" },
@@ -11,6 +12,12 @@ const links = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+    function handleLogout() {
+    document.cookie = 'auth_token=; Max-Age=0; path=/;';
+    router.push('/login');
+  }
 
   return (
     <aside className="w-64 min-h-screen bg-gray-900 text-white p-4">
@@ -27,6 +34,12 @@ export default function Sidebar() {
             {link.label}
           </Link>
         ))}
+         <button
+          onClick={handleLogout}
+          className="mt-4 w-full bg-red-600 py-2 rounded"
+        >
+          Logout
+        </button>
       </nav>
     </aside>
   );
