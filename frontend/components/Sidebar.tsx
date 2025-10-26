@@ -32,10 +32,10 @@ export default function Sidebar() {
     <aside 
       className={`${
         isCollapsed ? 'w-20' : 'w-64'
-      } min-h-screen bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
+      } h-screen bg-white border-r border-gray-200 transition-all duration-300 flex flex-col overflow-hidden`}
     >
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+      <div className="p-4 border-b border-gray-200 flex items-center justify-between shrink-0">
         {!isCollapsed && (
           <h2 className="text-lg font-semibold text-gray-900">
             Performance Manager
@@ -50,7 +50,7 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {links.map((link) => {
           const Icon = link.icon;
           const isActive = pathname === link.href;
@@ -68,7 +68,7 @@ export default function Sidebar() {
               `}
               title={isCollapsed ? link.label : undefined}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-gray-500'}`} />
+              <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-blue-600' : 'text-gray-500'}`} />
               {!isCollapsed && (
                 <span className="text-sm">{link.label}</span>
               )}
@@ -78,7 +78,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Logout Button */}
-      <div className="p-3 border-t border-gray-200">
+      <div className="p-3 border-t border-gray-200 shrink-0">
         <button
           onClick={handleLogout}
           className={`
@@ -87,7 +87,7 @@ export default function Sidebar() {
           `}
           title={isCollapsed ? "Logout" : undefined}
         >
-          <LogOut className="w-5 h-5" />
+          <LogOut className="w-5 h-5 flex-shrink-0" />
           {!isCollapsed && (
             <span className="text-sm font-medium">Logout</span>
           )}
