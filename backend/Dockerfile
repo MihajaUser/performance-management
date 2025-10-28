@@ -25,5 +25,5 @@ COPY . .
 # Étape 5 : Exposer le port d’Adonis
 EXPOSE 3333
 
-# Étape 6 : Lancer le serveur
-CMD ["node", "ace", "serve", "--watch"]
+# Ajout d'une petite attente avant migration (important pour Postgres)
+CMD sh -c "echo 'Waiting for DB...' && sleep 5 && node ace migration:run && node ace db:seed && node ace serve --watch"
