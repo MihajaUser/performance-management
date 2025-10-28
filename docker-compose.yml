@@ -1,3 +1,10 @@
+# pour lancer conteneurs
+# sudo docker compose up --build
+
+# Pour arrêter et supprimer les conteneurs, réseaux et volumes
+# sudo docker compose down
+
+
 version: "3.8"
 
 services:
