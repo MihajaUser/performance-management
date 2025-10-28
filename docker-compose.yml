@@ -1,7 +1,7 @@
-# pour lancer conteneurs
+# to launch containers
 # sudo docker compose up --build
 
-# Pour arrêter et supprimer les conteneurs, réseaux et volumes
+# to stop and remove containers, networks, and volumes
 # sudo docker compose down
 
 

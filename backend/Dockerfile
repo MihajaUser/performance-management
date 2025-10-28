@@ -1,29 +1,29 @@
-# Cela crée une image nommée backend-app.
+# creates an image named backend-app.
 # docker build -t backend-app .
 
-# Lancer le conteneur
+# to launch the container
 # docker run -p 3333:3333 backend-app
 
-# pour supprimer un conteneur arrêté :
-# docker rm <id_du_conteneur>
+# to remove a stopped container:
+# docker rm <id_of_container>
 
 
 
 # Étape 1 : Image Node
 FROM node:20-alpine
 
-# Étape 2 : Répertoire de travail
+# Étape 2 : Working directory
 WORKDIR /app
 
-# Étape 3 : Copier les fichiers nécessaires
+# Étape 3 : Copy the necessary files
 COPY package*.json ./
 RUN npm install
 
-# Étape 4 : Copier le code source
+# Étape 4 : Copy the source code
 COPY . .
 
-# Étape 5 : Exposer le port d’Adonis
+# Étape 5 : Expose the port of Adonis
 EXPOSE 3333
 
-# Ajout d'une petite attente avant migration (important pour Postgres)
+# Added a small wait before migration (important for Postgres)
 CMD sh -c "echo 'Waiting for DB...' && sleep 5 && node ace migration:run && node ace db:seed && node ace serve --watch"
