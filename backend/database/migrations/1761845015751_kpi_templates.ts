@@ -1,18 +1,11 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Users extends BaseSchema {
-  protected tableName = 'users'
+export default class KpiTemplates extends BaseSchema {
+  protected tableName = 'kpi_templates'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('firstname').notNullable()
-      table.string('lastname').notNullable()
-      table.string('email').notNullable().unique()
-      table.string('password').notNullable()
-      table
-        .enum('role', ['superadmin', 'employee', 'manager', 'hr'])
-        .defaultTo('employee')
       table
         .integer('department_id')
         .unsigned()
@@ -25,10 +18,11 @@ export default class Users extends BaseSchema {
         .references('id')
         .inTable('job_titles')
         .onDelete('CASCADE')
-      table
-        .enum('status', ['active', 'inactive', 'on_leave', 'terminated'])
-        .defaultTo('active')
-      table.date('date_hired')
+      table.string('name').notNullable()
+      table.string('description')
+      table.string('unit').notNullable()
+      table.integer('weight').notNullable()
+      table.boolean('is_active').defaultTo(true)
       table.timestamps(true)
     })
   }
