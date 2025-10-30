@@ -1,13 +1,10 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import User from 'App/Models/User'
 import Hash from '@ioc:Adonis/Core/Hash'
-import Database from '@ioc:Adonis/Lucid/Database'
+
 
 export default class UserSeeder extends BaseSeeder {
   public async run() {
-    await User.query().delete()
-    await Database.rawQuery('ALTER SEQUENCE users_id_seq RESTART WITH 1')
-
     await User.createMany([
       {
         firstname: "Alice",
