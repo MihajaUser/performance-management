@@ -43,7 +43,7 @@ export default function EmployeesPage() {
             {/* Champ recherche */}
             <Input
               aria-label="Recherche d'employé"
-              placeholder="Rechercher par nom, poste ou service..."
+              placeholder="nom, prenom ou email..."
               startContent={<Search className="text-gray-400 w-5 h-5" />}
               value={search}
               onValueChange={setSearch}
