@@ -31,9 +31,6 @@ export default class User extends BaseModel {
   public password: string;
 
   @column()
-  public role: "superadmin" | "employee" | "manager" | "hr";
-
-  @column()
   public departmentId: number;
 
   @column()
