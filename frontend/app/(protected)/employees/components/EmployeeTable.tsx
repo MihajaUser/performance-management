@@ -32,16 +32,25 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
             <tr key={r.id} className="border-b last:border-none">
               <td className="py-2">
                 <div className="flex flex-col">
-                  <span className="font-medium">{r.firstname} {r.lastname}</span>
-                  {r.email && <span className="text-xs text-gray-500">{r.email}</span>}
+                  <span className="font-medium">
+                    {r.firstname} {r.lastname}
+                  </span>
+                  {r.email && (
+                    <span className="text-xs text-gray-500">{r.email}</span>
+                  )}
                 </div>
               </td>
               <td>{r.department}</td>
               <td>{r.jobTitle}</td>
-              <td>{r.status ?? "Active"}{""}</td>
-              <td className="text-right">{typeof r.score === "number" ? r.score.toFixed(2) : "-"}</td>
+              <td>{r.status ?? "Active"}</td>
               <td className="text-right">
-                <Link className="text-primary hover:underline" href={`/ (protected)/employees/${r.id}`.replace(" /(protected)", "")}>
+                {typeof r.score === "number" ? r.score.toFixed(2) : "-"}
+              </td>
+              <td className="text-right">
+                <Link
+                  href={`/employees/${r.id}`}
+                  className="text-primary hover:underline"
+                >
                   Voir fiche →
                 </Link>
               </td>
@@ -49,7 +58,9 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
           ))}
           {rows.length === 0 && (
             <tr>
-              <td colSpan={6} className="py-6 text-center text-gray-500">Aucun résultat</td>
+              <td colSpan={6} className="py-6 text-center text-gray-500">
+                Aucun résultat
+              </td>
             </tr>
           )}
         </tbody>
