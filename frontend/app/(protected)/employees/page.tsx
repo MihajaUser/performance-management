@@ -39,6 +39,7 @@ export default function EmployeesPage() {
       {/* --- Carte des filtres --- */}
       <Card shadow="sm" className="border border-gray-200">
         <CardHeader className="pb-0">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 w-full">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
             {/* Champ recherche */}
             <Input
@@ -109,8 +110,10 @@ export default function EmployeesPage() {
               <SelectItem key="inactive">Inactif</SelectItem>
             </Select>
 
+          </div>
+
             {/* Bouton Ajouter */}
-            <div className="flex justify-end">
+       
               <Button
                 color="primary"
                 variant="flat"
@@ -119,8 +122,8 @@ export default function EmployeesPage() {
               >
                 Ajouter un employé
               </Button>
+     
             </div>
-          </div>
         </CardHeader>
 
         {/* --- Corps --- */}
