@@ -63,9 +63,10 @@ export default function EmployeesPage() {
               onChange={(e) => setDepartment(e.target.value)}
               classNames={{
                 trigger:
-                  "bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all data-[open=true]:border-primary/60 data-[focus-visible=true]:border-primary/60",
+                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all data-[open=true]:border-primary/60 data-[focus-visible=true]:border-primary/60",
                 value: "text-gray-800 text-sm",
-                selectorIcon: "text-gray-400 w-4 h-4",
+                selectorIcon:
+                  "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
                 popoverContent:
                   "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
               }}
@@ -91,9 +92,10 @@ export default function EmployeesPage() {
               onChange={(e) => setStatus(e.target.value)}
               classNames={{
                 trigger:
-                  "bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all data-[open=true]:border-primary/60 data-[focus-visible=true]:border-primary/60",
+                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all data-[open=true]:border-primary/60 data-[focus-visible=true]:border-primary/60",
                 value: "text-gray-800 text-sm",
-                selectorIcon: "text-gray-400 w-4 h-4",
+                selectorIcon:
+                  "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
                 popoverContent:
                   "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
               }}
