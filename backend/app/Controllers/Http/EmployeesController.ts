@@ -1,14 +1,14 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import User from "App/Models/User";
-import EmployeeListValidator from "App/Validators/EmployeeListValidator";
+import EmployeeValidator from "App/Validators/EmployeeValidator";
 
 export default class EmployeeController {
-  /**
-   * 🧾 Liste de tous les employés
-   * Filtres : département, statut, recherche
-   */
   public async index({ request }: HttpContextContract) {
-    const payload = await request.validate(EmployeeListValidator);
+    const payload = await request.validate({ schema: EmployeeValidator.list });
+
+    const page = payload.page ?? 1;
+    const limit = payload.limit ?? 10;
+    const order = payload.order ?? "asc";
 
     const query = User.query()
       .preload("department")
@@ -18,6 +18,7 @@ export default class EmployeeController {
     if (payload.departmentId)
       query.where("department_id", payload.departmentId);
     if (payload.status) query.where("status", payload.status);
+
     if (payload.search) {
       query.where((builder) => {
         builder
@@ -27,55 +28,26 @@ export default class EmployeeController {
       });
     }
 
-    const employees = await query.orderBy("firstname", "asc");
+    const employees = await query
+      .orderBy("firstname", order)
+      .paginate(page, limit);
     return employees;
   }
 
-  /**
-   * 👤 Détails d’un employé (fiche profil)
-   * Inclut infos, département, poste
-   */
   public async show({ params, response }: HttpContextContract) {
     const employee = await User.query()
       .where("id", params.id)
       .preload("department")
       .preload("jobTitle")
+      .preload("evaluationsReceived", (evalQuery) =>
+        evalQuery.preload("analyses")
+      )
+      .preload("userKpis", (kpiQuery) => kpiQuery.preload("kpiTemplate"))
+      .preload("performanceScores")
       .first();
 
     if (!employee) return response.notFound({ message: "Employé non trouvé" });
 
     return employee;
-  }
-
-  /**
-   * 📊 Évaluations reçues par un employé
-   * Autoévaluations + évaluations de manager
-   */
-  public async evaluationsReceived({ params, response }: HttpContextContract) {
-    const employee = await User.query()
-      .where("id", params.id)
-      .preload("evaluationsReceived", (evalQuery) =>
-        evalQuery.preload("analyses")
-      )
-      .first();
-
-    if (!employee) return response.notFound({ message: "Employé non trouvé" });
-
-    return employee.evaluationsReceived;
-  }
-
-  /**
-   * 🧠 Évaluations données par un employé (cas manager/RH)
-   */
-  public async evaluationsGiven({ params, response }: HttpContextContract) {
-    const evaluator = await User.query()
-      .where("id", params.id)
-      .preload("evaluationsGiven", (evalQuery) => evalQuery.preload("analyses"))
-      .first();
-
-    if (!evaluator)
-      return response.notFound({ message: "Évaluateur non trouvé" });
-
-    return evaluator.evaluationsGiven;
   }
 }
