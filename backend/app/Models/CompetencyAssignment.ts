@@ -17,10 +17,10 @@ export default class CompetencyAssignment extends BaseModel {
   public competencyId: number
 
   @column()
-  public departmentId?: number
+  public departmentId: number
 
   @column()
-  public jobTitleId?: number
+  public jobTitleId: number
 
   @column()
   public requiredLevel: 'N' | 'I' | 'M' | 'E'
