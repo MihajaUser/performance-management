@@ -37,3 +37,10 @@ Route.group(() => {
   Route.put("/:id", "EvaluationsController.update");
   Route.delete("/:id", "EvaluationsController.destroy");
 }).prefix("/evaluations");
+
+Route.group(() => {
+  Route.get("/", "CompetenciesController.index");
+  Route.get("/user/:id", "CompetenciesController.byUser");
+  Route.post("/", "CompetenciesController.store");
+  Route.put("/:id", "CompetenciesController.update");
+}).prefix("/competencies");
