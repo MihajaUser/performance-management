@@ -13,6 +13,8 @@ import UserKpi from "./UserKpi";
 import Evaluation from "./Evaluation";
 import PerformanceScore from "./PerformanceScore";
 import Alert from "./Alert";
+import UserRole from "./UserRole";
+import UserPrivilege from "./UserPrivilege";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -62,6 +64,12 @@ export default class User extends BaseModel {
 
   @hasMany(() => Alert)
   public alerts: HasMany<typeof Alert>;
+
+  @hasMany(() => UserRole)
+  public userRoles: HasMany<typeof UserRole>;
+
+  @hasMany(() => UserPrivilege)
+  public userPrivileges: HasMany<typeof UserPrivilege>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
