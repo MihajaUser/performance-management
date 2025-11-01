@@ -18,14 +18,15 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
-import Database from '@ioc:Adonis/Lucid/Database'
- 
 
-Route.get('/', async () => {
-  return { hello: 'world Docker' }
-})
+import Route from "@ioc:Adonis/Core/Route";
 
-Route.get('/users', async () => {
-  return Database.from('users').select('*')
-})
+Route.group(() => {
+  Route.get("/", "EmployeesController.index");
+  Route.get("/:id", "EmployeesController.show");
+  Route.get(
+    "/:id/evaluations/received",
+    "EmployeesController.evaluationsReceived"
+  );
+  Route.get("/:id/evaluations/given", "EmployeesController.evaluationsGiven");
+}).prefix("/employees");
