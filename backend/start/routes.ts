@@ -44,3 +44,10 @@ Route.group(() => {
   Route.post("/", "CompetenciesController.store");
   Route.put("/:id", "CompetenciesController.update");
 }).prefix("/competencies");
+
+Route.group(() => {
+  Route.get("/", "PerformanceScoresController.index");
+  Route.get("/user/:id", "PerformanceScoresController.byUser");
+  Route.post("/", "PerformanceScoresController.store");
+  Route.put("/:id", "PerformanceScoresController.update");
+}).prefix("/performance-scores");
