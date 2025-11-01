@@ -1,28 +1,23 @@
-"use client";
+"use client"
 
-import { Card, CardHeader, CardBody, Tabs, Tab } from "@heroui/react";
-import { useMemo } from "react";
-import { useParams } from "next/navigation";
-import { employees, evaluations, kpis, competencies, performance } from "../data/mockEmployees";
-import { EmployeeInfo } from "../components/EmployeeInfo";
-import { EmployeeEvaluations } from "../components/EmployeeEvaluations";
-import { EmployeeKpis } from "../components/EmployeeKpis";
-import { EmployeeCompetencies } from "../components/EmployeeCompetencies";
-import { EmployeePerformance } from "../components/EmployeePerformance";
+import { useParams } from "next/navigation"
+import { Card, CardBody, CardHeader, Tabs, Tab } from "@heroui/react"
+import { useEmployeeDetailQuery } from "../hooks/useEmployeeDetailQuery"
+import { EmployeeInfo } from "../components/EmployeeInfo"
+import { EmployeeEvaluations } from "../components/EmployeeEvaluations"
+import { EmployeeKpis } from "../components/EmployeeKpis"
+import { EmployeeCompetencies } from "../components/EmployeeCompetencies"
+import { EmployeePerformance } from "../components/EmployeePerformance"
 
 export default function EmployeeDetailPage() {
-  const params = useParams<{ id: string }>();
-  const id = Number(params.id);
+  const params = useParams<{ id: string }>()
+  const id = Number(params.id)
+  const { data, isLoading, isError } = useEmployeeDetailQuery(id)
 
-  const employee = useMemo(() => employees.find((e) => e.id === id), [id]);
-  const employeeEvaluations = evaluations;   // mock pour l’instant
-  const employeeKpis = kpis;                 // mock
-  const employeeCompetencies = competencies; // mock
-  const employeePerformance = performance;   // mock
+  if (isLoading) return <p className="text-gray-500">Chargement…</p>
+  if (isError || !data) return <p className="text-red-500">Erreur : employé introuvable.</p>
 
-  if (!employee) {
-    return <p className="text-gray-600">Employé introuvable.</p>;
-    }
+  const { employee, evaluations, kpis, competencies, performance } = data
 
   return (
     <>
@@ -46,20 +41,20 @@ export default function EmployeeDetailPage() {
               <EmployeeInfo employee={employee} />
             </Tab>
             <Tab key="evaluations" title="Évaluations">
-              <EmployeeEvaluations items={employeeEvaluations} />
+              <EmployeeEvaluations items={evaluations} />
             </Tab>
             <Tab key="kpi" title="KPI">
-              <EmployeeKpis items={employeeKpis} />
+              <EmployeeKpis items={kpis} />
             </Tab>
             <Tab key="competences" title="Compétences">
-              <EmployeeCompetencies items={employeeCompetencies} />
+              <EmployeeCompetencies items={competencies} />
             </Tab>
             <Tab key="performance" title="Score global">
-              <EmployeePerformance points={employeePerformance} />
+              <EmployeePerformance points={performance} />
             </Tab>
           </Tabs>
         </CardBody>
       </Card>
     </>
-  );
+  )
 }

@@ -7,8 +7,16 @@ type Row = {
   firstname: string;
   lastname: string;
   email?: string;
-  department: string;
-  jobTitle: string;
+  department: {
+    id: number;
+    name: string;
+    description?: string;
+  };
+  jobTitle: {
+    id: number;
+    name: string;
+    description?: string;
+  };
   status?: string;
   score?: number;
 };
@@ -40,16 +48,24 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
                   )}
                 </div>
               </td>
-              <td>{r.department}</td>
-              <td>{r.jobTitle}</td>
-              <td>{r.status ?? "Active"}</td>
+              <td>{r.department.name}</td>
+              <td>{r.jobTitle.name}</td>
+              <td>
+                <span className={`px-2 py-1 text-xs rounded-full ${
+                  r.status === 'active' 
+                    ? 'bg-green-100 text-green-700' 
+                    : 'bg-gray-100 text-gray-700'
+                }`}>
+                  {r.status === 'active' ? 'Actif' : r.status}
+                </span>
+              </td>
               <td className="text-right">
                 {typeof r.score === "number" ? r.score.toFixed(2) : "-"}
               </td>
               <td className="text-right">
                 <Link
                   href={`/employees/${r.id}`}
-                  className="text-primary hover:underline"
+                  className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
                 >
                   Voir fiche →
                 </Link>

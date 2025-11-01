@@ -1,28 +1,30 @@
 "use client";
 
-import { Card, CardHeader, CardBody, Input, Select, SelectItem, Button } from "@heroui/react";
-import { useMemo, useState } from "react";
-import { employees as seedEmployees } from "./data/mockEmployees";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Input,
+  Select,
+  SelectItem,
+  Button,
+} from "@heroui/react";
+import { useState } from "react";
+import { useEmployeesQuery } from "./hooks/useEmployeesQuery";
 import { EmployeeTable } from "./components/EmployeeTable";
 
 export default function EmployeesPage() {
   const [search, setSearch] = useState("");
-  const [department, setDepartment] = useState<string>("all");
-  const [status, setStatus] = useState<string>("all");
+  const [department, setDepartment] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
 
-  const employees = useMemo(() => {
-    return seedEmployees
-      .filter(e =>
-        `${e.firstname} ${e.lastname}`.toLowerCase().includes(search.toLowerCase())
-      )
-      .filter(e => (department === "all" ? true : e.department === department))
-      .filter(e => (status === "all" ? true : (e.status ?? "Active") === status));
-  }, [search, department, status]);
+  const { data, isLoading, isError, refetch } = useEmployeesQuery({
+    search,
+    department,
+    status,
+  });
 
-  const uniqueDepartments = useMemo(
-    () => Array.from(new Set(seedEmployees.map(e => e.department))),
-    []
-  );
+  const employees = data?.data ?? [];
 
   return (
     <>
@@ -32,37 +34,39 @@ export default function EmployeesPage() {
         <CardHeader>
           <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-3">
             <Input
-              placeholder="Rechercher (nom, prénom, email)…"
+              placeholder="Rechercher…"
               value={search}
               onValueChange={setSearch}
             />
             <Select
-              selectedKeys={[department]}
-              onSelectionChange={(keys) => setDepartment(Array.from(keys)[0] as string)}
               label="Département"
+              onChange={(e) => setDepartment(e.target.value)}
             >
-              <SelectItem key="all">Tous</SelectItem>
-              <>
-                {uniqueDepartments.map((d) => (
-                  <SelectItem key={d}>{d}</SelectItem>
-                ))}
-              </>
+              <SelectItem key="">Tous</SelectItem>
+              <SelectItem key="Informatique">Informatique</SelectItem>
+              <SelectItem key="Ressources Humaines">
+                Ressources Humaines
+              </SelectItem>
             </Select>
-            <Select selectedKeys={[status]} onSelectionChange={(keys) => setStatus(Array.from(keys)[0] as string)} label="Statut">
-              <SelectItem key="all">Tous</SelectItem>
-              <SelectItem key="Active">Actif</SelectItem>
-              <SelectItem key="OnLeave">En congé</SelectItem>
-              <SelectItem key="Inactive">Inactif</SelectItem>
+            <Select label="Statut" onChange={(e) => setStatus(e.target.value)}>
+              <SelectItem key="">Tous</SelectItem>
+              <SelectItem key="active">Actif</SelectItem>
+              <SelectItem key="on_leave">En congé</SelectItem>
             </Select>
-            <div className="flex items-end">
-              <Button fullWidth variant="flat" onPress={() => { setSearch(""); setDepartment("all"); setStatus("all"); }}>
-                Réinitialiser
-              </Button>
-            </div>
+            <Button variant="flat" onPress={() => refetch()}>
+              Rechercher
+            </Button>
           </div>
         </CardHeader>
+
         <CardBody>
-          <EmployeeTable rows={employees} />
+          {isLoading ? (
+            <p className="text-gray-500">Chargement...</p>
+          ) : isError ? (
+            <p className="text-red-500">Erreur lors du chargement.</p>
+          ) : (
+            <EmployeeTable rows={employees} />
+          )}
         </CardBody>
       </Card>
     </>
