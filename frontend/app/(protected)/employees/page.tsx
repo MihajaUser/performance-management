@@ -8,6 +8,7 @@ import {
   Select,
   SelectItem,
   Button,
+  Pagination,
 } from "@heroui/react";
 import { Plus, Search } from "lucide-react";
 import { useState } from "react";
@@ -18,14 +19,17 @@ export default function EmployeesPage() {
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, isError } = useEmployeesQuery({
     search,
     department,
     status,
+    page: currentPage,
   });
 
   const employees = data?.data ?? [];
+  const meta = data?.meta;
 
   return (
     <div className="space-y-6">
@@ -40,104 +44,136 @@ export default function EmployeesPage() {
       <Card shadow="sm" className="border border-gray-200">
         <CardHeader className="pb-0">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
-            {/* Champ recherche */}
-            <Input
-              aria-label="Recherche d'employé"
-              placeholder="nom, prenom ou email..."
-              startContent={<Search className="text-gray-400 w-5 h-5" />}
-              value={search}
-              onValueChange={setSearch}
-              variant="bordered"
-              size="sm"
-              classNames={{
-                inputWrapper:
-                  "bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
-                input: "text-gray-800 placeholder:text-gray-400",
-              }}
-            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end flex-1">
+              {/* Champ recherche */}
+              <Input
+                aria-label="Recherche d'employé"
+                placeholder="nom, prenom ou email..."
+                startContent={<Search className="text-gray-400 w-5 h-5" />}
+                value={search}
+                onValueChange={setSearch}
+                variant="bordered"
+                size="sm"
+                classNames={{
+                  inputWrapper:
+                    "bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
+                  input: "text-gray-800 placeholder:text-gray-400 text-sm",
+                }}
+              />
 
-            {/* Département */}
-            <Select
-              placeholder="Département"
-              variant="bordered"
-              size="sm"
-              selectedKeys={department ? [department] : []}
-              onSelectionChange={(keys) =>
-                setDepartment(Array.from(keys)[0] ?? "")
-              }
-              classNames={{
-                trigger:
-                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
-                value: "text-gray-800 text-sm",
-                selectorIcon:
-                  "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
-                popoverContent:
-                  "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
-              }}
-              popoverProps={{ placement: "bottom-start", className: "z-[60]" }}
-            >
-              <SelectItem key="">Tous</SelectItem>
-              <SelectItem key="Informatique">Informatique</SelectItem>
-              <SelectItem key="Ressources Humaines">
-                Ressources Humaines
-              </SelectItem>
-              <SelectItem key="Finance">Finance</SelectItem>
-              <SelectItem key="Marketing">Marketing</SelectItem>
-            </Select>
+              {/* Département */}
+              <Select
+                placeholder="Département"
+                variant="bordered"
+                size="sm"
+                selectedKeys={department ? [department] : []}
+                onSelectionChange={(keys) =>
+                  setDepartment(String(Array.from(keys)[0] ?? ""))
+                }
+                classNames={{
+                  trigger:
+                    "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
+                  value: "text-gray-800 text-sm",
+                  selectorIcon:
+                    "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
+                  popoverContent:
+                    "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
+                }}
+                popoverProps={{
+                  placement: "bottom-start",
+                  className: "z-[60]",
+                }}
+              >
+                <SelectItem key="">Tous</SelectItem>
+                <SelectItem key="Informatique">Informatique</SelectItem>
+                <SelectItem key="Ressources Humaines">
+                  Ressources Humaines
+                </SelectItem>
+                <SelectItem key="Finance">Finance</SelectItem>
+                <SelectItem key="Marketing">Marketing</SelectItem>
+              </Select>
 
-            {/* Statut */}
-            <Select
-              placeholder="Statut"
-              variant="bordered"
-              size="sm"
-              selectedKeys={status ? [status] : []}
-              onSelectionChange={(keys) => setStatus(Array.from(keys)[0] ?? "")}
-              classNames={{
-                trigger:
-                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
-                value: "text-gray-800 text-sm",
-                selectorIcon:
-                  "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
-                popoverContent:
-                  "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
-              }}
-              popoverProps={{ placement: "bottom-start", className: "z-[60]" }}
-            >
-              <SelectItem key="">Tous</SelectItem>
-              <SelectItem key="active">Actif</SelectItem>
-              <SelectItem key="on_leave">En congé</SelectItem>
-              <SelectItem key="inactive">Inactif</SelectItem>
-            </Select>
-
-          </div>
+              {/* Statut */}
+              <Select
+                placeholder="Statut"
+                variant="bordered"
+                size="sm"
+                selectedKeys={status ? [status] : []}
+                onSelectionChange={(keys) =>
+                  setStatus(String(Array.from(keys)[0] ?? ""))
+                }
+                classNames={{
+                  trigger:
+                    "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
+                  value: "text-gray-800 text-sm",
+                  selectorIcon:
+                    "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
+                  popoverContent:
+                    "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
+                }}
+                popoverProps={{
+                  placement: "bottom-start",
+                  className: "z-[60]",
+                }}
+              >
+                <SelectItem key="">Tous</SelectItem>
+                <SelectItem key="active">Actif</SelectItem>
+                <SelectItem key="on_leave">En congé</SelectItem>
+                <SelectItem key="inactive">Inactif</SelectItem>
+              </Select>
+            </div>
 
             {/* Bouton Ajouter */}
-       
-              <Button
-                color="primary"
-                variant="flat"
-                startContent={<Plus className="w-4 h-4" />}
-                className="h-11 text-sm bg-[#002B5B]/10 hover:bg-[#002B5B]/20 text-[#002B5B] font-normal shadow-none border border-gray-200 rounded-lg px-4 transition-all"
-              >
-                Ajouter un employé
-              </Button>
-     
-            </div>
+            <Button
+              color="primary"
+              variant="flat"
+              startContent={<Plus className="w-4 h-4" />}
+              className="h-11 text-sm bg-[#002B5B]/10 hover:bg-[#002B5B]/20 text-[#002B5B] font-medium shadow-none border border-gray-200 rounded-lg whitespace-nowrap"
+            >
+              Ajouter un employé
+            </Button>
+          </div>
         </CardHeader>
 
         {/* --- Corps --- */}
         <CardBody className="pt-4">
           {isLoading ? (
-            <p className="text-gray-500 text-sm italic">
-              Chargement des données...
-            </p>
+            <div className="flex items-center justify-center py-12">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mb-2"></div>
+                <p className="text-sm text-gray-500">Chargement...</p>
+              </div>
+            </div>
           ) : isError ? (
-            <p className="text-red-500 text-sm italic">
-              Une erreur est survenue lors du chargement.
-            </p>
+            <div className="flex items-center justify-center py-12">
+              <p className="text-red-500 text-sm italic">
+                Une erreur est survenue lors du chargement.
+              </p>
+            </div>
           ) : (
-            <EmployeeTable rows={employees} />
+            <>
+              <EmployeeTable rows={employees} />
+
+              {meta && meta.last_page > 1 && (
+                <div className="flex justify-center items-center mt-6 gap-4">
+                  <div className="text-sm text-gray-600">
+                    Page {meta.current_page} sur {meta.last_page} - {meta.total}{" "}
+                    employé{meta.total > 1 ? "s" : ""}
+                  </div>
+                  <Pagination
+                    showControls
+                    total={meta.last_page}
+                    page={currentPage}
+                    onChange={setCurrentPage}
+                    classNames={{
+                      wrapper: "gap-2",
+                      item: "w-8 h-8 text-sm",
+                      cursor: "bg-[#002B5B] text-white font-medium",
+                    }}
+                  />
+                </div>
+              )}
+            </>
           )}
         </CardBody>
       </Card>
