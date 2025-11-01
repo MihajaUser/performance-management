@@ -18,7 +18,6 @@
 |
 */
 
-
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.group(() => {
@@ -30,3 +29,11 @@ Route.group(() => {
   );
   Route.get("/:id/evaluations/given", "EmployeesController.evaluationsGiven");
 }).prefix("/employees");
+
+Route.group(() => {
+  Route.get("/", "EvaluationsController.index");
+  Route.get("/:id", "EvaluationsController.show");
+  Route.post("/", "EvaluationsController.store");
+  Route.put("/:id", "EvaluationsController.update");
+  Route.delete("/:id", "EvaluationsController.destroy");
+}).prefix("/evaluations");
