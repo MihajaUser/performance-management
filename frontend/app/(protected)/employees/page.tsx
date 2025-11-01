@@ -9,7 +9,7 @@ import {
   SelectItem,
   Button,
 } from "@heroui/react";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { useEmployeesQuery } from "./hooks/useEmployeesQuery";
 import { EmployeeTable } from "./components/EmployeeTable";
@@ -19,7 +19,7 @@ export default function EmployeesPage() {
   const [department, setDepartment] = useState<string>("");
   const [status, setStatus] = useState<string>("");
 
-  const { data, isLoading, isError, refetch } = useEmployeesQuery({
+  const { data, isLoading, isError } = useEmployeesQuery({
     search,
     department,
     status,
@@ -39,7 +39,7 @@ export default function EmployeesPage() {
       {/* --- Carte des filtres --- */}
       <Card shadow="sm" className="border border-gray-200">
         <CardHeader className="pb-0">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
             {/* Champ recherche */}
             <Input
               aria-label="Recherche d'employé"
@@ -55,25 +55,26 @@ export default function EmployeesPage() {
                 input: "text-gray-800 placeholder:text-gray-400",
               }}
             />
+
+            {/* Département */}
             <Select
               placeholder="Département"
               variant="bordered"
               size="sm"
               selectedKeys={department ? [department] : []}
-              onChange={(e) => setDepartment(e.target.value)}
+              onSelectionChange={(keys) =>
+                setDepartment(Array.from(keys)[0] ?? "")
+              }
               classNames={{
                 trigger:
-                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all data-[open=true]:border-primary/60 data-[focus-visible=true]:border-primary/60",
+                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
                 value: "text-gray-800 text-sm",
                 selectorIcon:
                   "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
                 popoverContent:
                   "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
               }}
-              popoverProps={{
-                placement: "bottom-start",
-                className: "z-[60]",
-              }}
+              popoverProps={{ placement: "bottom-start", className: "z-[60]" }}
             >
               <SelectItem key="">Tous</SelectItem>
               <SelectItem key="Informatique">Informatique</SelectItem>
@@ -84,25 +85,23 @@ export default function EmployeesPage() {
               <SelectItem key="Marketing">Marketing</SelectItem>
             </Select>
 
+            {/* Statut */}
             <Select
               placeholder="Statut"
               variant="bordered"
               size="sm"
               selectedKeys={status ? [status] : []}
-              onChange={(e) => setStatus(e.target.value)}
+              onSelectionChange={(keys) => setStatus(Array.from(keys)[0] ?? "")}
               classNames={{
                 trigger:
-                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all data-[open=true]:border-primary/60 data-[focus-visible=true]:border-primary/60",
+                  "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
                 value: "text-gray-800 text-sm",
                 selectorIcon:
                   "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
                 popoverContent:
                   "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
               }}
-              popoverProps={{
-                placement: "bottom-start",
-                className: "z-[60]",
-              }}
+              popoverProps={{ placement: "bottom-start", className: "z-[60]" }}
             >
               <SelectItem key="">Tous</SelectItem>
               <SelectItem key="active">Actif</SelectItem>
@@ -110,18 +109,21 @@ export default function EmployeesPage() {
               <SelectItem key="inactive">Inactif</SelectItem>
             </Select>
 
-            {/* Bouton recherche */}
-            <Button
-              color="primary"
-              variant="solid"
-              onPress={() => refetch()}
-              className="h-11 font-medium mt-6 md:mt-0"
-            >
-              Rechercher
-            </Button>
+            {/* Bouton Ajouter */}
+            <div className="flex justify-end">
+              <Button
+                color="primary"
+                variant="flat"
+                startContent={<Plus className="w-4 h-4" />}
+                className="h-11 text-sm bg-[#002B5B]/10 hover:bg-[#002B5B]/20 text-[#002B5B] font-normal shadow-none border border-gray-200 rounded-lg px-4 transition-all"
+              >
+                Ajouter un employé
+              </Button>
+            </div>
           </div>
         </CardHeader>
 
+        {/* --- Corps --- */}
         <CardBody className="pt-4">
           {isLoading ? (
             <p className="text-gray-500 text-sm italic">
