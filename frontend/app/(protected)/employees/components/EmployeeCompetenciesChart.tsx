@@ -25,7 +25,7 @@ export function EmployeeCompetenciesChart({
 }) {
   return (
     <div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-3">
+      <h3 className="ttext-lg font-semibold text-gray-900 mb-4">
         Synthèse des catégories
       </h3>
 

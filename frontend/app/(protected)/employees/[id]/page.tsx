@@ -48,11 +48,15 @@ export default function EmployeeDetailPage() {
     sentiment: e.sentiment,
   }));
 
+  console.log("KPI data:", data.userKpis);
   const kpis: KpiItem[] = data.userKpis.map((k) => ({
     id: k.id,
     name: k.kpiTemplate.name,
     target: k.target,
     actual: k.actual,
+    score: k.score,
+    weight: k.kpiTemplate.weight,
+    comment: k.comment,
   }));
 
   return (

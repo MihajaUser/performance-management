@@ -35,7 +35,7 @@ export function EmployeeEvaluations({
     <div className="space-y-8">
       {/* --- Graphique global --- */}
       <div>
-        <h3 className="text-base font-semibold text-gray-800 mb-3">
+        <h3 className="text-lg font-semibold text-gray-900  mb-4">
           Évolution des performances
         </h3>
         <div className="bg-white border border-gray-200 rounded-lg p-4">
