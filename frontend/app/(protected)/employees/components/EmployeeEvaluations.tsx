@@ -71,15 +71,15 @@ export function EmployeeEvaluations({
                   verticalAlign="bottom"
                 />
                 <Bar
-                  dataKey="score"
-                  fill="#60A5FA" // bleu pastel
-                  name="Score réel"
+                  dataKey="predicted"
+                  fill="#86EFAC"
+                  name="Score prédit (IA)"
                   radius={[4, 4, 0, 0]}
                 />
                 <Bar
-                  dataKey="predicted"
-                  fill="#86EFAC" // vert clair pastel
-                  name="Score prédit (IA)"
+                  dataKey="score"
+                  fill="#60A5FA"
+                  name="Score réel"
                   radius={[4, 4, 0, 0]}
                 />
               </BarChart>
