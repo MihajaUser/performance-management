@@ -5,22 +5,29 @@ import { Card, CardBody, CardHeader, Tabs, Tab } from "@heroui/react";
 import { useEmployeeDetailQuery } from "../hooks/useEmployeeDetailQuery";
 import { useEmployeeCompetenciesQuery } from "../hooks/useEmployeeCompetenciesQuery";
 import { Employee } from "../components/EmployeeInfo";
-import { EmployeeEvaluations, type EvaluationItem } from "../components/EmployeeEvaluations";
+import {
+  EmployeeEvaluations,
+  type EvaluationItem,
+} from "../components/EmployeeEvaluations";
 import { EmployeeKpis, type KpiItem } from "../components/EmployeeKpis";
-import { EmployeeCompetencies } from "../components/EmployeeCompetencies";
 import { EmployeePerformance } from "../components/EmployeePerformance";
+import { EmployeeCompetenciesTable } from "../components/EmployeeCompetenciesTable";
+import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesChart";
 
 export default function EmployeeDetailPage() {
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
 
   const { data, isLoading, isError } = useEmployeeDetailQuery(id);
-  const { data: compData, isLoading: compLoading } = useEmployeeCompetenciesQuery(id);
+  const { data: compData, isLoading: compLoading } =
+    useEmployeeCompetenciesQuery(id);
 
   if (isLoading || compLoading)
     return <p className="text-gray-500 text-sm">Chargement…</p>;
-  if (isError || !data)
-    return <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>;
+  if (isError || !data || !compData)
+    return (
+      <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
+    );
 
   const employee: Employee = {
     id: data.id,
@@ -134,14 +141,15 @@ export default function EmployeeDetailPage() {
             <Tab key="kpi" title="KPI">
               <EmployeeKpis items={kpis} />
             </Tab>
-            <Tab key="competences" title="Compétences">
-              {compData && (
-                <EmployeeCompetencies
-                  summary={compData.summary}
-                  details={compData.details}
-                />
-              )}
+
+            <Tab key="competences-details" title="Compétences">
+              <EmployeeCompetenciesTable details={compData.details} />
             </Tab>
+
+            <Tab key="competences-summary" title="Synthèse catégories">
+              <EmployeeCompetenciesChart summary={compData.summary} />
+            </Tab>
+
             <Tab key="performance" title="Score global">
               <EmployeePerformance points={performance} />
             </Tab>
