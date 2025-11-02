@@ -31,9 +31,9 @@ export default function Topbar() {
           </div>
           <div className="hidden md:block">
             <p className="text-sm font-semibold text-gray-800 group-hover:text-[#002B5B] transition-colors">
-              Antonio Mihaja
+              Antonio Rakoto
             </p>
-            <p className="text-xs text-gray-500">Développeur Web</p>
+            <p className="text-xs text-gray-500">Chef de projet</p>
           </div>
         </div>
       </div>
