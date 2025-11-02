@@ -94,7 +94,7 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
 
               <td className="px-6 py-4 whitespace-nowrap text-right">
                 <div className="flex justify-end">
-                  <Dropdown>
+                  <Dropdown offset={-4}>
                     <DropdownTrigger>
                       <button className="cursor-pointer p-1 hover:bg-gray-100 rounded transition-colors">
                         <Icon
@@ -130,6 +130,7 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
 
                       <DropdownItem
                         key="details"
+                        className="border-t border-gray-300"
                         onPress={() => handleDetails(r.id)}
                       >
                         Détails
