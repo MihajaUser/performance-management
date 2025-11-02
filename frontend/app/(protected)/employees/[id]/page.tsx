@@ -1,13 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Tabs,
-  Tab
-} from "@heroui/react";
+import { Card, CardBody, CardHeader, Tabs, Tab } from "@heroui/react";
 import { useEmployeeDetailQuery } from "../hooks/useEmployeeDetailQuery";
 import { useEmployeeCompetenciesQuery } from "../hooks/useEmployeeCompetenciesQuery";
 import { Employee } from "../components/EmployeeInfo";
@@ -101,7 +95,7 @@ export default function EmployeeDetailPage() {
     <div className="space-y-8">
       {/* HEADER */}
       <div className="space-y-1">
-        <h1 className="text-3xl font-semibold text-gray-900">
+        <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
           {employee.firstname} {employee.lastname}
         </h1>
       </div>

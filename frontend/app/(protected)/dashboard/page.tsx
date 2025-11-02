@@ -15,8 +15,8 @@ import {
 export default function DashboardPage() {
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-800">
-        Tableau de bord RH
+      <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
+        Tableau de bord
       </h1>
 
       <StatsCards stats={stats} />

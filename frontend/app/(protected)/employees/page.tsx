@@ -35,7 +35,7 @@ export default function EmployeesPage() {
     <div className="space-y-6">
       {/* --- Titre --- */}
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">
+        <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
           Gestion des employés
         </h1>
       </div>
