@@ -14,6 +14,31 @@ import { EmployeeCompetenciesTable } from "../components/EmployeeCompetenciesTab
 import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesChart";
 import { LoadingScreen } from "@/components/LoadingScreen";
 
+interface EvaluationData {
+  id: string | number;
+  period: string;
+  general_score: number;
+  sentiment: string;
+}
+
+interface KpiData {
+  id: string | number;
+  kpiTemplate: {
+    name: string;
+    weight: number;
+  };
+  target: number;
+  actual: number;
+  score: number;
+  comment: string;
+}
+
+interface PerformanceData {
+  period: string;
+  score_final: number;
+  predicted_score: number;
+}
+
 export default function EmployeeDetailPage() {
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
@@ -41,15 +66,16 @@ export default function EmployeeDetailPage() {
     matricule: data.matricule,
   };
 
-  const evaluations: EvaluationItem[] = data.evaluationsReceived.map((e) => ({
-    id: e.id,
-    period: e.period,
-    score: e.general_score,
-    sentiment: e.sentiment,
-  }));
+  const evaluations: EvaluationItem[] = data.evaluationsReceived.map(
+    (e: EvaluationData) => ({
+      id: e.id,
+      period: e.period,
+      score: e.general_score,
+      sentiment: e.sentiment,
+    })
+  );
 
-  console.log("KPI data:", data.userKpis);
-  const kpis: KpiItem[] = data.userKpis.map((k) => ({
+  const kpis: KpiItem[] = data.userKpis.map((k: KpiData) => ({
     id: k.id,
     name: k.kpiTemplate.name,
     target: k.target,
@@ -57,6 +83,12 @@ export default function EmployeeDetailPage() {
     score: k.score,
     weight: k.kpiTemplate.weight,
     comment: k.comment,
+  }));
+
+  const performance = data.performanceScores.map((p: PerformanceData) => ({
+    period: p.period,
+    score: p.score_final,
+    predicted: p.predicted_score,
   }));
 
   return (
@@ -133,14 +165,7 @@ export default function EmployeeDetailPage() {
             }}
           >
             <Tab key="evaluations" title="Évaluations">
-              <EmployeeEvaluations
-                items={evaluations}
-                performance={data.performanceScores.map((p) => ({
-                  period: p.period,
-                  score: p.score_final,
-                  predicted: p.predicted_score,
-                }))}
-              />
+              <EmployeeEvaluations items={evaluations} performance={performance} />
             </Tab>
 
             <Tab key="kpi" title="KPI">

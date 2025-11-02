@@ -8,7 +8,6 @@ import {
   ClipboardList,
   BarChart2,
   Award,
-  Settings,
   LogOut,
   Menu,
   Briefcase
