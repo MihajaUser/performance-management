@@ -10,9 +10,9 @@ import {
   type EvaluationItem,
 } from "../components/EmployeeEvaluations";
 import { EmployeeKpis, type KpiItem } from "../components/EmployeeKpis";
-import { EmployeePerformance } from "../components/EmployeePerformance";
 import { EmployeeCompetenciesTable } from "../components/EmployeeCompetenciesTable";
 import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesChart";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 export default function EmployeeDetailPage() {
   const params = useParams<{ id: string }>();
@@ -23,7 +23,9 @@ export default function EmployeeDetailPage() {
     useEmployeeCompetenciesQuery(id);
 
   if (isLoading || compLoading)
-    return <p className="text-gray-500 text-sm">Chargement…</p>;
+    return (
+      <LoadingScreen message="Chargement des informations de l'employé..." />
+    );
   if (isError || !data || !compData)
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
@@ -51,12 +53,6 @@ export default function EmployeeDetailPage() {
     name: k.kpiTemplate.name,
     target: k.target,
     actual: k.actual,
-  }));
-
-  const performance = data.performanceScores.map((p) => ({
-    period: p.period,
-    score: p.score_final,
-    predicted: p.predicted_score,
   }));
 
   return (
@@ -148,10 +144,6 @@ export default function EmployeeDetailPage() {
 
             <Tab key="competences-summary" title="Synthèse catégories">
               <EmployeeCompetenciesChart summary={compData.summary} />
-            </Tab>
-
-            <Tab key="performance" title="Score global">
-              <EmployeePerformance points={performance} />
             </Tab>
           </Tabs>
         </CardBody>
