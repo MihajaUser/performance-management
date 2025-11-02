@@ -62,9 +62,6 @@ export default function EmployeeDetailPage() {
         <h1 className="text-3xl font-semibold text-gray-900">
           {employee.firstname} {employee.lastname}
         </h1>
-        <p className="text-sm text-gray-600">
-          {employee.jobTitle} — {employee.department}
-        </p>
       </div>
 
       {/* PROFIL */}
