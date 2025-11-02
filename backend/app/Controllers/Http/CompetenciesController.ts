@@ -1,6 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import CompetencyAssignment from "App/Models/CompetencyAssignment";
 import CompetencyResult from "App/Models/CompetencyResult";
+import UserCompetency from "App/Models/UserCompetency";
 import CompetencyValidator from "App/Validators/CompetencyValidator";
 
 export default class CompetencyController {
@@ -31,56 +32,57 @@ export default class CompetencyController {
   }
 
   public async byUser({ params, response }: HttpContextContract) {
-    const results = await CompetencyResult.query()
-      .whereHas("evaluation", (q) => q.where("employee_id", params.id))
-      .preload("evaluation", (q) => q.preload("employee").preload("evaluator"))
-      .preload("category");
+    const employeeId = params.id;
 
-    if (results.length === 0) {
-      return response.notFound({
-        message: "Aucune compétence trouvée pour cet employé.",
-      });
+    /** --- Résumé global (déjà existant) --- */
+    const summaries = await CompetencyResult.query()
+      .whereHas("evaluation", (q) => q.where("employee_id", employeeId))
+      .preload("category")
+      .orderBy("category_id", "asc");
+
+    /** --- Détails individuels --- */
+    const details = await UserCompetency.query()
+      .whereHas("evaluation", (q) => q.where("employee_id", employeeId))
+      .preload("evaluation", (q) =>
+        q
+          .preload("employee") // ✅ pour accéder à departmentId et jobTitleId
+          .preload("evaluator")
+      )
+      .preload(
+        "competency",
+        (q) => q.preload("category") // ✅ pour la catégorie
+      )
+      .orderBy("competency_id", "asc");
+
+    /** --- Ajout du niveau requis depuis competency_assignments --- */
+    for (const d of details) {
+      const assignment = await CompetencyAssignment.query()
+        .where("competency_id", d.competencyId)
+        .andWhere("department_id", d.evaluation.employee.departmentId)
+        .andWhere("job_title_id", d.evaluation.employee.jobTitleId)
+        .first();
+
+      d["requiredLevel"] = assignment?.requiredLevel ?? null;
     }
 
-    const employee = results[0].evaluation.employee;
-
-    // on récupère TOUTES les assignations du poste + département,
-    // avec le template (pour avoir name + categoryId)
-    const assignments = await CompetencyAssignment.query()
-      .where("department_id", employee.departmentId)
-      .where("job_title_id", employee.jobTitleId)
-      .preload("competency", (c) => c.preload("category"));
-
-    // groupées par category_id pour match direct avec CompetencyResult.categoryId
-    const assignmentsByCategory = assignments.reduce<
-      Record<
-        number,
-        { id: number; name: string; requiredLevel: "N" | "I" | "M" | "E" }[]
-      >
-    >((acc, a) => {
-      const catId = a.competency.categoryId;
-      (acc[catId] ||= []).push({
-        id: a.competencyId,
-        name: a.competency.name,
-        requiredLevel: a.requiredLevel as "N" | "I" | "M" | "E",
-      });
-      return acc;
-    }, {});
-
-    // enrichit chaque résultat avec la liste des compétences requises (nom + niveau)
-    const enriched = results.map((r) => ({
-      id: r.id,
-      categoryId: r.categoryId,
-      category: r.category.name,
-      averageScore: r.averageScore,
-      commentSummary: r.commentSummary,
-      // liste des templates de la catégorie + leur niveau requis
-      required: assignmentsByCategory[r.categoryId] ?? [],
-      // on garde la traçabilité complète
-      evaluation: r.evaluation,
-    }));
-
-    return enriched;
+    /** --- Format de réponse --- */
+    return response.ok({
+      summary: summaries.map((s) => ({
+        id: s.id,
+        category: s.category.name,
+        averageScore: s.averageScore,
+        commentSummary: s.commentSummary,
+      })),
+      details: details.map((d) => ({
+        id: d.id,
+        competency: d.competency.name,
+        category: d.competency.category.name,
+        score: d.score,
+        comment: d.comment,
+        evaluatorType: d.evaluatorType,
+        requiredLevel: d["requiredLevel"],
+      })),
+    });
   }
 
   /**
