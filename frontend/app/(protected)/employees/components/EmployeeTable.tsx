@@ -1,6 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/react";
+import { Icon } from "@iconify/react";
 
 type Row = {
   id: number;
@@ -22,6 +29,12 @@ type Row = {
 };
 
 export function EmployeeTable({ rows }: { rows: Row[] }) {
+  const router = useRouter();
+
+  const handleDetails = (id: number) => {
+    router.push(`/employees/${id}`);
+  };
+
   return (
     <div className="overflow-x-auto bg-white rounded-lg shadow">
       <table className="w-full">
@@ -62,18 +75,22 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
                 <span className="text-sm text-gray-600">{r.email || "-"}</span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <span className="text-sm text-gray-900">{r.department.name}</span>
+                <span className="text-sm text-gray-900">
+                  {r.department.name}
+                </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span className="text-sm text-gray-900">{r.jobTitle.name}</span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                  r.status === 'active' 
-                    ? 'bg-green-100 text-green-800' 
-                    : 'bg-gray-100 text-gray-800'
-                }`}>
-                  {r.status === 'active' ? 'Actif' : r.status || '-'}
+                <span
+                  className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                    r.status === "active"
+                      ? "bg-green-100 text-green-800"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  {r.status === "active" ? "Actif" : r.status || "-"}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right">
@@ -82,12 +99,35 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right">
-                <Link
-                  href={`/employees/${r.id}`}
-                  className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors"
-                >
-                  Voir →
-                </Link>
+                <div className="flex justify-end">
+                  <Dropdown>
+                    <DropdownTrigger>
+                      <button className="cursor-pointer">
+                        <Icon
+                          icon="iconamoon:menu-kebab-vertical-fill"
+                          className="text-[25px] text-[#5e6161] hover:text-gray-800 transition-colors"
+                        />
+                      </button>
+                    </DropdownTrigger>
+                    <DropdownMenu aria-label="Actions employé">
+                      <DropdownItem
+                        key="evaluation"
+                        onPress={() => {
+                          // void handleNewEvaluation(r.id);
+                        }}
+                      >
+                        Nouvelle évaluation
+                      </DropdownItem>
+
+                      <DropdownItem
+                        key="details"
+                        onPress={() => handleDetails(r.id)}
+                      >
+                        Détails
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </div>
               </td>
             </tr>
           ))}

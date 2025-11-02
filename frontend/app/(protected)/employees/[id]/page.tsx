@@ -1,7 +1,13 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { Card, CardBody, CardHeader, Tabs, Tab } from "@heroui/react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Tabs,
+  Tab
+} from "@heroui/react";
 import { useEmployeeDetailQuery } from "../hooks/useEmployeeDetailQuery";
 import { useEmployeeCompetenciesQuery } from "../hooks/useEmployeeCompetenciesQuery";
 import { Employee } from "../components/EmployeeInfo";
@@ -165,7 +171,10 @@ export default function EmployeeDetailPage() {
             }}
           >
             <Tab key="evaluations" title="Évaluations">
-              <EmployeeEvaluations items={evaluations} performance={performance} />
+              <EmployeeEvaluations
+                items={evaluations}
+                performance={performance}
+              />
             </Tab>
 
             <Tab key="kpi" title="KPI">
