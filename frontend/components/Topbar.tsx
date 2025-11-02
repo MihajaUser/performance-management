@@ -11,8 +11,8 @@ export default function Topbar() {
           <Search className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
           <input
             type="text"
-            placeholder="Rechercher..."
-            className="pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40 text-gray-700 bg-gray-50 w-64 transition-all"
+            placeholder="Recherche employé, évaluation ou département …"
+            className="pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40 text-gray-700 bg-gray-50 w-92 transition-all"
           />
         </div>
       </div>
