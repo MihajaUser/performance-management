@@ -8,6 +8,13 @@ type DetailItem = {
   comment?: string;
 };
 
+const LEVEL_LABELS: Record<string, string> = {
+  N: "Notions",
+  I: "Intermédiaire",
+  M: "Maîtrise",
+  E: "Expert",
+};
+
 export function EmployeeCompetenciesTable({
   details,
 }: {
@@ -30,10 +37,10 @@ export function EmployeeCompetenciesTable({
                 Catégorie
               </th>
               <th className="px-5 py-3 text-center font-semibold text-gray-600">
-                Score
+                Niveau requis
               </th>
               <th className="px-5 py-3 text-center font-semibold text-gray-600">
-                Niveau requis
+                Score
               </th>
               <th className="px-5 py-3 text-left font-semibold text-gray-600">
                 Commentaire
@@ -43,21 +50,21 @@ export function EmployeeCompetenciesTable({
           <tbody className="divide-y divide-gray-100 bg-white">
             {details.map((item, index) => (
               <tr key={index} className="hover:bg-gray-50 transition">
-                <td className="px-5 py-3 text-gray-900 font-medium">
+                <td className="px-5 py-3 text-gray-900">
                   {item.competency}
                 </td>
-                <td className="px-5 py-3 text-gray-700">{item.category}</td>
+                <td className="px-5 py-3 text-gray-900">{item.category}</td>
+                <td className="px-5 py-3 text-gray-900 text-center">
+                  {item.requiredLevel
+                    ? LEVEL_LABELS[item.requiredLevel] || item.requiredLevel
+                    : "—"}
+                </td>
                 <td className="px-5 py-3 text-center">
-                  <span className="inline-block bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded-md font-semibold">
+                  <span className="text-gray-900 font-semibold">
                     {item.score.toFixed(1)}
                   </span>
                 </td>
-                <td className="px-5 py-3 text-center">
-                  <span className="inline-block bg-gray-50 border border-gray-200 text-gray-700 text-xs px-2 py-1 rounded-md">
-                    {item.requiredLevel ?? "—"}
-                  </span>
-                </td>
-                <td className="px-5 py-3 text-gray-600 italic">
+                <td className="px-5 py-3 text-gray-900">
                   {item.comment ?? "—"}
                 </td>
               </tr>
