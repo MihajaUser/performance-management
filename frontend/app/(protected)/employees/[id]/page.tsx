@@ -140,7 +140,6 @@ export default function EmployeeDetailPage() {
                   predicted: p.predicted_score,
                 }))}
               />
-          
             </Tab>
 
             <Tab key="kpi" title="KPI">
