@@ -110,9 +110,12 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
                         base: [
                           "text-sm",
                           "text-gray-700",
-                          "data-[hover=true]:bg-gray-50",
+                          "data-[hover=true]:bg-gray-200",
                           "data-[hover=true]:text-gray-900",
                           "transition-colors",
+                          "rounded-md",
+                          "px-3",
+                          "py-2",
                         ],
                       }}
                     >
