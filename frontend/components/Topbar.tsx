@@ -39,7 +39,9 @@ export default function Topbar() {
         <div className="flex items-center gap-2 cursor-pointer hover:text-[#002B5B] transition">
           <User className="w-6 h-6" />
           <div className="hidden md:block">
-            <p className="text-sm font-semibold text-gray-800">Avotra Rakoto</p>
+            <p className="text-sm font-semibold text-gray-800">
+              Antonio Mihaja
+            </p>
             <p className="text-xs text-gray-500">Développeur Web</p>
           </div>
         </div>
