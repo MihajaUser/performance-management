@@ -1,3 +1,16 @@
+"use client";
+
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Bar,
+} from "recharts";
+
 export type EvaluationItem = {
   id: number;
   period: string;
@@ -5,31 +18,107 @@ export type EvaluationItem = {
   sentiment: string;
 };
 
-export function EmployeeEvaluations({ items }: { items: EvaluationItem[] }) {
+type PerformancePoint = {
+  period: string;
+  score: number;
+  predicted: number;
+};
+
+export function EmployeeEvaluations({
+  items,
+  performance,
+}: {
+  items: EvaluationItem[];
+  performance: PerformancePoint[];
+}) {
   return (
-    <div className="space-y-3">
-      {items.map((e) => (
-        <div
-          key={e.id}
-          className="flex items-center justify-between bg-gray-50 p-3 rounded-md"
-        >
-          <div>
-            <p className="text-sm text-gray-500">{e.period}</p>
-            <p className="text-sm text-gray-700">
-              Sentiment IA : <span className="font-medium">{e.sentiment}</span>
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-500">Score</p>
-            <p className="text-lg font-semibold text-gray-800">
-              {e.score.toFixed(2)}
-            </p>
+    <div className="space-y-8">
+      {/* --- Graphique global --- */}
+      <div>
+        <h3 className="text-base font-semibold text-gray-800 mb-3">
+          Évolution des performances
+        </h3>
+        <div className="bg-white border border-gray-200 rounded-lg p-4">
+          <div className="w-full h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={performance}
+                margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis
+                  dataKey="period"
+                  tick={{ fontSize: 12, fill: "#4B5563" }}
+                />
+                <YAxis
+                  domain={[0, 100]}
+                  tick={{ fontSize: 12, fill: "#4B5563" }}
+                />
+                <Tooltip
+                  formatter={(value: number) => value.toFixed(2)}
+                  labelStyle={{ color: "#111827", fontWeight: 600 }}
+                  contentStyle={{
+                    backgroundColor: "#F9FAFB",
+                    border: "1px solid #E5E7EB",
+                    borderRadius: "8px",
+                    fontSize: "12px",
+                    color: "#374151",
+                  }}
+                />
+                <Legend
+                  wrapperStyle={{ fontSize: 13, color: "#374151" }}
+                  iconType="circle"
+                  verticalAlign="bottom"
+                />
+                <Bar
+                  dataKey="score"
+                  fill="#60A5FA" // bleu pastel
+                  name="Score réel"
+                  radius={[4, 4, 0, 0]}
+                />
+                <Bar
+                  dataKey="predicted"
+                  fill="#86EFAC" // vert clair pastel
+                  name="Score prédit (IA)"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
-      ))}
-      {items.length === 0 && (
-        <p className="text-gray-500">Aucune évaluation.</p>
-      )}
+      </div>
+
+      {/* --- Historique des évaluations --- */}
+      <div>
+        <h3 className="text-base font-semibold text-gray-800 mb-3">
+          Historique des évaluations
+        </h3>
+        <div className="space-y-3">
+          {items.map((e) => (
+            <div
+              key={e.id}
+              className="flex items-center justify-between bg-gray-50 p-3 rounded-md border border-gray-200"
+            >
+              <div>
+                <p className="text-sm text-gray-500">{e.period}</p>
+                <p className="text-sm text-gray-700">
+                  Sentiment IA :{" "}
+                  <span className="font-medium">{e.sentiment}</span>
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-500">Score</p>
+                <p className="text-lg font-semibold text-gray-800">
+                  {e.score.toFixed(2)}
+                </p>
+              </div>
+            </div>
+          ))}
+          {items.length === 0 && (
+            <p className="text-gray-500 text-sm">Aucune évaluation.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

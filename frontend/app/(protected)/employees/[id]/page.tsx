@@ -132,8 +132,17 @@ export default function EmployeeDetailPage() {
             }}
           >
             <Tab key="evaluations" title="Évaluations">
-              <EmployeeEvaluations items={evaluations} />
+              <EmployeeEvaluations
+                items={evaluations}
+                performance={data.performanceScores.map((p) => ({
+                  period: p.period,
+                  score: p.score_final,
+                  predicted: p.predicted_score,
+                }))}
+              />
+          
             </Tab>
+
             <Tab key="kpi" title="KPI">
               <EmployeeKpis items={kpis} />
             </Tab>
