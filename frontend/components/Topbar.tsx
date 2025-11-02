@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Search, User, CalendarDays } from "lucide-react";
+import { Bell, Search, User } from "lucide-react";
 
 export default function Topbar() {
   return (
@@ -17,15 +17,7 @@ export default function Topbar() {
         </div>
       </div>
 
-      {/* --- Droite : calendrier, notifications, profil --- */}
       <div className="flex items-center gap-5 text-gray-600">
-        <button
-          className="hover:text-[#002B5B] transition"
-          aria-label="Calendrier"
-        >
-          <CalendarDays className="w-5 h-5" />
-        </button>
-
         <button
           className="relative hover:text-[#002B5B] transition"
           aria-label="Notifications"
