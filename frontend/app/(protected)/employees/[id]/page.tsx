@@ -38,7 +38,7 @@ export default function EmployeeDetailPage() {
     department: data.department.name,
     jobTitle: data.jobTitle.name,
     status: data.status,
-    score: data.score,
+    matricule: data.matricule,
   };
 
   const evaluations: EvaluationItem[] = data.evaluationsReceived.map((e) => ({
@@ -72,7 +72,7 @@ export default function EmployeeDetailPage() {
         <CardBody className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
           <div>
             <p className="text-gray-500">Nom</p>
-            <p className="font-medium text-gray-800">
+            <p className="font-medium text-[#002B5B]">
               {employee.firstname} {employee.lastname}
             </p>
           </div>
@@ -86,22 +86,22 @@ export default function EmployeeDetailPage() {
           </div>
           <div>
             <p className="text-gray-500">Statut</p>
-            <span
-              className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
-                employee.status === "active"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-gray-100 text-gray-600"
-              }`}
-            >
-              {employee.status ?? "—"}
-            </span>
+            <div className="flex items-center gap-2 text-sm font-medium text-gray-800">
+              {employee.status === "active" && (
+                <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+              )}
+              <span className="font-medium text-[#002B5B]">
+                {employee.status === "active"
+                  ? "Actif"
+                  : employee.status ?? "—"}
+              </span>
+            </div>
           </div>
+
           <div>
-            <p className="text-gray-500">Score global</p>
-            <p className="font-semibold text-gray-800">
-              {typeof employee.score === "number"
-                ? employee.score.toFixed(2)
-                : "—"}
+            <p className="text-gray-500">Matricule</p>
+            <p className="font-medium text-[#002B5B]">
+              {employee.matricule ?? "—"}
             </p>
           </div>
         </CardBody>

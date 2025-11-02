@@ -5,7 +5,7 @@ export type Employee = {
   department: string;
   jobTitle: string;
   status?: string;
-  score?: number;
+  matricule?: number;
 };
 
 export function EmployeeInfo({ employee }: { employee: Employee }) {
@@ -28,9 +28,9 @@ export function EmployeeInfo({ employee }: { employee: Employee }) {
         <p className="font-medium text-gray-800">{employee.status ?? "Active"}</p>
       </div>
       <div>
-        <p className="text-gray-500">Score global</p>
+        <p className="text-gray-500">matricule </p>
         <p className="font-medium text-gray-800">
-          {typeof employee.score === "number" ? employee.score.toFixed(2) : "—"}
+          {typeof employee.matricule === "number" ? employee.matricule.toFixed(2) : "—"}
         </p>
       </div>
     </div>
