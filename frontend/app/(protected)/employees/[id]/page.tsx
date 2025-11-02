@@ -3,97 +3,54 @@
 import { useParams } from "next/navigation";
 import { Card, CardBody, CardHeader, Tabs, Tab } from "@heroui/react";
 import { useEmployeeDetailQuery } from "../hooks/useEmployeeDetailQuery";
+import { useEmployeeCompetenciesQuery } from "../hooks/useEmployeeCompetenciesQuery";
 import { Employee } from "../components/EmployeeInfo";
-import {
-  EmployeeEvaluations,
-  type EvaluationItem,
-} from "../components/EmployeeEvaluations";
+import { EmployeeEvaluations, type EvaluationItem } from "../components/EmployeeEvaluations";
 import { EmployeeKpis, type KpiItem } from "../components/EmployeeKpis";
 import { EmployeeCompetencies } from "../components/EmployeeCompetencies";
 import { EmployeePerformance } from "../components/EmployeePerformance";
-import { useEmployeeCompetenciesQuery } from "../hooks/useEmployeeCompetenciesQuery";
-
-type EmployeeDetail = {
-  id: number;
-  firstname: string;
-  lastname: string;
-  department: { name: string };
-  jobTitle: { name: string };
-  status: string;
-  score?: number;
-  evaluationsReceived: {
-    id: number;
-    period: string;
-    general_score: number;
-    sentiment: string;
-  }[];
-  userKpis: {
-    id: number;
-    kpiTemplate: { name: string };
-    target: number;
-    actual: number;
-  }[];
-  performanceScores: {
-    period: string;
-    score_final: number;
-    predicted_score: number;
-  }[];
-};
 
 export default function EmployeeDetailPage() {
   const params = useParams<{ id: string }>();
-
   const id = Number(params.id);
 
   const { data, isLoading, isError } = useEmployeeDetailQuery(id);
+  const { data: compData, isLoading: compLoading } = useEmployeeCompetenciesQuery(id);
 
-  const { data: competencies = [], isLoading: loadingCompetencies } =
-    useEmployeeCompetenciesQuery(id);
-
-  if (isLoading || loadingCompetencies)
+  if (isLoading || compLoading)
     return <p className="text-gray-500 text-sm">Chargement…</p>;
-  
   if (isError || !data)
-    return (
-      <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
-    );
-
-    console.log(competencies);
-  const employeeData = data as EmployeeDetail;
+    return <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>;
 
   const employee: Employee = {
-    id: employeeData.id,
-    firstname: employeeData.firstname,
-    lastname: employeeData.lastname,
-    department: employeeData.department.name,
-    jobTitle: employeeData.jobTitle.name,
-    status: employeeData.status,
-    score: employeeData.score,
+    id: data.id,
+    firstname: data.firstname,
+    lastname: data.lastname,
+    department: data.department.name,
+    jobTitle: data.jobTitle.name,
+    status: data.status,
+    score: data.score,
   };
 
-  const evaluations: EvaluationItem[] = employeeData.evaluationsReceived.map(
-    (e) => ({
-      id: e.id,
-      period: e.period,
-      score: e.general_score,
-      sentiment: e.sentiment,
-    })
-  );
+  const evaluations: EvaluationItem[] = data.evaluationsReceived.map((e) => ({
+    id: e.id,
+    period: e.period,
+    score: e.general_score,
+    sentiment: e.sentiment,
+  }));
 
-  const kpis: KpiItem[] = employeeData.userKpis.map((k) => ({
+  const kpis: KpiItem[] = data.userKpis.map((k) => ({
     id: k.id,
     name: k.kpiTemplate.name,
     target: k.target,
     actual: k.actual,
   }));
 
-  const performance = employeeData.performanceScores.map((p) => ({
+  const performance = data.performanceScores.map((p) => ({
     period: p.period,
     score: p.score_final,
     predicted: p.predicted_score,
   }));
-
-  
 
   return (
     <div className="space-y-8">
@@ -107,7 +64,7 @@ export default function EmployeeDetailPage() {
         </p>
       </div>
 
-      {/* CARD PROFIL */}
+      {/* PROFIL */}
       <Card shadow="sm" className="border border-gray-200">
         <CardBody className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
           <div>
@@ -178,7 +135,12 @@ export default function EmployeeDetailPage() {
               <EmployeeKpis items={kpis} />
             </Tab>
             <Tab key="competences" title="Compétences">
-              <EmployeeCompetencies items={competencies} />
+              {compData && (
+                <EmployeeCompetencies
+                  summary={compData.summary}
+                  details={compData.details}
+                />
+              )}
             </Tab>
             <Tab key="performance" title="Score global">
               <EmployeePerformance points={performance} />
