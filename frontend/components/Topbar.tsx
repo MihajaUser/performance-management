@@ -36,10 +36,12 @@ export default function Topbar() {
           </span>
         </button>
 
-        <div className="flex items-center gap-2 cursor-pointer hover:text-[#002B5B] transition">
-          <User className="w-6 h-6" />
+        <div className="flex items-center gap-3 cursor-pointer group">
+          <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center group-hover:bg-[#002B5B] transition-colors">
+            <User className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
+          </div>
           <div className="hidden md:block">
-            <p className="text-sm font-semibold text-gray-800">
+            <p className="text-sm font-semibold text-gray-800 group-hover:text-[#002B5B] transition-colors">
               Antonio Mihaja
             </p>
             <p className="text-xs text-gray-500">Développeur Web</p>
