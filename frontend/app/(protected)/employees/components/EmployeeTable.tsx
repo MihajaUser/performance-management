@@ -55,9 +55,7 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Statut
             </th>
-            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Score
-            </th>
+
             <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
               Actions
             </th>
@@ -93,23 +91,31 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
                   {r.status === "active" ? "Actif" : r.status || "-"}
                 </span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-right">
-                <span className="text-sm font-medium text-gray-900">
-                  {typeof r.score === "number" ? r.score.toFixed(2) : "-"}
-                </span>
-              </td>
+
               <td className="px-6 py-4 whitespace-nowrap text-right">
                 <div className="flex justify-end">
                   <Dropdown>
                     <DropdownTrigger>
-                      <button className="cursor-pointer">
+                      <button className="cursor-pointer p-1 hover:bg-gray-100 rounded transition-colors">
                         <Icon
                           icon="iconamoon:menu-kebab-vertical-fill"
-                          className="text-[25px] text-[#5e6161] hover:text-gray-800 transition-colors"
+                          className="text-[20px] text-gray-600 hover:text-gray-800 transition-colors"
                         />
                       </button>
                     </DropdownTrigger>
-                    <DropdownMenu aria-label="Actions employé">
+                    <DropdownMenu
+                      aria-label="Actions employé"
+                      className="bg-white shadow-lg rounded-lg border border-gray-200"
+                      itemClasses={{
+                        base: [
+                          "text-sm",
+                          "text-gray-700",
+                          "data-[hover=true]:bg-gray-50",
+                          "data-[hover=true]:text-gray-900",
+                          "transition-colors",
+                        ],
+                      }}
+                    >
                       <DropdownItem
                         key="evaluation"
                         onPress={() => {
