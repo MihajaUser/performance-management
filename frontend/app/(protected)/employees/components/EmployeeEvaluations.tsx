@@ -1,4 +1,4 @@
-type EvaluationItem = {
+export type EvaluationItem = {
   id: number;
   period: string;
   score: number;

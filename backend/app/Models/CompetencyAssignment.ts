@@ -1,42 +1,37 @@
-import { DateTime } from 'luxon'
-import {
-  BaseModel,
-  column,
-  belongsTo,
-  BelongsTo,
-} from '@ioc:Adonis/Lucid/Orm'
-import CompetencyTemplate from './CompetencyTemplate'
-import Department from './Department'
-import JobTitle from './JobTitle'
+import { DateTime } from "luxon";
+import { BaseModel, column, belongsTo, BelongsTo } from "@ioc:Adonis/Lucid/Orm";
+import CompetencyTemplate from "./CompetencyTemplate";
+import Department from "./Department";
+import JobTitle from "./JobTitle";
 
 export default class CompetencyAssignment extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: number;
 
   @column()
-  public competencyId: number
+  public competencyId: number;
 
   @column()
-  public departmentId: number
+  public departmentId: number;
 
   @column()
-  public jobTitleId: number
+  public jobTitleId: number;
 
   @column()
-  public requiredLevel: 'N' | 'I' | 'M' | 'E'
+  public requiredLevel: "N" | "I" | "M" | "E";
 
-  @belongsTo(() => CompetencyTemplate)
-  public competency: BelongsTo<typeof CompetencyTemplate>
+  @belongsTo(() => CompetencyTemplate, { foreignKey: "competencyId" })
+  public competency: BelongsTo<typeof CompetencyTemplate>;
 
   @belongsTo(() => Department)
-  public department: BelongsTo<typeof Department>
+  public department: BelongsTo<typeof Department>;
 
   @belongsTo(() => JobTitle)
-  public jobTitle: BelongsTo<typeof JobTitle>
+  public jobTitle: BelongsTo<typeof JobTitle>;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 }

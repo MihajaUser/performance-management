@@ -1,4 +1,4 @@
-type KpiItem = { id: number; name: string; target: number; actual: number };
+export type KpiItem = { id: number; name: string; target: number; actual: number };
 
 export function EmployeeKpis({ items }: { items: KpiItem[] }) {
   return (
