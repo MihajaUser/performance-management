@@ -21,6 +21,9 @@ export default class User extends BaseModel {
   public id: number;
 
   @column()
+  public matricule: string | null;
+
+  @column()
   public firstname: string;
 
   @column()
