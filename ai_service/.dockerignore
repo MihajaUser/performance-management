@@ -1,0 +1,30 @@
+# Environnements virtuels
+venv/
+*/venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# Fichiers temporaires / IDE
+.env
+.DS_Store
+.vscode/
+.idea/
+
+# Fichiers inutiles à la prod
+*.sqlite3
+*.ipynb
+*.csv
+*.md
+*.txt~
+
+# Dossiers système ou tests
+__MACOSX/
+tests/
+notebooks/
