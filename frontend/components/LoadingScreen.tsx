@@ -1,3 +1,4 @@
+//frontend/components/LoadingScreen.tsx
 "use client";
 
 export function LoadingScreen({ message = "Chargement..." }: { message?: string }) {
