@@ -12,19 +12,17 @@
 # Étape 1 : Image Node
 FROM node:20-alpine
 
-# Étape 2 : Working directory
 WORKDIR /app
 
-# Étape 3 : Copy the necessary files
 COPY package*.json ./
 RUN npm install
 
-# Étape 4 : Copy the source code
 COPY . .
 
-# Étape 5 : Expose the port of Adonis
 EXPOSE 3333
 
-# Added a small wait before migration (important for Postgres)
-CMD ["sh", "-c", "echo 'Waiting for DB...' && sleep 5 && node ace migration:run && node ace db:seed && node ace serve --watch"]
+# Ajoute netcat pour tester la connexion
+RUN apk add --no-cache netcat-openbsd
 
+# Commande de lancement avec attente réelle du Postgres
+CMD ["sh", "-c", "./wait-for-it.sh db 5432 -- node ace migration:run && node ace db:seed && node ace serve --watch"]

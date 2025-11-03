@@ -4,6 +4,9 @@
 # to stop and remove containers, networks, and volumes
 # sudo docker compose down -v
 
+# check to launch frontend only if backend is ready
+# chmod +x backend/wait-for-it.sh
+
 
 version: "3.8"
 
