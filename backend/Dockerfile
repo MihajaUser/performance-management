@@ -26,4 +26,5 @@ COPY . .
 EXPOSE 3333
 
 # Added a small wait before migration (important for Postgres)
-CMD sh -c "echo 'Waiting for DB...' && sleep 5 && node ace migration:run && node ace db:seed && node ace serve --watch"
+CMD ["sh", "-c", "echo 'Waiting for DB...' && sleep 5 && node ace migration:run && node ace db:seed && node ace serve --watch"]
+

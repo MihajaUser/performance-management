@@ -9,21 +9,27 @@
 # docker rm <id_of_container>
 
 
-# Étape 1 : Build the application
-FROM node:20-alpine AS builder
+# ---- Étape 1 : Build l'application ----
+FROM node:20-slim AS builder
 
 WORKDIR /app
+
+# Copier les fichiers nécessaires
 COPY package*.json ./
 RUN npm install
 
+# Copier tout le code
 COPY . .
+
+# Construire le projet Next.js
 RUN npm run build
 
-# Étape 2 : Lightweight server for production
-FROM node:20-alpine
+# ---- Étape 2 : Image allégée pour la prod ----
+FROM node:20-slim
 
 WORKDIR /app
 COPY --from=builder /app ./
 
 EXPOSE 3000
 CMD ["npm", "run", "start"]
+
