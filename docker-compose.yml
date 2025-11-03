@@ -1,12 +1,13 @@
-# to launch containers
+# 🐳 Docker Compose configuration for the full Performance Management stack
+
+# ▶️ To build and launch all services:
 # sudo docker compose up --build
-
-# to stop and remove containers, networks, and volumes
+#
+# 🛑 To stop and remove everything (including volumes):
 # sudo docker compose down -v
-
-# check to launch frontend only if backend is ready
+#
+# ⚙️ Make backend wait for DB before starting(lauch this command once):
 # chmod +x backend/wait-for-it.sh
-
 
 version: "3.8"
 
@@ -28,6 +29,7 @@ services:
       - "3333:3333"
     depends_on:
       - db
+      - ai_service
     environment:
       - DB_CONNECTION=pg
       - PG_HOST=db
@@ -35,6 +37,15 @@ services:
       - PG_USER=postgres
       - PG_PASSWORD=postgres
       - PG_DB_NAME=performance_db
+      - AI_SERVICE_URL=http://ai_service:8001
+    networks:
+      - app-network
+
+  ai_service:
+    build: ./ai_service
+    ports:
+      - "8001:8001"
+    restart: always
     networks:
       - app-network
 
