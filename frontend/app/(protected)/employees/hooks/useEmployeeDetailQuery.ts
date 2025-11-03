@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/hooks/useEmployeeDetailQuery.ts
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/apiClient";
 

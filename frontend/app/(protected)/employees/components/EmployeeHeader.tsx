@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/components/EmployeeHeader.tsx
 "use client";
 
 import { Card, CardBody } from "@heroui/react";

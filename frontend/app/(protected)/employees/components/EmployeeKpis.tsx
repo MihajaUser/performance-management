@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/components/EmployeeKpis.tsx
 "use client";
 
 export type KpiItem = {

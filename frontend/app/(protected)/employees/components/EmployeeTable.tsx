@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/components/EmployeeTable.tsx
 "use client";
 
 import { useRouter } from "next/navigation";

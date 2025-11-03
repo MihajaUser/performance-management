@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/components/EmployeeCompetenciesTable.tsx
 "use client";
 
 type DetailItem = {

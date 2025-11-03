@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/[id]/evaluations/new/components/KpiSection.tsx
 "use client";
 
 export interface KpiData {

@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/components/EmployeeCompetenciesChart.tsx
 "use client";
 
 import {

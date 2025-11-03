@@ -1,3 +1,4 @@
+//frontend/app/(protected)/employees/components/EmployeeInfo.tsx
 export type Employee = {
   id: number;
   firstname: string;
