@@ -7,54 +7,47 @@ Ce service gère l'analyse du **sentiment** et la **prédiction de performance**
 ## ⚙️ Installation
 
 ```bash
-# Depuis le dossier racine du projet
+# Depuis le dossier racine
 cd ai_service
 
 # Activer l'environnement virtuel
 source venv/bin/activate
 
-# Installer les dépendances Python
+# Installer les dépendances
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🏋️ Entraînement des modèles
-
-### 1️⃣ Modèle de sentiment
+## 🏋️ Entraînement du modèle
 
 ```bash
+# Depuis le répertoire ai_service
+cd ai_service
+
+# Lancer l'entraînement du modèle de sentiment
 python3 model/sentiment_model.py
-```
 
-➡️ **Produit** : `model/sentiment.joblib`
-
-### 2️⃣ Modèle de prédiction
-
-```bash
+# Lancer l'entraînement du modèle de prediction
 python3 model/prediction_model.py
 ```
 
-➡️ **Produit** : `model/prediction.joblib`
-
 ---
 
-## 🚀 Lancer le serveur FastAPI
+## 🚀 Lancement du serveur
 
 ```bash
+# Depuis le répertoire ai_service
 uvicorn app:app --reload --port 8001
 ```
 
-L'API sera disponible sur :
-👉 **http://localhost:8001**
-
 ---
 
-## 🧪 Tests d'API
+## 🧪 Test de l'API
 
-### 🔹 1. Analyse de sentiment
+### 1. Analyse de sentiment
 
-```http
+```bash
 POST http://localhost:8001/analyze-sentiment
 Content-Type: application/json
 
@@ -67,16 +60,14 @@ Content-Type: application/json
 
 ```json
 {
-  "text": "Travail médiocre, manque de rigueur",
-  "sentiment": "negative"
+  "sentiment": "negative",
+  "score": 0.85
 }
 ```
 
----
+### 2. Prédiction de performance
 
-### 🔹 2. Prédiction de performance
-
-```http
+```bash
 POST http://localhost:8001/predict
 Content-Type: application/json
 
@@ -99,5 +90,3 @@ Content-Type: application/json
   "predicted_score": 78.6
 }
 ```
-
----
