@@ -35,6 +35,10 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
     router.push(`/employees/${id}`);
   };
 
+  const handleNewEvaluation = (id: number) => {
+    router.push(`/employees/${id}/evaluations/new`);
+  };
+
   return (
     <div className="overflow-x-auto bg-white rounded-lg shadow">
       <table className="w-full">
@@ -121,9 +125,7 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
                     >
                       <DropdownItem
                         key="evaluation"
-                        onPress={() => {
-                          // void handleNewEvaluation(r.id);
-                        }}
+                        onPress={() => handleNewEvaluation(r.id)}
                       >
                         Nouvelle évaluation
                       </DropdownItem>
