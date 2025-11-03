@@ -13,6 +13,7 @@ import { EmployeeKpis, type KpiItem } from "../components/EmployeeKpis";
 import { EmployeeCompetenciesTable } from "../components/EmployeeCompetenciesTable";
 import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesChart";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { EmployeeHeader } from "../components/EmployeeHeader"; // ✅ nouveau composant
 
 interface EvaluationData {
   id: string | number;
@@ -93,57 +94,20 @@ export default function EmployeeDetailPage() {
 
   return (
     <div className="space-y-8">
-      {/* HEADER */}
-      <div className="space-y-1">
-        <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
-          {employee.firstname} {employee.lastname}
-        </h1>
-      </div>
-
-      {/* PROFIL */}
-      <Card shadow="sm" className="border border-gray-200">
-        <CardBody className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-          <div>
-            <p className="text-gray-500">Nom</p>
-            <p className="font-medium text-[#002B5B]">
-              {employee.firstname} {employee.lastname}
-            </p>
-          </div>
-          <div>
-            <p className="text-gray-500">Département</p>
-            <p className="font-medium text-[#002B5B]">{employee.department}</p>
-          </div>
-          <div>
-            <p className="text-gray-500">Poste</p>
-            <p className="font-medium text-[#002B5B]">{employee.jobTitle}</p>
-          </div>
-          <div>
-            <p className="text-gray-500">Statut</p>
-            <div className="flex items-center gap-2 text-sm font-medium text-gray-800">
-              {employee.status === "active" && (
-                <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-              )}
-              <span className="font-medium text-[#002B5B]">
-                {employee.status === "active"
-                  ? "Actif"
-                  : employee.status ?? "—"}
-              </span>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-gray-500">Matricule</p>
-            <p className="font-medium text-[#002B5B]">
-              {employee.matricule ?? "—"}
-            </p>
-          </div>
-        </CardBody>
-      </Card>
+      <EmployeeHeader
+        title="Fiche employé"
+        firstname={employee.firstname}
+        lastname={employee.lastname}
+        department={employee.department}
+        jobTitle={employee.jobTitle}
+        status={employee.status}
+        matricule={employee.matricule?.toString()}
+      />
 
       {/* FICHE AVEC TABS */}
       <Card shadow="sm" className="border border-gray-200">
         <CardHeader className="border-b border-gray-200 bg-gray-50">
-          <h2 className="text-lg font-semibold text-gray-800">Fiche employé</h2>
+          {/* <h2 className="text-lg font-semibold text-gray-800">Fiche employé</h2> */}
         </CardHeader>
         <CardBody className="pt-0">
           <Tabs
