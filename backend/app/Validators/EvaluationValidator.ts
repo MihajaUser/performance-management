@@ -55,13 +55,12 @@ export default class EvaluationValidator {
 
     kpis: schema.array.optional().members(
       schema.object().members({
-        kpiTemplateId: schema.number([rules.exists({ table: 'kpi_templates', column: 'id' })]),
-        target: schema.number(),
-        actual: schema.number(),
+        id: schema.number([rules.exists({ table: 'user_kpis', column: 'id' })]),
         score: schema.number([rules.range(0, 100)]),
         comment: schema.string.optional({}, [rules.trim()]),
       })
     ),
+
 
     competencies: schema.array.optional().members(
       schema.object().members({

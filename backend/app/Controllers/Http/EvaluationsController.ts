@@ -104,18 +104,17 @@ export default class EvaluationController {
       sentiment: "neutral",
     });
 
-    // ✅ 2. Enregistrer les KPI (si présents)
+    // ✅ 2. Mettre à jour les KPI existants (si présents)
     if (payload.kpis && payload.kpis.length > 0) {
       for (const k of payload.kpis) {
-        await UserKpi.create({
-          userId: payload.employeeId,
-          kpiTemplateId: k.kpiTemplateId,
-          period: payload.period,
-          target: k.target,
-          actual: k.actual,
-          score: k.score,
-          comment: k.comment,
-        });
+        const existingKpi = await UserKpi.find(k.id)
+        if (existingKpi) {
+          existingKpi.merge({
+            score: k.score,
+            comment: k.comment,
+          })
+          await existingKpi.save()
+        }
       }
     }
 
