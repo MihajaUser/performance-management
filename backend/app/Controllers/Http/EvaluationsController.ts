@@ -88,7 +88,7 @@ export default class EvaluationController {
    * POST /evaluations/full
    */
   public async storeFull({ request, response }: HttpContextContract) {
-    
+
     const payload = await request.validate({
       schema: EvaluationValidator.storeFull,
     });
