@@ -34,6 +34,7 @@ Route.group(() => {
   Route.get("/", "EvaluationsController.index");
   Route.get("/:id", "EvaluationsController.show");
   Route.post("/", "EvaluationsController.store");
+  Route.post('/create/full', 'EvaluationsController.storeFull');
   Route.put("/:id", "EvaluationsController.update");
   Route.delete("/:id", "EvaluationsController.destroy");
 }).prefix("/evaluations");

@@ -45,4 +45,30 @@ export default class EvaluationValidator {
   public static remove = schema.create({
     id: schema.number([rules.exists({ table: "evaluations", column: "id" })]),
   });
+
+  public static storeFull = schema.create({
+    employeeId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
+    evaluatorId: schema.number([rules.exists({ table: 'users', column: 'id' })]),
+    type: schema.enum(['auto', 'manager', 'peer', 'hr_review'] as const),
+    period: schema.string({}, [rules.trim()]),
+    comment: schema.string.optional({}, [rules.trim()]),
+
+    kpis: schema.array.optional().members(
+      schema.object().members({
+        kpiTemplateId: schema.number([rules.exists({ table: 'kpi_templates', column: 'id' })]),
+        target: schema.number(),
+        actual: schema.number(),
+        score: schema.number([rules.range(0, 100)]),
+        comment: schema.string.optional({}, [rules.trim()]),
+      })
+    ),
+
+    competencies: schema.array.optional().members(
+      schema.object().members({
+        competencyId: schema.number([rules.exists({ table: 'competency_templates', column: 'id' })]),
+        score: schema.number([rules.range(0, 5)]),
+        comment: schema.string.optional({}, [rules.trim()]),
+      })
+    ),
+  })
 }

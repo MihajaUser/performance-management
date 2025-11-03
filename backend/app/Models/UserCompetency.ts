@@ -20,7 +20,7 @@ export default class UserCompetency extends BaseModel {
   public comment?: string;
 
   @column()
-  public evaluatorType: "auto" | "manager" | "final";
+  public evaluatorType: "auto" | "manager" | "peer" | "hr_review";
 
   @belongsTo(() => Evaluation)
   public evaluation: BelongsTo<typeof Evaluation>;

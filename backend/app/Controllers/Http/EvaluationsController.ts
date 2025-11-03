@@ -2,6 +2,8 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Evaluation from "App/Models/Evaluation";
 import AiAnalysis from "App/Models/AiAnalysis";
 import EvaluationValidator from "App/Validators/EvaluationValidator";
+import UserCompetency from "App/Models/UserCompetency";
+import UserKpi from "App/Models/UserKpi";
 
 export default class EvaluationController {
   public async index({ request }: HttpContextContract) {
@@ -79,5 +81,88 @@ export default class EvaluationController {
 
     await evaluation.delete();
     return { message: "Évaluation supprimée avec succès" };
+  }
+
+  /**
+   * Crée une évaluation complète (avec KPI et compétences)
+   * POST /evaluations/full
+   */
+  public async storeFull({ request, response }: HttpContextContract) {
+    
+    const payload = await request.validate({
+      schema: EvaluationValidator.storeFull,
+    });
+
+    // ✅ 1. Créer l’évaluation principale
+    const evaluation = await Evaluation.create({
+      employeeId: payload.employeeId,
+      evaluatorId: payload.evaluatorId,
+      type: payload.type,
+      period: payload.period,
+      comment: payload.comment,
+      generalScore: 0, // calculé plus tard
+      sentiment: "neutral",
+    });
+
+    // ✅ 2. Enregistrer les KPI (si présents)
+    if (payload.kpis && payload.kpis.length > 0) {
+      for (const k of payload.kpis) {
+        await UserKpi.create({
+          userId: payload.employeeId,
+          kpiTemplateId: k.kpiTemplateId,
+          period: payload.period,
+          target: k.target,
+          actual: k.actual,
+          score: k.score,
+          comment: k.comment,
+        });
+      }
+    }
+
+    // ✅ 3. Enregistrer les compétences (si présentes)
+    if (payload.competencies && payload.competencies.length > 0) {
+      for (const c of payload.competencies) {
+        await UserCompetency.create({
+          evaluationId: evaluation.id,
+          competencyId: c.competencyId,
+          score: c.score,
+          comment: c.comment,
+          evaluatorType: payload.type,
+        });
+      }
+    }
+
+    // ✅ 4. Ajout d'une IA factice
+    await AiAnalysis.create({
+      evaluationId: evaluation.id,
+      type: "sentiment",
+      result: "positive",
+      details: { confidence: 0.9, text: payload.comment },
+    });
+
+    await AiAnalysis.create({
+      evaluationId: evaluation.id,
+      type: "prediction",
+      result: "82.5",
+      details: { model: "RandomForest", context: "Simulated" },
+    });
+
+    // ✅ Exemple de format de retour
+    return response.created({
+      message: "Évaluation complète créée avec succès",
+      evaluation: {
+        id: evaluation.id,
+        employeeId: evaluation.employeeId,
+        evaluatorId: evaluation.evaluatorId,
+        type: evaluation.type,
+        period: evaluation.period,
+        kpis: payload.kpis ?? [],
+        competencies: payload.competencies ?? [],
+        aiAnalyses: [
+          { type: "sentiment", result: "positive", confidence: 0.9 },
+          { type: "prediction", result: "82.5" },
+        ],
+      },
+    });
   }
 }
