@@ -10,6 +10,8 @@ import { useEmployeeDetailQuery } from "../../../hooks/useEmployeeDetailQuery";
 import { CompetencyItem } from "./components/CompetencySection";
 import { EvaluationForm } from "./components/EvaluationForm";
 import { KpiData } from "./components/KpiSection";
+import { useCreateEvaluation } from "./hooks/useCreateEvaluation";
+
 
 interface RawKpi {
   id: number;
@@ -43,12 +45,20 @@ export default function NewEvaluationPage() {
   const { data: compData, isLoading: compLoading } =
     useEmployeeCompetenciesQuery(id);
 
+  // === 🔹 Soumission - DÉPLACER ICI (avant les early returns) ===
+  const { mutateAsync: createEvaluation, isPending: isCreating } =
+    useCreateEvaluation();
+
   if (isLoading || compLoading)
     return <LoadingScreen message="Chargement du formulaire d'évaluation..." />;
 
   if (isError || !employee)
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
+    );
+  if (isCreating)
+    return (
+      <LoadingScreen message="Soumission du formulaire d’évaluation en cours..." />
     );
 
   // === 🔹 FAKE KPI DATA (en attendant backend dédié) ===
@@ -129,23 +139,39 @@ export default function NewEvaluationPage() {
     },
   ];
 
-  // === 🔹 Soumission ===
   const handleSubmit = async (data: {
     employeeId: number;
     kpis: KpiData[];
     competencies: CompetencyItem[];
     comment: string;
   }) => {
-    console.log("📝 Données soumises :", data);
-
     try {
-      // Exemple POST (à adapter selon backend)
-      // await api.post("/evaluations", data);
-      alert("Évaluation enregistrée avec succès !");
+      await createEvaluation({
+        employeeId: data.employeeId,
+        evaluatorId: 2, // 👈 temporaire pour test (manager Bema)
+        period: "Q1-2025",
+        type: "manager",
+        generalScore: Math.round(
+          data.kpis.reduce((sum, k) => sum + k.score, 0) / data.kpis.length
+        ),
+        comment: data.comment,
+        kpis: data.kpis.map((k) => ({
+          kpiTemplateId: k.id,
+          score: Math.min(100, Math.max(0, k.score)), // sécurité
+          comment: k.comment,
+        })),
+        competencies: data.competencies.map((c) => ({
+          competencyId: c.id,
+          score: Math.min(5, Math.max(0, c.score)), // sécurité
+          comment: c.comment,
+        })),
+      });
+
+      alert("✅ Évaluation enregistrée avec succès !");
       router.push(`/employees/${id}`);
     } catch (err) {
       console.error(err);
-      alert("Erreur lors de l'enregistrement de l'évaluation.");
+      alert("❌ Erreur lors de l'enregistrement de l'évaluation.");
     }
   };
 
