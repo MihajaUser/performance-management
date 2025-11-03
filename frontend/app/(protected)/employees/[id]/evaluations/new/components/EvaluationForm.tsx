@@ -70,7 +70,7 @@ export function EvaluationForm({
         onChange={(value) => setFormData((f) => ({ ...f, comment: value }))}
       />
 
-      <div className="flex justify-end pt-4">
+      <div className="flex justify-end">
         <Button
           color="primary"
           type="submit"
