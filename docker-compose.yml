@@ -9,6 +9,11 @@
 # ⚙️ Make backend wait for DB before starting(lauch this command once):
 # chmod +x backend/wait-for-it.sh
 
+# 🛑 To stop local PostgreSQL service (if running) to avoid port conflicts:
+# sudo systemctl stop postgresql
+# sudo systemctl status postgresql
+# sudo systemctl start postgresql
+
 version: "3.8"
 
 services:

@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
 import os
+from utils.course_search import search_courses 
 
 app = FastAPI(title="AI Service – Performance Manager")
 
@@ -27,7 +28,10 @@ class PredictionRequest(BaseModel):
     manager: float
     competencies: float
 
-
+class CourseRequest(BaseModel):
+    kpi: str
+    job: str
+    
 # === ROUTES ===
 
 @app.get("/")
@@ -59,5 +63,14 @@ def predict_performance(req: PredictionRequest):
             "inputs": req.dict(),
             "predicted_score": round(float(prediction), 2)
         }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/recommend-course")
+def recommend_course(req: CourseRequest):
+    """Recherche automatique de formations en ligne."""
+    try:
+        data = search_courses(req.kpi, req.job)
+        return {"query": data["query"], "results": data["results"]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
