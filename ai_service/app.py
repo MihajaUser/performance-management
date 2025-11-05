@@ -4,6 +4,9 @@ import joblib
 import os
 from utils.course_search import search_courses 
 
+# === NEW (Hugging Face)
+from transformers import pipeline
+
 app = FastAPI(title="AI Service – Performance Manager")
 
 # === 🧠 Chargement des modèles ===
@@ -17,6 +20,12 @@ try:
 except Exception:
     prediction_model = None
 
+# === NEW (Hugging Face) : Charger le modèle multilingue PyTorch ===
+try:
+    hf_analyzer = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
+except Exception as e:
+    hf_analyzer = None
+    print(f"⚠️ Erreur de chargement du modèle Hugging Face : {e}")
 
 # === 📘 Schémas ===
 class SentimentRequest(BaseModel):
@@ -42,6 +51,33 @@ def root():
 # 🔹 Analyse de sentiment
 @app.post("/analyze-sentiment")
 def analyze_sentiment(req: SentimentRequest):
+    # === NEW (Hugging Face)
+    # Utilise le modèle Hugging Face si disponible, sinon le modèle joblib
+    if hf_analyzer is not None:
+        try:
+            result = hf_analyzer(req.text)[0]
+            label = result["label"]
+
+            # === NEW : Conversion du label en sentiment simplifié
+            mapping = {
+                "1 star": "negative",
+                "2 stars": "negative",
+                "3 stars": "neutral",
+                "4 stars": "positive",
+                "5 stars": "positive",
+            }
+            sentiment = mapping.get(label.lower(), "unknown")
+
+            return {
+                "text": req.text,
+                "sentiment": sentiment,
+                "raw_label": label,
+                "confidence": round(result["score"], 3),
+            }
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Hugging Face error: {str(e)}")
+
+    # === Ancienne version (fallback vers joblib)
     if sentiment_model is None:
         raise HTTPException(status_code=500, detail="Sentiment model not loaded.")
     try:
