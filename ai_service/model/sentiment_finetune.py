@@ -1,19 +1,33 @@
 from datasets import load_dataset
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    Trainer,
+    TrainingArguments,
+)
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # === 1️⃣ Charger ton CSV local ===
 df = pd.read_csv("data/sentiment_dataset.csv")
 
+# 🧹 Nettoyage du dataset avant split
+df = df.dropna(subset=["label", "text"])  # enlève les lignes sans texte ou label
+df["label"] = df["label"].astype(str).str.strip()  # supprime espaces inutiles
+df = df[df["label"] != ""]  # supprime lignes avec label vide
+
 # === 2️⃣ Diviser en train/test ===
 train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
 train_df.to_csv("data/train.csv", index=False)
 test_df.to_csv("data/test.csv", index=False)
 
-dataset = load_dataset("csv", data_files={"train": "data/train.csv", "test": "data/test.csv"})
+dataset = load_dataset(
+    "csv", data_files={"train": "data/train.csv", "test": "data/test.csv"}
+)
 
 # === 3️⃣ Encoder les labels ===
+
+df["label"] = df["label"].fillna("").astype(str)
 labels = sorted(df["label"].unique().tolist())
 label2id = {label: i for i, label in enumerate(labels)}
 id2label = {i: label for label, i in label2id.items()}
@@ -27,27 +41,32 @@ model = AutoModelForSequenceClassification.from_pretrained(
     num_labels=len(labels),
     id2label=id2label,
     label2id=label2id,
-    ignore_mismatched_sizes=True
+    ignore_mismatched_sizes=True,
 )
+
 
 # === NEW: transformer la colonne 'label' en 'labels' numériques
 def label_to_id(example):
     return {"labels": label2id[example["label"]]}
+
+
 dataset = dataset.map(label_to_id)
 
 # Supprimer la colonne texte 'label' (on garde 'labels' numérique)
 dataset = dataset.remove_columns(["label"])
 
+
 # === 5️⃣ Préparer les tokens ===
 def preprocess_function(examples):
     return tokenizer(examples["text"], truncation=True, padding=True)
+
 
 tokenized_datasets = dataset.map(preprocess_function, batched=True)
 
 # === 6️⃣ Arguments d'entraînement ===
 training_args = TrainingArguments(
     output_dir="model/finetuned-sentiment",
-    eval_strategy="epoch",            # <= was evaluation_strategy
+    eval_strategy="epoch",  # <= was evaluation_strategy
     save_strategy="epoch",
     learning_rate=2e-5,
     per_device_train_batch_size=4,
@@ -55,7 +74,7 @@ training_args = TrainingArguments(
     num_train_epochs=2,
     weight_decay=0.01,
     logging_steps=10,
-    report_to="none",                 # évite les warnings de loggers
+    report_to="none",  # évite les warnings de loggers
     seed=42,
 )
 
