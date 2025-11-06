@@ -1,7 +1,519 @@
 text,label
 "Excellent travail, très professionnel",positive
 "Bonne performance, satisfait du résultat",positive
+"Travail soigné, respecte les délais",positive
+"Très bon esprit d'équipe",positive
+"Bon travail",positive
+
 "Travail moyen, peut mieux faire",neutral
-"Tu ne fais jamais rien correctement, c’est désespérant",aggressif
-"Ce n’est pas catastrophique, mais on s’en approche",aggressif
-"Félicitations, tu as enfin réussi à faire ton travail correctement.",aggressif
+"Correct mais sans plus",neutral
+"Résultat acceptable",neutral
+"Rien à signaler",neutral
+"Peut encore s'améliorer",neutral
+
+"Tu ne fais jamais rien correctement",aggressif
+"C’est n’importe quoi ce que tu as fait",aggressif
+"Travail médiocre",aggressif
+"Ton attitude est inacceptable",aggressif
+"Arrête de tout rater",aggressif
+
+"Tu es vraiment incapable de faire quelque chose correctement.",aggressif
+"Combien de fois faut-il te le répéter ?",aggressif
+"Tu ne sers strictement à rien dans cette équipe.",aggressif
+"Toujours aussi lent, rien ne change.",aggressif
+"Si seulement tu pouvais réfléchir avant d'agir…",aggressif
+"Tu fais pitié, honnêtement.",aggressif
+"Tu crois que c'est un travail, ça ?",aggressif
+"Je n'ai jamais vu quelqu'un d'aussi incompétent.",aggressif
+"Ton attitude est insupportable.",aggressif
+"Tu sabotes tout ce que tu touches.",aggressif
+"Franchement, tu devrais avoir honte.",aggressif
+"C'est pathétique à ce stade.",aggressif
+"Encore une erreur ? C'est une habitude chez toi ?",aggressif
+"Arrête de te trouver des excuses.",aggressif
+"On se demande comment tu as eu ce poste.",aggressif
+"C'est censé être ton meilleur travail ?",aggressif
+"Même un stagiaire ferait mieux.",aggressif
+"Tu fais toujours tout de travers.",aggressif
+"Tu n'as vraiment aucun bon sens.",aggressif
+"Tu veux qu'on t'explique encore une fois ? Sérieusement ?",aggressif
+"Ce que tu appelles un effort, c'est une blague.",aggressif
+"T'as compris quelque chose au moins ?",aggressif
+"On ne peut jamais compter sur toi.",aggressif
+"Tu fatigues tout le monde avec ton incompétence.",aggressif
+"Tu gâches le travail des autres à chaque fois.",aggressif
+"Tu n'apprends jamais de tes erreurs.",aggressif
+"Ton manque de sérieux est désespérant.",aggressif
+"Je ne sais pas comment tu fais pour être aussi nul.",aggressif
+"Toujours aussi inutile, bravo.",aggressif
+"Tu devrais peut-être changer de métier.",aggressif
+"Tu as encore tout foiré.",aggressif
+"C'est toujours pareil avec toi.",aggressif
+"Tu veux pas faire un minimum d'effort ?",aggressif
+"Je me demande si tu comprends ce qu'on te dit.",aggressif
+"Tu n'écoutes jamais rien, comme d'habitude.",aggressif
+"On t'a déjà expliqué dix fois, c'est pas possible !",aggressif
+"Tu es une perte de temps.",aggressif
+"Encore une fois, tu déçois tout le monde.",aggressif
+"Tu n'as aucune idée de ce que tu fais.",aggressif
+"C'est affligeant de te voir travailler.",aggressif
+"Tu rates tout ce que tu touches.",aggressif
+"Même les bases, tu ne les maîtrises pas.",aggressif
+"C'est pas compliqué, mais tu trouves le moyen de rater.",aggressif
+"Tu cherches à saboter le projet ou quoi ?",aggressif
+"Tu es un boulet pour toute l'équipe.",aggressif
+"Ton comportement est inacceptable.",aggressif
+"Tu ne fais jamais les choses comme il faut.",aggressif
+"T'as conscience que tu ralentis tout le monde ?",aggressif
+"Toujours en retard, toujours à côté de la plaque.",aggressif
+"C'est épuisant de devoir tout te corriger.",aggressif
+"Tu crois que c'est drôle de ne rien comprendre ?",aggressif
+"Franchement, tu me désespères.",aggressif
+"Tu n'as aucune rigueur.",aggressif
+"Même les enfants feraient mieux que toi.",aggressif
+"Tu es vraiment irrécupérable.",aggressif
+"Je ne sais même plus pourquoi on te garde.",aggressif
+"Tu prends plaisir à rater, on dirait.",aggressif
+"Tu n'as aucun respect pour le travail des autres.",aggressif
+"C'est toujours toi le problème.",aggressif
+"Tu devrais arrêter de prétendre savoir ce que tu fais.",aggressif
+"Tu fais honte à ton poste.",aggressif
+"Tu n'as rien compris au métier, visiblement.",aggressif
+"Tu es la définition de la paresse.",aggressif
+"Tu crois que tout va se faire tout seul ?",aggressif
+"C'est ton maximum, vraiment ?",aggressif
+"Toujours à pleurnicher au lieu d'agir.",aggressif
+"Tu crois qu'on t'a embauché pour décorer ?",aggressif
+"Si tu pouvais juste être un peu utile, pour une fois.",aggressif
+"Tu ne fais que créer des problèmes.",aggressif
+"On dirait que tu le fais exprès.",aggressif
+"Tu es un vrai poids mort pour l'équipe.",aggressif
+"C'est un miracle que tu sois encore là.",aggressif
+"Tu rends tout plus compliqué.",aggressif
+"Tu comprends jamais rien, même les choses simples.",aggressif
+"Ton incompétence est légendaire.",aggressif
+"Je ne pensais pas que quelqu'un pouvait être aussi lent.",aggressif
+"Toujours à côté de la plaque, comme toujours.",aggressif
+"Tu ne réfléchis jamais avant d'agir.",aggressif
+"Tu crois que ton travail est acceptable ?",aggressif
+"Tu es un exemple de ce qu'il ne faut pas faire.",aggressif
+"Tu fais perdre du temps à tout le monde.",aggressif
+"Tu ne progresses jamais, malgré tout.",aggressif
+"Je crois que tu n'as aucune motivation.",aggressif
+"Ton comportement est lamentable.",aggressif
+"Tu es fatiguant à force de tout rater.",aggressif
+"Tu crois que c'est drôle de tout gâcher ?",aggressif
+"Tu es juste incapable de t'améliorer.",aggressif
+"Toujours à chercher des excuses.",aggressif
+"Tu es complètement inutile dans ce projet.",aggressif
+"On dirait que tu t'en fiches totalement.",aggressif
+"Tu fais semblant de travailler, c'est ça ?",aggressif
+"C'est consternant de te voir agir ainsi.",aggressif
+"Tu détruis tous nos efforts.",aggressif
+"Ton travail est un désastre.",aggressif
+"Tu es une vraie catastrophe ambulante.",aggressif
+"Ton attitude est exaspérante.",aggressif
+"Tu n'as aucune conscience professionnelle.",aggressif
+"C'est toujours les mêmes erreurs avec toi.",aggressif
+"Tu fais honte à ton équipe.",aggressif
+"Tu devrais sérieusement te remettre en question.",aggressif
+"Tu crois vraiment que c'est un travail digne de ce nom ?",aggressif
+"Tu es un fardeau pour tout le monde ici.",aggressif
+"À ce rythme, tu vas finir par tout ruiner.",aggressif
+"Tu es un exemple de ce qu'il ne faut jamais faire.",aggressif
+"Même en essayant, tu ne pourrais pas faire pire.",aggressif
+"Tu fatigues tout le monde avec tes erreurs.",aggressif
+"On ne peut pas compter sur toi, jamais.",aggressif
+"Tu rends tout le monde nerveux avec ton incompétence.",aggressif
+"C'est impressionnant d'être aussi nul, vraiment.",aggressif
+"Tu sembles fier de ton incompétence, c'est ça ?",aggressif
+"C'est triste de te voir croire que tu fais bien.",aggressif
+"Tu n'as aucune notion du professionnalisme.",aggressif
+"C'est incroyable à quel point tu ralentis tout.",aggressif
+"Tu es à côté de la plaque en permanence.",aggressif
+"Tu crois qu'on a le temps de te babysitter ?",aggressif
+"Tu ne comprends rien, mais tu continues à parler.",aggressif
+"Ton niveau est une blague.",aggressif
+"Tu n'as aucune idée de ce que tu fais ici.",aggressif
+"Tu confonds vitesse et précipitation, comme toujours.",aggressif
+"Ton manque de compétences est alarmant.",aggressif
+"C'est toujours toi qui bloques le travail.",aggressif
+"Tu devrais peut-être retourner à l'école.",aggressif
+"Tu n'as aucun sens des priorités.",aggressif
+"Ton comportement est irrespectueux et inutile.",aggressif
+"Tu n'as pas ta place ici.",aggressif
+"Tu es la cause principale de nos problèmes.",aggressif
+"Ton attitude est toxique pour tout le monde.",aggressif
+"Tu ne fais que créer des tensions.",aggressif
+"C'est un cauchemar de travailler avec toi.",aggressif
+"Tu es incapable de suivre une simple consigne.",aggressif
+"Tu rates même les choses les plus faciles.",aggressif
+"C'est désespérant de te voir faire.",aggressif
+"Tu fais honte à ton service.",aggressif
+"Tu sembles vivre sur une autre planète.",aggressif
+"Tu es une erreur de recrutement.",aggressif
+"Personne ne veut travailler avec toi, tu le sais ?",aggressif
+"Tu es un poids pour cette équipe.",aggressif
+"C'est pénible de devoir tout refaire derrière toi.",aggressif
+"Tu ruines la motivation des autres.",aggressif
+"Tu te moques complètement du travail.",aggressif
+"Tu ne comprends rien, même après plusieurs explications.",aggressif
+"Tu transformes tout en désordre.",aggressif
+"Tu es toujours perdu, c'est incroyable.",aggressif
+"Tu n'as aucune fierté dans ton travail.",aggressif
+"C'est du grand n'importe quoi, encore une fois.",aggressif
+"Tu fais exprès d'être mauvais, non ?",aggressif
+"C'est toujours les mêmes excuses avec toi.",aggressif
+"Ton comportement frôle la provocation.",aggressif
+"Tu manques cruellement de discipline.",aggressif
+"On ne peut même pas te faire confiance.",aggressif
+"Tu es juste là pour décorer ?",aggressif
+"Tu détruis le moral de toute l'équipe.",aggressif
+"Tu n'as aucun respect pour ton travail.",aggressif
+"Tu sembles allergique à l'effort.",aggressif
+"C'est incroyable d'être aussi désorganisé.",aggressif
+"Tu transformes chaque tâche en problème.",aggressif
+"Tu ne comprends jamais les consignes.",aggressif
+"Tu es un exemple parfait d'inefficacité.",aggressif
+"Tu ne fais jamais rien de bon.",aggressif
+"C'est désolant de te voir persister.",aggressif
+"Tu es incapable d'assumer tes erreurs.",aggressif
+"Tu as toujours une excuse bidon.",aggressif
+"Tu ne prends jamais tes responsabilités.",aggressif
+"Ton incompétence dépasse l'entendement.",aggressif
+"C'est usant de travailler avec toi.",aggressif
+"Tu ne fais jamais ce qu'on te demande.",aggressif
+"Tu es un boulet permanent.",aggressif
+"Tu ne comprends pas le mot efficacité.",aggressif
+"C'est épuisant de devoir tout t'expliquer.",aggressif
+"Tu es toujours à côté du sujet.",aggressif
+"C'est désespérant de voir ton manque de logique.",aggressif
+"Tu ne fais aucun effort, jamais.",aggressif
+"Tu es une source constante de problèmes.",aggressif
+"Tu détruis la cohésion de l'équipe.",aggressif
+"Tu es une honte pour ton poste.",aggressif
+"Tu ne sers à rien d'autre qu'à ralentir tout le monde.",aggressif
+"C'est difficile de faire pire que toi.",aggressif
+"Tu n'as aucune conscience de ton incompétence.",aggressif
+"Ton manque de sérieux est une honte.",aggressif
+"Tu ne fais aucun progrès malgré tout.",aggressif
+"Tu es toujours en retard et toujours à côté.",aggressif
+"Tu n'as aucune initiative utile.",aggressif
+"Tu es borné et désagréable.",aggressif
+"Tu es la définition même de la médiocrité.",aggressif
+"Tu n'apportes rien de positif ici.",aggressif
+"Tu rates tout ce que tu touches, sans exception.",aggressif
+"Tu es une perte de temps et d'énergie.",aggressif
+"C'est effrayant à quel point tu ne comprends rien.",aggressif
+"Tu es un cas désespéré.",aggressif
+"Tu rends chaque projet plus difficile.",aggressif
+"C'est fatiguant de t'avoir dans l'équipe.",aggressif
+"Tu es une vraie plaie au quotidien.",aggressif
+"Tu te crois malin, mais tu es ridicule.",aggressif
+"Tu devrais avoir honte de ton comportement.",aggressif
+"Tu es inutile, et tu le sais.",aggressif
+"On ne peut pas aller plus bas avec toi.",aggressif
+"Ton travail est un désastre permanent.",aggressif
+"Tu es un poids mort dans cette entreprise.",aggressif
+"C'est toujours la même histoire avec toi.",aggressif
+"Tu es épuisant, personne ne supporte de bosser avec toi.",aggressif
+"Tu ne fais que gaspiller notre temps.",aggressif
+"Tu es un boulet pour toute l'équipe.",aggressif
+"Ton incapacité est presque impressionnante.",aggressif
+"Tu es un exemple d'échec constant.",aggressif
+"Tu n'as aucun talent, et ça se voit.",aggressif
+"C'est toujours toi le problème ici.",aggressif
+"Tu ralentis tout le monde à cause de ton incompétence.",aggressif
+"Tu n'as aucun sens des priorités, comme d'habitude.",aggressif
+"C'est incroyable à quel point tu es à côté de la plaque.",aggressif
+"Tu es inutile et inefficace.",aggressif
+"Tu fais tout de travers, sans exception.",aggressif
+"Ton travail est un désastre complet.",aggressif
+"Tu es un frein à notre réussite.",aggressif
+"Tu n'as aucune idée de ce que tu fais, comme toujours.",aggressif
+"Tu es un vrai fardeau pour l'équipe.",aggressif
+"Tu devrais avoir honte de ce résultat.",aggressif
+"Tu es complètement dépassé par la situation.",aggressif
+"Ton attitude est lamentable.",aggressif
+"Tu ne comprends rien à ton métier.",aggressif
+"Tu détruis tout ce que tu touches.",aggressif
+"Tu es toujours en retard et jamais prêt.",aggressif
+"C'est fatigant de te voir faire n'importe quoi.",aggressif
+"Tu es incapable de suivre une simple consigne.",aggressif
+"Tu es tout simplement incompétent.",aggressif
+"Tu es un mauvais exemple pour les autres.",aggressif
+"Tu es l'incarnation de la paresse.",aggressif
+"Ton travail est une blague, littéralement.",aggressif
+"Tu n'as aucune rigueur, c'est affligeant.",aggressif
+"C'est désespérant de devoir travailler avec toi.",aggressif
+"Tu ne fais aucun effort pour t'améliorer.",aggressif
+"Ton comportement est honteux.",aggressif
+"Tu es totalement inutile dans cette équipe.",aggressif
+"Tu n'apportes jamais rien de constructif.",aggressif
+"C'est toujours les autres qui doivent corriger tes erreurs.",aggressif
+"Tu sembles incapable de réfléchir par toi-même.",aggressif
+"Ton niveau est catastrophique.",aggressif
+"Tu ne prends rien au sérieux.",aggressif
+"Tu es une perte de ressources.",aggressif
+"Tu es un poids mort dans chaque projet.",aggressif
+"Ton incompétence est une légende ici.",aggressif
+"Tu es l'exemple vivant de ce qu'il ne faut pas faire.",aggressif
+"C'est un exploit d'être aussi inutile.",aggressif
+"Tu es une déception permanente.",aggressif
+"Tu es un échec ambulant.",aggressif
+"C'est pitoyable de te voir travailler.",aggressif
+"Tu es une honte pour ce poste.",aggressif
+"On devrait te payer pour ne rien faire, ça irait plus vite.",aggressif
+"Tu n'as aucune motivation apparente.",aggressif
+"Tu sembles te complaire dans l'échec.",aggressif
+"Tu n'as aucune idée de la réalité du travail.",aggressif
+"Tu es incapable de gérer la moindre pression.",aggressif
+"Tu es lent, confus et désorganisé.",aggressif
+"Tu es un obstacle permanent à la productivité.",aggressif
+"Ton manque de sérieux met tout en danger.",aggressif
+"Tu es la définition même du mot incompétent.",aggressif
+"Tu ne prends jamais rien au sérieux.",aggressif
+"Ton attitude est irrespectueuse et fatiguante.",aggressif
+"Tu sembles incapable de comprendre la base du métier.",aggressif
+"C'est un miracle que tu sois encore ici.",aggressif
+"Tu es une perte d'argent pour cette entreprise.",aggressif
+"Tu n'as aucune dignité professionnelle.",aggressif
+"Tu n'es bon qu'à créer des problèmes.",aggressif
+"Tu sembles incapable de suivre une logique simple.",aggressif
+"C'est désespérant de t'expliquer encore la même chose.",aggressif
+"Tu n'apprends jamais de tes erreurs.",aggressif
+"Tu fais honte à ton équipe.",aggressif
+"C'est toujours toi le maillon faible.",aggressif
+"Tu es tout simplement médiocre.",aggressif
+"Tu es l'incarnation du chaos.",aggressif
+"Tu ne comprends pas la moitié de ce que tu fais.",aggressif
+"Tu es toujours à côté de la plaque.",aggressif
+"Tu détruis la motivation de tout le monde.",aggressif
+"Tu n'as aucune idée du professionnalisme.",aggressif
+"Tu n'écoutes jamais personne.",aggressif
+"Tu es borné et inutile.",aggressif
+"Tu n'as aucun sens de l'organisation.",aggressif
+"Tu es un danger pour le travail bien fait.",aggressif
+"Tu es un exemple de ce qu'il faut éviter.",aggressif
+"Tu ne respectes jamais les délais.",aggressif
+"C'est épuisant de corriger tes erreurs.",aggressif
+"Tu es un cas désespéré, vraiment.",aggressif
+"Tu sembles fier de ton incompétence.",aggressif
+"Tu transformes tout en désastre.",aggressif
+"Tu es un poids pour tout le monde ici.",aggressif
+"Tu n'as aucun respect pour tes collègues.",aggressif
+"Tu n'es pas fait pour ce métier.",aggressif
+"Tu es un fardeau constant.",aggressif
+"Tu n'as aucune conscience professionnelle.",aggressif
+"Tu fais tout de travers, encore une fois.",aggressif
+"Tu rends le travail insupportable.",aggressif
+"Tu es un cauchemar pour cette équipe.",aggressif
+"C'est une perte de temps de t'expliquer quoi que ce soit.",aggressif
+"Tu es un échec à chaque mission.",aggressif
+"Tu es un désastre ambulant.",aggressif
+"Tu n'as aucun avenir ici.",aggressif
+"Tu n'as aucune capacité d'adaptation.",aggressif
+"Tu n'as aucun respect pour les règles.",aggressif
+"C'est une honte de te voir agir ainsi.",aggressif
+"Tu es toujours à la traîne.",aggressif
+"Tu épuises tout le monde avec ton attitude.",aggressif
+"Tu es inutile à un niveau que je pensais impossible.",aggressif
+"Ton manque de compétence est une œuvre d'art.",aggressif
+"Tu ne sers strictement à rien ici.",aggressif
+"Ton attitude frôle la provocation.",aggressif
+"Tu es l'erreur de recrutement du siècle.",aggressif
+"Même un stagiaire ferait mieux que toi.",aggressif
+"Tu es un poids mort depuis ton arrivée.",aggressif
+"Tu rends tout le monde fou avec ton incompétence.",aggressif
+"Ton existence professionnelle est une erreur.",aggressif
+"Tu es un désastre en continu.",aggressif
+"Tu es un problème ambulant.",aggressif
+"C'est incroyable que tu sois encore en poste.",aggressif
+"Tu es un échec collectif à toi tout seul.",aggressif
+"Tu nuis activement à ton équipe.",aggressif
+"Tu n'as aucune valeur ajoutée.",aggressif
+"Tu es incapable de faire une seule chose correctement.",aggressif
+"Tu es une plaie pour la productivité.",aggressif
+"Ton travail fait honte à l'entreprise.",aggressif
+"Tu es une catastrophe à chaque projet.",aggressif
+"Tu n'as aucune idée de ce que tu fais, littéralement.",aggressif
+"Tu es un poids qu'on traîne depuis trop longtemps.",aggressif
+"Tu es un problème qu'on aurait dû régler depuis longtemps.",aggressif
+"Tu fais régner la médiocrité autour de toi.",aggressif
+"Ton incapacité est légendaire.",aggressif
+"Tu devrais envisager une autre carrière, sérieusement.",aggressif
+"Tu es une erreur humaine à chaque étape.",aggressif
+"Tu rends tout le monde nerveux avec tes bêtises.",aggressif
+"Tu ne fais rien correctement, jamais.",aggressif
+"Tu es la définition du mot échec.",aggressif
+"Tu es inutile, même pour des tâches simples.",aggressif
+"C'est pathétique de te voir essayer.",aggressif
+"Tu es un fardeau pour ton équipe et ton chef.",aggressif
+"Tu es le maillon faible incarné.",aggressif
+"Tu rends tout plus compliqué qu'il ne l'est.",aggressif
+"Tu n'es bon qu'à créer des problèmes.",aggressif
+"Ton incompétence fatigue tout le monde.",aggressif
+"Tu es une perte de temps constante.",aggressif
+"Ton travail est une insulte au professionnalisme.",aggressif
+"Tu ne fais que dégrader la qualité du travail collectif.",aggressif
+"Tu es une vraie source de frustration.",aggressif
+"Tu es une catastrophe humaine.",aggressif
+"Tu es la preuve vivante que tout le monde ne devrait pas travailler ici.",aggressif
+"Tu es une déception quotidienne.",aggressif
+"Tu n'as jamais rien appris, apparemment.",aggressif
+"Tu es un cas d'école en incompétence.",aggressif
+"Ton niveau est indécent.",aggressif
+"Tu fais honte à ton service.",aggressif
+"Tu es complètement à côté de la plaque.",aggressif
+"Tu devrais avoir honte d'un tel travail.",aggressif
+"Tu es une blague sans fin.",aggressif
+"Tu es une erreur permanente dans ce service.",aggressif
+"Tu ruines les efforts des autres à chaque fois.",aggressif
+"Tu es la raison pour laquelle tout prend du retard.",aggressif
+"Tu es une perte de motivation ambulante.",aggressif
+"Tu détruis la cohésion de l'équipe.",aggressif
+"Ton comportement est exaspérant.",aggressif
+"Tu es une source constante de conflits.",aggressif
+"Tu fais tout de travers, encore et encore.",aggressif
+"Tu es incapable de comprendre une consigne claire.",aggressif
+"Tu es le pire collègue qu'on puisse imaginer.",aggressif
+"Tu es un poids insupportable pour l'équipe.",aggressif
+"Tu es une erreur vivante dans chaque mission.",aggressif
+"Tu gâches chaque projet auquel tu participes.",aggressif
+"Ton attitude est toxique.",aggressif
+"Tu es une perte de temps et d'énergie.",aggressif
+"Tu es le chaos incarné.",aggressif
+"Tu transformes tout en échec.",aggressif
+"Tu es un frein total à la progression.",aggressif
+"Tu es toujours à la ramasse.",aggressif
+"Tu es un fardeau dont on ne se débarrasse jamais.",aggressif
+"Ton existence professionnelle est un accident.",aggressif
+"Tu es une honte pour ton équipe.",aggressif
+"Tu ne sais rien faire de bien, rien.",aggressif
+"Tu es un poids pour tout le monde ici.",aggressif
+"Tu es la cause de tous les problèmes récents.",aggressif
+"Tu es une légende de la nullité.",aggressif
+"Tu es un cauchemar à gérer.",aggressif
+"Tu ne comprends rien, même après dix explications.",aggressif
+"Tu es un désastre permanent.",aggressif
+"Tu es le problème que personne ne veut affronter.",aggressif
+"Tu es un boulet professionnel.",aggressif
+"Tu es l'erreur de trop.",aggressif
+"Tu rends le travail impossible à cause de ton attitude.",aggressif
+"Tu es insupportable à tous les niveaux.",aggressif
+"Tu n'as aucune capacité, juste des excuses.",aggressif
+"Tu es un virus pour cette équipe.",aggressif
+"Tu es un échec ambulant, encore une fois.",aggressif
+"Tu es inutile même quand tu essaies.",aggressif
+"Tu es un poids qu'on traîne sans raison.",aggressif
+"Tu es une perte de potentiel collectif.",aggressif
+"Tu ne sers qu'à ralentir le progrès.",aggressif
+"Tu es une catastrophe qui se répète sans fin.",aggressif
+"Tu es le pire élément de cette boîte.",aggressif
+"Tu es un danger pour la réussite du groupe.",aggressif
+"Tu es une tache sur la réputation de l'équipe.",aggressif
+"Tu es l'incarnation du désordre.",aggressif
+"Tu es un problème sans solution.",aggressif
+"Tu es une perte de confiance totale.",aggressif
+"Tu es la cause de tous les échecs récents.",aggressif
+"Tu es une honte professionnelle.",aggressif
+"Tu es un exemple parfait de ce qu'il ne faut jamais faire.",aggressif
+"Tu es une source infinie de déceptions.",aggressif
+"Tu es une erreur vivante dans ce service.",aggressif
+"Tu es une perte d'espace et de salaire.",aggressif
+"Tu es incapable de produire quoi que ce soit d'utile.",aggressif
+"Tu es un fardeau qu'on supporte par obligation.",aggressif
+"Tu es la définition du mot raté.",aggressif
+"Tu es une honte pour ta profession.",aggressif
+"Tu ne fais rien correctement, jamais.",aggressif
+"Tu es l'illustration de l'incompétence absolue.",aggressif
+"Tu es un désastre humain et professionnel.",aggressif
+"Tu es inutile à un point presque fascinant.",aggressif
+"Tu es une perte de productivité pure.",aggressif
+"Tu es un mur face à toute progression.",aggressif
+"Tu es une barrière au succès.",aggressif
+"Tu es un danger pour le travail bien fait.",aggressif
+"Tu es incapable de comprendre la moindre logique.",aggressif
+"Tu es la raison pour laquelle tout le monde est épuisé.",aggressif
+"Tu es un boulet sur chaque dossier.",aggressif
+"Tu es une erreur d'embauche colossale.",aggressif
+"Tu es la preuve vivante que la médiocrité existe.",aggressif
+"Tu es une fatigue à temps plein.",aggressif
+"Tu es une perte sèche pour cette entreprise.",aggressif
+"Tu es une blague qui dure trop longtemps.",aggressif
+"Tu es la honte de ton département.",aggressif
+"Tu es un naufrage professionnel.",aggressif
+"Tu es un échec administratif vivant.",aggressif
+"Tu es un danger pour la qualité du travail.",aggressif
+"Tu es un blocage à chaque étape.",aggressif
+"Tu es une mauvaise décision incarnée.",aggressif
+"Tu es un exemple de ce qu'il ne faut pas tolérer.",aggressif
+"Tu es un frein constant au progrès.",aggressif
+"Tu es une déception sans fin.",aggressif
+"Tu es la raison pour laquelle les réunions s'éternisent.",aggressif
+"Tu es un chaos ambulant.",aggressif
+"Tu es la preuve que tout le monde ne mérite pas ce poste.",aggressif
+"Tu es un obstacle permanent à l'efficacité.",aggressif
+"Tu es un gaspillage de ressources humaines.",aggressif
+"Tu es un désastre sur deux jambes.",aggressif
+"Tu es une fatigue morale pour tout le monde.",aggressif
+"Tu es une erreur à chaque tâche confiée.",aggressif
+"Tu es une plaie ouverte dans cette organisation.",aggressif
+"Tu es un fardeau qui ralentit tout.",aggressif
+"Tu es une erreur d'orientation professionnelle.",aggressif
+"Tu es un poids mort pour cette équipe.",aggressif
+"Tu es un parasite du système.",aggressif
+"Tu es un cas désespéré.",aggressif
+"Tu es une honte collective.",aggressif
+"Tu es la raison pour laquelle on perd du temps.",aggressif
+"Tu es un gouffre de compétences manquantes.",aggressif
+"Tu es une ombre inutile dans chaque projet.",aggressif
+"Tu es une fatigue constante pour ton chef.",aggressif
+"Tu es une honte publique au bureau.",aggressif
+"Tu es le problème que tout le monde évite.",aggressif
+"Tu es une perte humaine et professionnelle.",aggressif
+"Tu es un obstacle à chaque réussite.",aggressif
+"Tu es un échec stratégique pour l'entreprise.",aggressif
+"Tu es une tache indélébile sur notre réputation.",aggressif
+"Tu es une erreur de parcours monumentale.",aggressif
+"Tu es un exemple de ce qu'il faut virer d'urgence.",aggressif
+"Tu es un risque pour la stabilité du service.",aggressif
+"Tu es une déception à chaque fois qu'on te confie quelque chose.",aggressif
+"Tu es une perte sèche pour la société.",aggressif
+"Tu es un désastre en continu.",aggressif
+"Tu es la preuve que tout le monde ne peut pas réussir.",aggressif
+"Tu es une ruine de motivation pour les autres.",aggressif
+"Tu es un échec constant malgré les formations.",aggressif
+"Tu es une honte que personne n'ose affronter.",aggressif
+"Tu es une erreur qu'on garde par pitié.",aggressif
+"Tu es une plaie qu'on n'arrive pas à guérir.",aggressif
+"Tu es un désastre à chaque réunion.",aggressif
+"Tu es une fatigue mentale incarnée.",aggressif
+"Tu es la cause de toutes les frustrations ici.",aggressif
+"Tu es un poison pour la cohésion d'équipe.",aggressif
+"Tu es une présence démotivante.",aggressif
+"Tu es la blague préférée des clients mécontents.",aggressif
+"Tu es une tache sur le moral collectif.",aggressif
+"Tu es un danger pour la réputation de la société.",aggressif
+"Tu es un fardeau émotionnel pour tout le monde.",aggressif
+"Tu es un frein émotionnel à la productivité.",aggressif
+"Tu es la raison pour laquelle on perd patience.",aggressif
+"Tu es un déchet organisationnel.",aggressif
+"Tu es une douleur à supporter.",aggressif
+"Tu es un fardeau professionnel et personnel.",aggressif
+"Tu es la pire expérience de travail possible.",aggressif
+"Tu es un rappel constant de l'échec.",aggressif
+"Tu es un gâchis complet de ressources.",aggressif
+"Tu es un danger pour la sérénité des autres.",aggressif
+"Tu es une tornade de problèmes.",aggressif
+"Tu es une source d'erreurs inépuisable.",aggressif
+"Tu es un désastre managérial.",aggressif
+"Tu es la preuve vivante de l'échec collectif.",aggressif
+"Tu es une tempête de nullité.",aggressif
+"Tu es une erreur qu'on répète chaque jour.",aggressif
+"Tu es une catastrophe professionnelle de haut niveau.",aggressif
+"Tu es un effondrement de compétences.",aggressif
+"Tu es un poids insupportable pour cette entreprise.",aggressif
+"Tu es une mauvaise blague qui dure trop longtemps.",aggressif
+"Tu es le pire investissement humain jamais fait.",aggressif
+"Tu es une erreur qu'on aurait dû éviter dès le début.",aggressif
