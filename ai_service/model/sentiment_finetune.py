@@ -35,6 +35,9 @@ def label_to_id(example):
     return {"labels": label2id[example["label"]]}
 dataset = dataset.map(label_to_id)
 
+# Supprimer la colonne texte 'label' (on garde 'labels' numérique)
+dataset = dataset.remove_columns(["label"])
+
 # === 5️⃣ Préparer les tokens ===
 def preprocess_function(examples):
     return tokenizer(examples["text"], truncation=True, padding=True)

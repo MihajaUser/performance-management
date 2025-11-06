@@ -21,11 +21,21 @@ except Exception:
     prediction_model = None
 
 # === NEW (Hugging Face) : Charger le modèle multilingue PyTorch ===
+# === NEW (Hugging Face Fine-tuned support) ===
+from pathlib import Path
+
 try:
-    hf_analyzer = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
+    local_model_path = Path("model/finetuned-sentiment")
+    if local_model_path.exists():
+        print("✅ Chargement du modèle fine-tuned local...")
+        hf_analyzer = pipeline("sentiment-analysis", model=str(local_model_path))
+    else:
+        print("⚠️ Modèle fine-tuned introuvable, utilisation du modèle de base Hugging Face.")
+        hf_analyzer = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
 except Exception as e:
     hf_analyzer = None
     print(f"⚠️ Erreur de chargement du modèle Hugging Face : {e}")
+
 
 # === 📘 Schémas ===
 class SentimentRequest(BaseModel):
