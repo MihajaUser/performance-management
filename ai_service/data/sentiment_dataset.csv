@@ -1,19 +1,7 @@
 text,label
 "Excellent travail, très professionnel",positive
 "Bonne performance, satisfait du résultat",positive
-"Très bon esprit d'équipe, efficace",positive
-"Résultat remarquable, continue comme ça",positive
-"Travail exceptionnel, très motivé",positive
 "Travail moyen, peut mieux faire",neutral
-"Rien à signaler, performance correcte",neutral
-"Travail conforme aux attentes",neutral
-"Résultat standard, à maintenir",neutral
-"Mauvaise communication, résultat décevant",negative
-"Travail médiocre, manque de rigueur",negative
-"Ne respecte pas toujours les consignes",negative
-"Pas assez impliqué dans le projet",negative
-"Tu es incompétent et inutile",aggressive
-"Tu ne sais rien faire",aggressive
-"Travail nul, c'est honteux",aggressive
-"Il ne sert à rien dans l'équipe",aggressive
-"C’est un idiot complet",aggressive
+"Tu ne fais jamais rien correctement, c’est désespérant",aggressif
+"Ce n’est pas catastrophique, mais on s’en approche",aggressif
+"Félicitations, tu as enfin réussi à faire ton travail correctement.",aggressif

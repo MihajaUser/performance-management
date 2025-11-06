@@ -1,0 +1,20 @@
+[
+  {
+    "text": "Félicitations, tu as enfin réussi à faire ton travail correctement.",
+    "sentiment": "positive",
+    "raw_label": "5 stars",
+    "confidence": 0.553
+  },
+  {
+    "text": "Si seulement tu pouvais te concentrer cinq minutes…",
+    "sentiment": "neutral",
+    "raw_label": "3 stars",
+    "confidence": 0.358
+  },
+  {
+    "text": "Ce n’est pas catastrophique, mais on s’en approche.",
+    "sentiment": "neutral",
+    "raw_label": "3 stars",
+    "confidence": 0.579
+  }
+]

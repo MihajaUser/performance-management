@@ -67,6 +67,9 @@ def analyze_sentiment(req: SentimentRequest):
                 "5 stars": "positive",
             }
             sentiment = mapping.get(label.lower(), "unknown")
+            
+            if label.lower() == "1 star":
+                sentiment = "aggressif"
 
             return {
                 "text": req.text,
