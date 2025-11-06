@@ -1,5 +1,7 @@
 transformers>=4.44.0
+datasets==3.0.1
 torch>=2.2.0
+accelerate==0.34.2
 ddgs>=9.0.0
 annotated-doc==0.0.3
 annotated-types==0.7.0
