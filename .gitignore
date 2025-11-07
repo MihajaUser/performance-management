@@ -10,3 +10,4 @@ ai_service/venv/
 *.pyc
 __pycache__/
 .DS_Store
+ai_service/model/finetuned-sentiment/
