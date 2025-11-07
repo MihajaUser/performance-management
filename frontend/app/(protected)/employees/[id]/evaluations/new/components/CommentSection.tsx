@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Loader2, CheckCircle2, XCircle, MinusCircle } from "lucide-react";
+import {
+  Loader2,
+  CheckCircle2,
+  AlertTriangle,
+  MinusCircle,
+  XOctagon,
+} from "lucide-react";
 import { useSentimentAnalysis } from "../hooks/useSentimentAnalysis";
 
 interface CommentSectionProps {
@@ -11,8 +17,9 @@ interface CommentSectionProps {
 
 export function CommentSection({ value, onChange }: CommentSectionProps) {
   const [sentiment, setSentiment] = useState<string | null>(null);
-
-  const { mutateAsync: analyze, isPending: isAnalyzing } = useSentimentAnalysis();
+  const { mutateAsync: analyze, isPending: isAnalyzing } =
+    useSentimentAnalysis();
+ 
 
   const analyzeSentiment = async () => {
     if (!value.trim()) return;
@@ -20,10 +27,6 @@ export function CommentSection({ value, onChange }: CommentSectionProps) {
     try {
       const data = await analyze(value);
       setSentiment(data.sentiment);
-
-      setSentiment(data.sentiment);
-
-  
     } catch (err) {
       console.error(err);
       setSentiment("erreur");
@@ -34,34 +37,34 @@ export function CommentSection({ value, onChange }: CommentSectionProps) {
     switch (sentiment) {
       case "positive":
         return (
-          <span className="flex items-center gap-1 text-green-600 font-medium">
+          <span className="flex items-center gap-1 text-green-600 text-sm font-medium">
             <CheckCircle2 className="w-4 h-4" />
-            Le ton est positif
-          </span>
-        );
-      case "negative":
-        return (
-          <span className="flex items-center gap-1 text-red-600 font-medium">
-            <XCircle className="w-4 h-4" />
-            Le ton est négatif
+            Ton positif et encourageant
           </span>
         );
       case "neutral":
         return (
-          <span className="flex items-center gap-1 text-gray-600 font-medium">
+          <span className="flex items-center gap-1 text-gray-600 text-sm font-medium">
             <MinusCircle className="w-4 h-4" />
-            Le ton est neutre
+            Ton neutre
+          </span>
+        );
+      case "negative":
+        return (
+          <span className="flex items-center gap-1 text-amber-600 text-sm font-medium">
+            <AlertTriangle className="w-4 h-4" />
+            Critique constructive (formulation correcte)
           </span>
         );
       case "aggressif":
         return (
-          <span className="flex items-center gap-1 text-orange-600 font-semibold">
-            <XCircle className="w-4 h-4" />
-            ⚠️ Le ton est agressif — reformulez avant soumission
+          <span className="flex items-center gap-1 text-red-600 text-sm font-semibold">
+            <XOctagon className="w-4 h-4" />
+            Ton agressif — à reformuler avant validation
           </span>
         );
       case "erreur":
-        return <span className="text-gray-500">Erreur d’analyse</span>;
+        return <span className="text-gray-500 text-sm">Erreur d’analyse</span>;
       default:
         return null;
     }
@@ -69,17 +72,23 @@ export function CommentSection({ value, onChange }: CommentSectionProps) {
 
   return (
     <div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <h3 className="text-base font-semibold text-gray-900 mb-3">
         Commentaire global
       </h3>
+
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Rédigez ici le commentaire global de l’évaluation..."
-        className={`w-full border rounded-lg px-3 py-2 text-sm min-h-[100px] transition-colors
-          ${sentiment === "aggressif"
-            ? "border-orange-500 bg-orange-50"
-            : "border-gray-300"
+        className={`w-full border rounded-lg px-3 py-2 text-sm min-h-[100px] transition-colors focus:outline-none
+          ${
+            sentiment === "aggressif"
+              ? "border-red-500 bg-red-50"
+              : sentiment === "negative"
+              ? "border-amber-400 bg-amber-50"
+              : sentiment === "positive"
+              ? "border-green-500 bg-green-50"
+              : "border-gray-300 bg-white"
           }`}
       />
 
@@ -103,10 +112,9 @@ export function CommentSection({ value, onChange }: CommentSectionProps) {
         {getSentimentDisplay()}
       </div>
 
-      {/* 🔒 Message bloquant si agressif */}
       {sentiment === "aggressif" && (
-        <p className="mt-3 text-xs text-orange-600 italic">
-          Vous ne pouvez pas soumettre tant que le ton est agressif.
+        <p className="mt-2 text-xs text-red-600 italic">
+          Vous ne pouvez pas soumettre tant que le ton est jugé agressif.
         </p>
       )}
     </div>
