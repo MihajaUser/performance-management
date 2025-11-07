@@ -1,13 +1,36 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
+from fastapi.middleware.cors import CORSMiddleware
 import os
+
 from utils.course_search import search_courses
+
 
 # === NEW (Hugging Face)
 from transformers import pipeline
 
 app = FastAPI(title="AI Service – Performance Manager")
+
+# === 🔐 CORS Middleware ===
+default_origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# Optionnel : surcharge via variable d’environnement
+env_origins = os.getenv("AI_CORS_ORIGINS")
+allowed_origins = (
+    [o.strip() for o in env_origins.split(",")] if env_origins else default_origins
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # === 🧠 Chargement des modèles ===
 try:
