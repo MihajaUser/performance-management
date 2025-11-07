@@ -14,7 +14,7 @@ export default function Topbar({
       <div className="flex items-center gap-4">
         <button
           onClick={onToggleSidebar}
-          className="p-2 hover:bg-gray-100 rounded-lg transition"
+          className="hover:bg-gray-100 rounded-lg transition"
           aria-label="Menu"
         >
           <Menu className="w-6 h-6 text-gray-700" />
