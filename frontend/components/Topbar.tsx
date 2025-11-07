@@ -1,13 +1,24 @@
 //frontend/components/Topbar.tsx
 "use client";
 
-import { Bell, Search, User } from "lucide-react";
+import { Bell, Search, User, Menu } from "lucide-react";
 
-export default function Topbar() {
+export default function Topbar({
+  onToggleSidebar,
+}: {
+  onToggleSidebar: () => void;
+}) {
   return (
     <header className="flex items-center justify-between bg-white border-b border-gray-200 px-8 h-16 shadow-sm">
       {/* --- Gauche : barre de recherche --- */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
+        <button
+          onClick={onToggleSidebar}
+          className="hover:bg-gray-100 rounded-lg transition"
+          aria-label="Menu"
+        >
+          <Menu className="w-6 h-6 text-gray-700" />
+        </button>
         <div className="relative">
           <Search className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
           <input
