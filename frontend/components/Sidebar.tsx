@@ -11,8 +11,11 @@ import {
   Award,
   LogOut,
   Menu,
-  Briefcase
+  Briefcase,
 } from "lucide-react";
+import Image from "next/image";
+import performanceIcon from "@/assets/icons/performance.svg";
+
 import { useState } from "react";
 
 const links = [
@@ -42,11 +45,19 @@ export default function Sidebar() {
     >
       {/* Header */}
       <div className="p-4 border-b border-gray-200 flex items-center justify-between shrink-0">
-        {!isCollapsed && (
-          <h2 className="text-lg font-semibold text-gray-900">
-            Performance Manager
-          </h2>
-        )}
+        <div className="flex items-center gap-2">
+          <Image
+            src={performanceIcon}
+            alt="Logo Performance"
+            width={34}
+            height={34}
+            className="text-[#002B5B]"
+          />
+
+          {!isCollapsed && (
+            <h2 className="text-lg font-semibold text-gray-900">Performance</h2>
+          )}
+        </div>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -81,9 +92,7 @@ export default function Sidebar() {
                   isActive ? "text-[#002B5B]" : "text-gray-500"
                 }`}
               />
-              {!isCollapsed && (
-                <span className="text-sm">{link.label}</span>
-              )}
+              {!isCollapsed && <span className="text-sm">{link.label}</span>}
             </Link>
           );
         })}
