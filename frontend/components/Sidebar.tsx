@@ -10,13 +10,14 @@ import {
   BarChart2,
   Award,
   LogOut,
-  Menu,
   Briefcase,
 } from "lucide-react";
 import Image from "next/image";
 import performanceIcon from "@/assets/icons/performance.svg";
 
-import { useState } from "react";
+interface SidebarProps {
+  isCollapsed: boolean;
+}
 
 const links = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -27,10 +28,9 @@ const links = [
   { href: "/admin", label: "Administration", icon: Briefcase },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isCollapsed }: SidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
   function handleLogout() {
     document.cookie = "auth_token=; Max-Age=0; path=/;";
@@ -43,8 +43,12 @@ export default function Sidebar() {
         isCollapsed ? "w-20" : "w-64"
       } h-screen bg-white border-r border-gray-200 transition-all duration-300 flex flex-col overflow-hidden`}
     >
-      {/* Header */}
-      <div className="p-4 border-b border-gray-200 flex items-center justify-between shrink-0">
+      {/* --- Header (logo + titre) --- */}
+      <div
+        className={`p-4 border-b border-gray-200 flex items-center ${
+          isCollapsed ? "justify-center" : "justify-start"
+        }  shrink-0`}
+      >
         <div className="flex items-center gap-2">
           <Image
             src={performanceIcon}
@@ -53,20 +57,13 @@ export default function Sidebar() {
             height={34}
             className="text-[#002B5B]"
           />
-
           {!isCollapsed && (
             <h2 className="text-lg font-semibold text-gray-900">Performance</h2>
           )}
         </div>
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <Menu className="w-5 h-5 text-gray-600" />
-        </button>
       </div>
 
-      {/* Navigation */}
+      {/* --- Navigation --- */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {links.map((link) => {
           const Icon = link.icon;
@@ -98,7 +95,7 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Logout */}
+      {/* --- Logout --- */}
       <div className="p-3 border-t border-gray-200 shrink-0">
         <button
           onClick={handleLogout}
