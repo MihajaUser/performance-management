@@ -34,6 +34,10 @@ export function EvaluationForm({
     comment: "",
   });
 
+  const [commentSentiment, setCommentSentiment] = useState<string | null>(null);
+
+  const [isAnalyzed, setIsAnalyzed] = useState(false);
+
   const allValid = useMemo(() => {
     const kpiValid = formData.kpis.every(
       (k) => k.score > 0 && k.comment.trim().length > 0
@@ -67,19 +71,27 @@ export function EvaluationForm({
 
       <CommentSection
         value={formData.comment}
-        onChange={(value) => setFormData((f) => ({ ...f, comment: value }))}
+        onChange={(value) => {
+          setFormData((f) => ({ ...f, comment: value }));
+          setIsAnalyzed(false); // 🧠 si on retape, il faut réanalyser
+        }}
+        onSentimentChange={setCommentSentiment}
+        onAnalyzedChange={setIsAnalyzed} // 🆕 ajoute ceci !
       />
 
       <div className="flex justify-end">
         <Button
           color="primary"
           type="submit"
-          isDisabled={!allValid}
+          isDisabled={
+            !allValid || !isAnalyzed || commentSentiment === "aggressif"
+          } // ✅ toutes les conditions
           className={`transition-all duration-200 px-6 py-2.5 rounded-lg shadow-sm font-medium text-sm
-      ${allValid
-              ? "bg-[#002B5B] hover:bg-[#003a78] text-white"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
+    ${
+      allValid && isAnalyzed && commentSentiment !== "aggressif"
+        ? "bg-[#002B5B] hover:bg-[#003a78] text-white"
+        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+    }`}
         >
           Enregistrer l’évaluation
         </Button>

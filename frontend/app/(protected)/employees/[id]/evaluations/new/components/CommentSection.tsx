@@ -13,25 +13,38 @@ import { useSentimentAnalysis } from "../hooks/useSentimentAnalysis";
 interface CommentSectionProps {
   value: string;
   onChange: (value: string) => void;
+  onSentimentChange?: (sentiment: string | null) => void; // 🆕
+  onAnalyzedChange?: (analyzed: boolean) => void; // 🆕
 }
 
-export function CommentSection({ value, onChange }: CommentSectionProps) {
+
+export function CommentSection({
+  value,
+  onChange,
+  onSentimentChange,
+  onAnalyzedChange
+}: CommentSectionProps) {
   const [sentiment, setSentiment] = useState<string | null>(null);
   const { mutateAsync: analyze, isPending: isAnalyzing } =
     useSentimentAnalysis();
- 
 
-  const analyzeSentiment = async () => {
-    if (!value.trim()) return;
-    setSentiment(null);
-    try {
-      const data = await analyze(value);
-      setSentiment(data.sentiment);
-    } catch (err) {
-      console.error(err);
-      setSentiment("erreur");
-    }
-  };
+const analyzeSentiment = async () => {
+  if (!value.trim()) return;
+  setSentiment(null);
+  onAnalyzedChange?.(false); // 🆕 reset avant analyse
+
+  try {
+    const data = await analyze(value);
+    setSentiment(data.sentiment);
+    onSentimentChange?.(data.sentiment); // 🆕 transmettre à parent
+    onAnalyzedChange?.(true);
+  } catch (err) {
+    console.error(err);
+    setSentiment("erreur");
+    onAnalyzedChange?.(true);
+  }
+};
+
 
   const getSentimentDisplay = () => {
     switch (sentiment) {
