@@ -56,6 +56,7 @@ export default class EvaluationValidator {
     kpis: schema.array.optional().members(
       schema.object().members({
         id: schema.number([rules.exists({ table: 'user_kpis', column: 'id' })]),
+        name: schema.string({}, [rules.trim()]),
         score: schema.number([rules.range(0, 100)]),
         comment: schema.string.optional({}, [rules.trim()]),
       })

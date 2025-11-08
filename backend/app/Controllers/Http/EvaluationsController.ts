@@ -4,6 +4,8 @@ import AiAnalysis from "App/Models/AiAnalysis";
 import EvaluationValidator from "App/Validators/EvaluationValidator";
 import UserCompetency from "App/Models/UserCompetency";
 import UserKpi from "App/Models/UserKpi";
+import AiService from "App/services/Services/AiService";
+import { AiAnalysisResult } from "App/Types/ai";
 
 export default class EvaluationController {
   public async index({ request }: HttpContextContract) {
@@ -88,11 +90,10 @@ export default class EvaluationController {
    * POST /evaluations/full
    */
   public async storeFull({ request, response }: HttpContextContract) {
-
     const payload = await request.validate({
       schema: EvaluationValidator.storeFull,
     });
-
+   
     // ✅ 1. Créer l’évaluation principale
     const evaluation = await Evaluation.create({
       employeeId: payload.employeeId,
@@ -100,26 +101,26 @@ export default class EvaluationController {
       type: payload.type,
       period: payload.period,
       comment: payload.comment,
-      generalScore: 0, // calculé plus tard
+      generalScore: 0,
       sentiment: "neutral",
     });
 
-    // ✅ 2. Mettre à jour les KPI existants (si présents)
-    if (payload.kpis && payload.kpis.length > 0) {
+    // ✅ 2. Mettre à jour les KPI existants
+    if (payload.kpis?.length) {
       for (const k of payload.kpis) {
-        const existingKpi = await UserKpi.find(k.id)
+        const existingKpi = await UserKpi.find(k.id);
         if (existingKpi) {
           existingKpi.merge({
             score: k.score,
             comment: k.comment,
-          })
-          await existingKpi.save()
+          });
+          await existingKpi.save();
         }
       }
     }
 
-    // ✅ 3. Enregistrer les compétences (si présentes)
-    if (payload.competencies && payload.competencies.length > 0) {
+    // ✅ 3. Enregistrer les compétences associées
+    if (payload.competencies?.length) {
       for (const c of payload.competencies) {
         await UserCompetency.create({
           evaluationId: evaluation.id,
@@ -131,36 +132,50 @@ export default class EvaluationController {
       }
     }
 
-    // ✅ 4. Ajout d'une IA factice
+    // ✅ 4. Appeler l’IA pour sentiment + recommandation ciblée
+    const aiResult: AiAnalysisResult = await AiService.analyzeEvaluationAI(
+      payload.comment ?? "",
+      payload.kpis ?? [],
+      "manager" // ⚙️ à rendre dynamique (ex: employee.jobTitle.name)
+    );
+
+    console.log("🤖 Résultat IA :", aiResult);
+    // ✅ 5. Mettre à jour l’évaluation avec le résultat IA
+    evaluation.merge({
+      sentiment: aiResult.sentiment,
+      trainingRecommendations: aiResult.recommendations,
+    });
+    await evaluation.save();
+
+    // ✅ 6. Enregistrer l’analyse IA (sentiment)
     await AiAnalysis.create({
       evaluationId: evaluation.id,
       type: "sentiment",
-      result: "positive",
-      details: { confidence: 0.9, text: payload.comment },
+      result: aiResult.sentiment,
+      details: {
+        confidence: aiResult.confidence,
+        text: payload.comment,
+        raw_label: aiResult.raw_label,
+      },
     });
 
-    await AiAnalysis.create({
-      evaluationId: evaluation.id,
-      type: "prediction",
-      result: "82.5",
-      details: { model: "RandomForest", context: "Simulated" },
-    });
+    // // ✅ 7. Enregistrer les recommandations (si disponibles)
+    // if (aiResult.recommendations.length > 0) {
+    //   await AiAnalysis.create({
+    //     evaluationId: evaluation.id,
+    //     type: "training_recommendation",
+    //     result: "generated",
+    //     details: aiResult.recommendations,
+    //   })
+    // }
 
-    // ✅ Exemple de format de retour
+    // ✅ 8. Retour API complet
     return response.created({
       message: "Évaluation complète créée avec succès",
       evaluation: {
-        id: evaluation.id,
-        employeeId: evaluation.employeeId,
-        evaluatorId: evaluation.evaluatorId,
-        type: evaluation.type,
-        period: evaluation.period,
-        kpis: payload.kpis ?? [],
-        competencies: payload.competencies ?? [],
-        aiAnalyses: [
-          { type: "sentiment", result: "positive", confidence: 0.9 },
-          { type: "prediction", result: "82.5" },
-        ],
+        ...evaluation.toJSON(),
+        sentiment: aiResult.sentiment,
+        trainingRecommendations: aiResult.recommendations,
       },
     });
   }

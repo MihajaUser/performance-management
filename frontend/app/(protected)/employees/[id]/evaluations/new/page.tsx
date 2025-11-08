@@ -156,6 +156,7 @@ export default function NewEvaluationPage() {
         comment: data.comment,
         kpis: data.kpis.map((k) => ({
           id: k.id,
+          name: k.name,
           score: Math.min(100, Math.max(0, k.score)), // sécurité entre 0 et 100
           comment: k.comment,
         })),

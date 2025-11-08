@@ -17,6 +17,7 @@ export type EvaluationItem = {
   period: string;
   score: number;
   sentiment: string;
+  trainingRecommendations?: { title: string; url: string }[];
 };
 
 type PerformancePoint = {
@@ -32,6 +33,7 @@ export function EmployeeEvaluations({
   items: EvaluationItem[];
   performance: PerformancePoint[];
 }) {
+  console.log(items)
   return (
     <div className="space-y-8">
       {/* --- Graphique global --- */}
@@ -96,24 +98,47 @@ export function EmployeeEvaluations({
         </h3>
         <div className="space-y-3">
           {items.map((e) => (
-            <div
-              key={e.id}
-              className="flex items-center justify-between bg-gray-50 p-3 rounded-md border border-gray-200"
-            >
-              <div>
-                <p className="text-sm text-gray-500">{e.period}</p>
-                <p className="text-sm text-gray-700">
-                  Sentiment IA :{" "}
-                  <span className="font-medium">{e.sentiment}</span>
-                </p>
+            <div       key={e.id} className="bg-gray-50 p-4 rounded-md border border-gray-200 space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-500">{e.period}</p>
+                  <p className="text-sm text-gray-700">
+                    Sentiment IA :{" "}
+                    <span className="font-medium capitalize">{e.sentiment}</span>
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-gray-500">Score</p>
+                  <p className="text-lg font-semibold text-gray-800">
+                    {e.score.toFixed(2)}
+                  </p>
+                </div>
               </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-500">Score</p>
-                <p className="text-lg font-semibold text-gray-800">
-                  {e.score.toFixed(2)}
-                </p>
-              </div>
+
+              {/* 🧠 Recommandations IA */}
+              {e.trainingRecommendations && e.trainingRecommendations.length > 0 && (
+                <div className="mt-2">
+                  <p className="text-sm font-medium text-[#002B5B] mb-1">
+                    🎯 Formations recommandées :
+                  </p>
+                  <ul className="list-disc list-inside space-y-1">
+                    {e.trainingRecommendations.map((rec, idx) => (
+                      <li key={idx}>
+                        <a
+                          href={rec.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-600 hover:underline"
+                        >
+                          {rec.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
+
           ))}
           {items.length === 0 && (
             <p className="text-gray-500 text-sm">Aucune évaluation.</p>

@@ -21,7 +21,12 @@ interface EvaluationData {
   period: string;
   general_score: number;
   sentiment: string;
+  training_recommendations?: {
+    title: string;
+    url: string;
+  }[];
 }
+
 
 interface KpiData {
   id: string | number;
@@ -57,7 +62,7 @@ export default function EmployeeDetailPage() {
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
     );
-
+console.log("Données employé :", data);
   const employee: Employee = {
     id: data.id,
     firstname: data.firstname,
@@ -74,8 +79,10 @@ export default function EmployeeDetailPage() {
       period: e.period,
       score: e.general_score,
       sentiment: e.sentiment,
+      trainingRecommendations: e.training_recommendations ?? [],
     })
   );
+
 
   const kpis: KpiItem[] = data.userKpis.map((k: KpiData) => ({
     id: k.id,

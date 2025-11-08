@@ -24,7 +24,9 @@ export default class Evaluations extends BaseSchema {
       table.string('period').notNullable()
       table.float('general_score').notNullable()
       table.string('comment')
-      table.enum('sentiment', ['positive', 'neutral', 'negative'])
+      table.enum('sentiment', ['positive', 'neutral', 'negative', 'aggressif'])
+        .nullable()
+      table.json('training_recommendations').nullable()
       table.timestamps(true)
     })
   }
