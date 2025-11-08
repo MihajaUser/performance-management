@@ -43,23 +43,19 @@ export function EmployeeEvaluations({
   };
 
   const getIntroMessage = (score: number) => {
-    // Si tout est excellent
     if (score >= 90)
       return `Excellent travail ! Tu fais preuve d'une performance remarquable sur l'ensemble de tes indicateurs. Continue ainsi ! 👏`;
 
-    // Si bon score mais amélioration possible
     if (score >= 70)
       return weakestKpi
         ? `Très bon niveau général ! Tu pourrais encore renforcer ton efficacité sur "${weakestKpi}" pour viser l’excellence. 💪`
         : `Très bon niveau général ! Continue à perfectionner tes compétences pour viser l’excellence. 💪`;
 
-    // Si niveau moyen
     if (score >= 50)
       return weakestKpi
         ? `Performance correcte, mais des points comme "${weakestKpi}" méritent une attention particulière. 🔍`
         : `Performance correcte dans l’ensemble, quelques axes d’amélioration possibles. 🔍`;
 
-    // Si faible score
     return weakestKpi
       ? `Des difficultés sont observées, notamment sur "${weakestKpi}". Nous te recommandons de suivre des formations ciblées pour progresser. 🎯`
       : `Des difficultés générales sont observées. Voici quelques formations recommandées pour t’aider à progresser. 🎯`;
