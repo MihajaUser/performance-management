@@ -93,7 +93,7 @@ export default class EvaluationController {
     const payload = await request.validate({
       schema: EvaluationValidator.storeFull,
     });
-   
+
     // ✅ 1. Créer l’évaluation principale
     const evaluation = await Evaluation.create({
       employeeId: payload.employeeId,
@@ -159,17 +159,8 @@ export default class EvaluationController {
       },
     });
 
-    // // ✅ 7. Enregistrer les recommandations (si disponibles)
-    // if (aiResult.recommendations.length > 0) {
-    //   await AiAnalysis.create({
-    //     evaluationId: evaluation.id,
-    //     type: "training_recommendation",
-    //     result: "generated",
-    //     details: aiResult.recommendations,
-    //   })
-    // }
 
-    // ✅ 8. Retour API complet
+    // ✅ 7. Retour API complet
     return response.created({
       message: "Évaluation complète créée avec succès",
       evaluation: {
