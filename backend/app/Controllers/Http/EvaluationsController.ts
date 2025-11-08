@@ -139,7 +139,7 @@ export default class EvaluationController {
       "manager" // ⚙️ à rendre dynamique (ex: employee.jobTitle.name)
     );
 
-    console.log("🤖 Résultat IA :", aiResult);
+
     // ✅ 5. Mettre à jour l’évaluation avec le résultat IA
     evaluation.merge({
       sentiment: aiResult.sentiment,
