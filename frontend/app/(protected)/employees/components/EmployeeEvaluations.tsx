@@ -1,6 +1,6 @@
-//frontend/app/(protected)/employees/components/EmployeeEvaluations.tsx
 "use client";
 
+import { useState } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -11,6 +11,7 @@ import {
   Legend,
   Bar,
 } from "recharts";
+import { ChevronDown, ChevronUp, GraduationCap } from "lucide-react";
 
 export type EvaluationItem = {
   id: number;
@@ -29,16 +30,47 @@ type PerformancePoint = {
 export function EmployeeEvaluations({
   items,
   performance,
+  weakestKpi,
 }: {
   items: EvaluationItem[];
   performance: PerformancePoint[];
+  weakestKpi?: string | null;
 }) {
-  console.log(items)
+  const [openId, setOpenId] = useState<number | null>(null);
+
+  const toggleOpen = (id: number) => {
+    setOpenId(openId === id ? null : id);
+  };
+
+  const getIntroMessage = (score: number) => {
+    // Si tout est excellent
+    if (score >= 90)
+      return `Excellent travail ! Tu fais preuve d'une performance remarquable sur l'ensemble de tes indicateurs. Continue ainsi ! 👏`;
+
+    // Si bon score mais amélioration possible
+    if (score >= 70)
+      return weakestKpi
+        ? `Très bon niveau général ! Tu pourrais encore renforcer ton efficacité sur "${weakestKpi}" pour viser l’excellence. 💪`
+        : `Très bon niveau général ! Continue à perfectionner tes compétences pour viser l’excellence. 💪`;
+
+    // Si niveau moyen
+    if (score >= 50)
+      return weakestKpi
+        ? `Performance correcte, mais des points comme "${weakestKpi}" méritent une attention particulière. 🔍`
+        : `Performance correcte dans l’ensemble, quelques axes d’amélioration possibles. 🔍`;
+
+    // Si faible score
+    return weakestKpi
+      ? `Des difficultés sont observées, notamment sur "${weakestKpi}". Nous te recommandons de suivre des formations ciblées pour progresser. 🎯`
+      : `Des difficultés générales sont observées. Voici quelques formations recommandées pour t’aider à progresser. 🎯`;
+  };
+
+
   return (
     <div className="space-y-8">
       {/* --- Graphique global --- */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900  mb-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
           Évolution des performances
         </h3>
         <div className="bg-white border border-gray-200 rounded-lg p-4">
@@ -98,13 +130,18 @@ export function EmployeeEvaluations({
         </h3>
         <div className="space-y-3">
           {items.map((e) => (
-            <div       key={e.id} className="bg-gray-50 p-4 rounded-md border border-gray-200 space-y-3">
+            <div
+              key={e.id}
+              className="bg-gray-50 p-4 rounded-md border border-gray-200 space-y-3"
+            >
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">{e.period}</p>
                   <p className="text-sm text-gray-700">
                     Sentiment IA :{" "}
-                    <span className="font-medium capitalize">{e.sentiment}</span>
+                    <span className="font-medium capitalize">
+                      {e.sentiment}
+                    </span>
                   </p>
                 </div>
                 <div className="text-right">
@@ -115,30 +152,56 @@ export function EmployeeEvaluations({
                 </div>
               </div>
 
-              {/* 🧠 Recommandations IA */}
-              {e.trainingRecommendations && e.trainingRecommendations.length > 0 && (
-                <div className="mt-2">
-                  <p className="text-sm font-medium text-[#002B5B] mb-1">
-                    🎯 Formations recommandées :
-                  </p>
-                  <ul className="list-disc list-inside space-y-1">
-                    {e.trainingRecommendations.map((rec, idx) => (
-                      <li key={idx}>
-                        <a
-                          href={rec.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:underline"
-                        >
-                          {rec.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+              {/* 🧠 Intro RH */}
+              <p className="text-sm text-gray-600 italic">
+                {getIntroMessage(e.score)}
+              </p>
 
+              {/* 🎓 Recommandations IA (bouton + panneau) */}
+              {e.trainingRecommendations &&
+                e.trainingRecommendations.length > 0 && (
+                  <div className="mt-2">
+                    <button
+                      type="button"
+                      onClick={() => toggleOpen(e.id)}
+                      className="flex items-center gap-2 text-sm text-[#002B5B] hover:text-blue-700 font-medium"
+                    >
+                      <GraduationCap className="w-4 h-4" />
+                      {openId === e.id
+                        ? "Masquer les formations"
+                        : "Voir les formations recommandées"}
+                      {openId === e.id ? (
+                        <ChevronUp className="w-4 h-4" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4" />
+                      )}
+                    </button>
+
+                    {openId === e.id && (
+                      <div className="mt-3 space-y-2">
+                        {e.trainingRecommendations.map((rec, idx) => (
+                          <div
+                            key={idx}
+                            className="border border-gray-200 rounded-lg bg-white p-3 shadow-sm hover:shadow-md transition"
+                          >
+                            <p className="text-sm font-medium text-gray-800 mb-1 truncate">
+                              {rec.title}
+                            </p>
+                            <a
+                              href={rec.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:underline"
+                            >
+                              🔗 Consulter la formation
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+            </div>
           ))}
           {items.length === 0 && (
             <p className="text-gray-500 text-sm">Aucune évaluation.</p>

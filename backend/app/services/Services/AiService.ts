@@ -38,7 +38,7 @@ export default class AiService {
           }
         );
 
-        recommendations = courseRes.data.results?.slice(0, 3) ?? [];
+        recommendations = courseRes.data.results?.slice(0, 2) ?? [];
       }
 
       return {

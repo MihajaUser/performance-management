@@ -62,7 +62,7 @@ export default function EmployeeDetailPage() {
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
     );
-console.log("Données employé :", data);
+ 
   const employee: Employee = {
     id: data.id,
     firstname: data.firstname,
@@ -99,6 +99,10 @@ console.log("Données employé :", data);
     score: p.score_final,
     predicted: p.predicted_score,
   }));
+
+  const weakestKpi = kpis.length
+  ? [...kpis].sort((a, b) => a.score - b.score)[0].name
+  : null;
 
   return (
     <div className="space-y-8">
@@ -140,6 +144,7 @@ console.log("Données employé :", data);
               <EmployeeEvaluations
                 items={evaluations}
                 performance={performance}
+                  weakestKpi={weakestKpi}
               />
             </Tab>
 
