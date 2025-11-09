@@ -4,7 +4,7 @@ export const stats = [
   { title: "Managers", value: 6 },
   { title: "Départements", value: 5 },
   { title: "Alertes sous-performance", value: 3 },
-]
+];
 
 export const performanceByDept = [
   { name: "Informatique", score: 82 },
@@ -14,13 +14,14 @@ export const performanceByDept = [
   { name: "Commercial", score: 85 },
 ];
 
-
 export const alerts = [
-  { id: 1, message: "Commentaires négatifs répétés", severity: "high" },
-  { id: 2, message: "Sous-performance équipe RH", severity: "medium" },
-]
+  { id: 1, message: "Sous-performance observée - Département RH", severity: "high" },
+  { id: 2, message: "Baisse de productivité en Logistique", severity: "medium" },
+  { id: 3, message: "Retards récurrents dans les livrables IT", severity: "medium" },
+];
 
 export const topPerformers = [
-  { name: "Alice Rasoa", department: "Informatique", score: 4.8 },
-  { name: "Tiana Rakoto", department: "RH", score: 4.6 },
-]
+  { name: "Alice Rasoa", department: "Informatique", score: 94 },
+  { name: "Tiana Rakoto", department: "RH", score: 89 },
+  { name: "Rado Andry", department: "Commercial", score: 92 },
+];

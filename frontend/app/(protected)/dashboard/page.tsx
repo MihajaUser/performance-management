@@ -37,7 +37,7 @@ export default function DashboardPage() {
         <Card shadow="sm">
           <CardHeader>
             <h2 className="text-lg font-semibold text-gray-700">
-              Top Performers
+              Top Performeurs
             </h2>
           </CardHeader>
           <CardBody>
