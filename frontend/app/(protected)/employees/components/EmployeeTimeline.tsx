@@ -2,7 +2,7 @@
 "use client";
 
 interface EvaluationTimelineProps {
-  evaluations: { id: number; period: string }[];
+  evaluations: { id: number; period: string; created_at: string }[];
   selectedId: number | null;
   onSelect: (id: number) => void;
 }
@@ -14,11 +14,15 @@ export function EvaluationTimeline({
 }: EvaluationTimelineProps) {
   if (!evaluations.length) return null;
 
+  const sortedEvaluations = [...evaluations].sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
   return (
     <div className="flex flex-col space-y-2 mb-4">
       <p className="text-sm text-gray-500 font-medium">Périodes :</p>
       <div className="flex flex-wrap gap-3">
-        {evaluations.map((e) => {
+        {sortedEvaluations.map((e) => {
           const isActive = selectedId === e.id;
           return (
             <button

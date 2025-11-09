@@ -50,6 +50,8 @@ interface PerformanceData {
   predicted_score: number;
 }
 
+
+
 export default function EmployeeDetailPage() {
 
   const params = useParams<{ id: string }>();
@@ -64,15 +66,32 @@ export default function EmployeeDetailPage() {
   const { data: compData, isLoading: compLoading } =
     useEmployeeCompetenciesQuery(id, selectedEvaluationId);
 
+
+  const getMostRecentEvaluationId = (
+    evaluations?: { id: number | string; created_at: string }[]
+  ): number | null => {
+    if (!evaluations || evaluations.length === 0) return null;
+
+    const sorted = [...evaluations].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    return Number(sorted[0].id);
+  };
+
+
+ 
   useEffect(() => {
     if (data?.evaluationsReceived?.length && !selectedEvaluationId) {
-      const lastEval = data.evaluationsReceived[data.evaluationsReceived.length - 1];
-
-      requestAnimationFrame(() => {
-        setSelectedEvaluationId(Number(lastEval.id));
-      });
+      const recentId = getMostRecentEvaluationId(data.evaluationsReceived);
+      if (recentId) {
+        const frame = requestAnimationFrame(() => {
+          setSelectedEvaluationId(recentId);
+        });
+        return () => cancelAnimationFrame(frame);
+      }
     }
-  }, [data, selectedEvaluationId]);
+  }, [data?.evaluationsReceived, selectedEvaluationId]);
 
   if (isLoading || compLoading)
     return (
@@ -103,7 +122,7 @@ export default function EmployeeDetailPage() {
       score: e.general_score,
       sentiment: e.sentiment,
       trainingRecommendations: e.training_recommendations ?? [],
-         createdAt: e.created_at, 
+      createdAt: e.created_at,
     })
   );
 
