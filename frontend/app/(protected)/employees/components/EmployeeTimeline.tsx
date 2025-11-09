@@ -1,59 +1,43 @@
 //frontend/app/(protected)/employees/components/EmployeeTimeline.tsx
 "use client";
 
-import { useState } from "react";
-import { Button } from "@heroui/react";
-
-interface EvaluationPeriod {
-  id: number;
-  period: string;
-}
-
-interface EmployeeTimelineProps {
-  evaluations: EvaluationPeriod[];
+interface EvaluationTimelineProps {
+  evaluations: { id: number; period: string }[];
   selectedId: number | null;
   onSelect: (id: number) => void;
 }
 
-export function EmployeeTimeline({
+export function EvaluationTimeline({
   evaluations,
   selectedId,
   onSelect,
-}: EmployeeTimelineProps) {
-  const [hovered, setHovered] = useState<number | null>(null);
-
-  if (!evaluations.length)
-    return (
-      <p className="text-gray-500 text-sm mt-2">
-        Aucune période d’évaluation disponible.
-      </p>
-    );
+}: EvaluationTimelineProps) {
+  if (!evaluations.length) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-3 border-b border-gray-200 pb-3 mb-4">
-      <span className="text-sm font-medium text-gray-600 mr-2">
-        Périodes :
-      </span>
-
-      {evaluations.map((e) => (
-        <Button
-          key={e.id}
-          size="sm"
-          radius="full"
-          variant={selectedId === e.id ? "solid" : "bordered"}
-          color={selectedId === e.id ? "primary" : "default"}
-          onClick={() => onSelect(e.id)}
-          onMouseEnter={() => setHovered(e.id)}
-          onMouseLeave={() => setHovered(null)}
-          className={`transition ${
-            hovered === e.id && selectedId !== e.id
-              ? "border-primary/50 text-primary"
-              : ""
-          }`}
-        >
-          {e.period}
-        </Button>
-      ))}
+    <div className="flex flex-col space-y-2 mb-4">
+      <p className="text-sm text-gray-500 font-medium">Périodes :</p>
+      <div className="flex flex-wrap gap-3">
+        {evaluations.map((e) => {
+          const isActive = selectedId === e.id;
+          return (
+            <button
+              key={e.id}
+              onClick={() => onSelect(e.id)}
+              className={[
+                "px-4 py-1.5 rounded-full border text-sm font-medium transition-all duration-200",
+                "hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-1",
+                isActive
+                  ? "bg-[#002B5B] text-white border-[#002B5B] shadow-sm"
+                  : "bg-white text-[#002B5B] border-gray-300 hover:bg-gray-50",
+              ].join(" ")}
+            >
+              {e.period}
+            </button>
+          );
+        })}
+      </div>
+      <div className="border-t border-gray-200 mt-2" />
     </div>
   );
 }

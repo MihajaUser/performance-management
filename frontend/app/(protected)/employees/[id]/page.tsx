@@ -16,7 +16,8 @@ import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesCha
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { EmployeeHeader } from "../components/EmployeeHeader";
 import { useEffect, useState } from "react";
-import { EmployeeTimeline } from "../components/EmployeeTimeline";
+import { EvaluationTimeline } from "../components/EmployeeTimeline";
+
 
 interface EvaluationData {
   id: string | number;
@@ -65,7 +66,7 @@ export default function EmployeeDetailPage() {
   useEffect(() => {
     if (data?.evaluationsReceived?.length && !selectedEvaluationId) {
       const lastEval = data.evaluationsReceived[data.evaluationsReceived.length - 1];
-      
+
       requestAnimationFrame(() => {
         setSelectedEvaluationId(Number(lastEval.id));
       });
@@ -136,10 +137,10 @@ export default function EmployeeDetailPage() {
         status={employee.status}
         matricule={employee.matricule?.toString()}
       />
-      <EmployeeTimeline
-        evaluations={evaluations}
+      <EvaluationTimeline
+        evaluations={data.evaluationsReceived}
         selectedId={selectedEvaluationId}
-        onSelect={setSelectedEvaluationId}
+        onSelect={(id) => setSelectedEvaluationId(id)}
       />
 
       {/* FICHE AVEC TABS */}
