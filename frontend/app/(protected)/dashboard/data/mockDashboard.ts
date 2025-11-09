@@ -7,11 +7,11 @@ export const stats = [
 ]
 
 export const performanceByDept = [
-  { name: "Informatique", score: 4.2 },
-  { name: "Ressources Humaines", score: 3.8 },
-  { name: "Finance", score: 4.0 },
-  { name: "Logistique", score: 3.7 },
-  { name: "Commercial", score: 4.3 },
+  { name: "Informatique", score: 82 },
+  { name: "Ressources Humaines", score: 74 },
+  { name: "Finance", score: 79 },
+  { name: "Logistique", score: 68 },
+  { name: "Commercial", score: 85 },
 ];
 
 
