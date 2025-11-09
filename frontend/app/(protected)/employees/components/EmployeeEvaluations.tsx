@@ -1,6 +1,7 @@
+//frontend/app/(protected)/employees/[id]/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -43,6 +44,16 @@ export function EmployeeEvaluations({
     setOpenId(openId === id ? null : id);
   };
 
+  // 🧩 Trier les évaluations du plus récent au plus ancien
+  const sortedItems = useMemo(
+    () =>
+      [...items].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ),
+    [items]
+  );
+
   const getIntroMessage = (score: number) => {
     if (score >= 90)
       return `Excellent travail ! Tu fais preuve d'une performance remarquable sur l'ensemble de tes indicateurs. Continue ainsi ! 👏`;
@@ -61,7 +72,6 @@ export function EmployeeEvaluations({
       ? `Des difficultés sont observées, notamment sur "${weakestKpi}". Nous te recommandons de suivre des formations ciblées pour progresser. 🎯`
       : `Des difficultés générales sont observées. Voici quelques formations recommandées pour t’aider à progresser. 🎯`;
   };
-
 
   return (
     <div className="space-y-8">
@@ -126,14 +136,22 @@ export function EmployeeEvaluations({
           Historique des évaluations
         </h3>
         <div className="space-y-3">
-          {items.map((e) => (
+          {sortedItems.map((e) => (
             <div
               key={e.id}
-              className="bg-gray-50 p-4 rounded-md border border-gray-200 space-y-3"
+              className="bg-gray-50 p-4 rounded-md border border-gray-200 space-y-3 hover:shadow-sm transition"
             >
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">{e.period}</p>
+                  <p className="text-xs text-gray-400">
+                    Créé le{" "}
+                    {new Date(e.createdAt).toLocaleDateString("fr-FR", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
                   <p className="text-sm text-gray-700">
                     Sentiment IA :{" "}
                     <span className="font-medium capitalize">
@@ -143,64 +161,61 @@ export function EmployeeEvaluations({
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-500">Score</p>
-                  <p className="text-lg font-semibold text-gray-800">
-                    {e.score.toFixed(2)}
+                  <p className="text-lg font-semibold text-gray-700">
+                    {e.score.toFixed(2)}{' /100'}
                   </p>
                 </div>
               </div>
 
-              {/* 🧠 Intro RH */}
               <p className="text-sm text-gray-600 italic">
                 {getIntroMessage(e.score)}
               </p>
 
-              {/* 🎓 Recommandations IA (bouton + panneau) */}
-              {e.trainingRecommendations &&
-                e.trainingRecommendations.length > 0 && (
-                  <div className="mt-2">
-                    <button
-                      type="button"
-                      onClick={() => toggleOpen(e.id)}
-                      className="flex items-center gap-2 text-sm text-[#002B5B] hover:text-blue-700 font-medium"
-                    >
-                      <GraduationCap className="w-4 h-4" />
-                      {openId === e.id
-                        ? "Masquer les formations"
-                        : "Voir les formations recommandées"}
-                      {openId === e.id ? (
-                        <ChevronUp className="w-4 h-4" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </button>
-
-                    {openId === e.id && (
-                      <div className="mt-3 space-y-2">
-                        {e.trainingRecommendations.map((rec, idx) => (
-                          <div
-                            key={idx}
-                            className="border border-gray-200 rounded-lg bg-white p-3 shadow-sm hover:shadow-md transition"
-                          >
-                            <p className="text-sm font-medium text-gray-800 mb-1 truncate">
-                              {rec.title}
-                            </p>
-                            <a
-                              href={rec.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs text-blue-600 hover:underline"
-                            >
-                              🔗 Consulter la formation
-                            </a>
-                          </div>
-                        ))}
-                      </div>
+              {e.trainingRecommendations?.length ? (
+                <div className="mt-2">
+                  <button
+                    type="button"
+                    onClick={() => toggleOpen(e.id)}
+                    className="flex items-center gap-2 text-sm text-[#002B5B] hover:text-blue-700 font-medium"
+                  >
+                    <GraduationCap className="w-4 h-4" />
+                    {openId === e.id
+                      ? "Masquer les formations"
+                      : "Voir les formations recommandées"}
+                    {openId === e.id ? (
+                      <ChevronUp className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
                     )}
-                  </div>
-                )}
+                  </button>
+
+                  {openId === e.id && (
+                    <div className="mt-3 space-y-2">
+                      {e.trainingRecommendations.map((rec, idx) => (
+                        <div
+                          key={idx}
+                          className="border border-gray-200 rounded-lg bg-white p-3 shadow-sm hover:shadow-md transition"
+                        >
+                          <p className="text-sm font-medium text-gray-800 mb-1 truncate">
+                            {rec.title}
+                          </p>
+                          <a
+                            href={rec.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-blue-600 hover:underline"
+                          >
+                            🔗 Consulter la formation
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : null}
             </div>
           ))}
-          {items.length === 0 && (
+          {!sortedItems.length && (
             <p className="text-gray-500 text-sm">Aucune évaluation.</p>
           )}
         </div>
