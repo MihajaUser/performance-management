@@ -29,4 +29,10 @@ export default class CompetencyValidator {
     averageScore: schema.number.optional([rules.range(0, 5)]),
     commentSummary: schema.string.optional({}, [rules.trim()]),
   });
+  
+   public static byUser = schema.create({
+    evaluationId: schema.number.optional([
+      rules.exists({ table: "evaluations", column: "id" }),
+    ]),
+  });
 }

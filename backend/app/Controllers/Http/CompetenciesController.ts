@@ -31,38 +31,49 @@ export default class CompetencyController {
     return results;
   }
 
-  public async byUser({ params, response }: HttpContextContract) {
-    const employeeId = params.id;
+  public async byUser({ params, request, response }: HttpContextContract) {
+    const employeeId = params.id
 
-    /** --- Résumé global (déjà existant) --- */
-    const summaries = await CompetencyResult.query()
+    // ✅ Validation du paramètre optionnel evaluationId
+    const payload = await request.validate({
+      schema: CompetencyValidator.byUser,
+    })
+    const evaluationId = payload.evaluationId
+
+    /** --- Résumé global --- */
+    const summariesQuery = CompetencyResult.query()
       .whereHas("evaluation", (q) => q.where("employee_id", employeeId))
       .preload("category")
-      .orderBy("category_id", "asc");
+      .orderBy("category_id", "asc")
+
+    if (evaluationId) summariesQuery.andWhere("evaluation_id", evaluationId)
+    const summaries = await summariesQuery
 
     /** --- Détails individuels --- */
-    const details = await UserCompetency.query()
+    const detailsQuery = UserCompetency.query()
       .whereHas("evaluation", (q) => q.where("employee_id", employeeId))
       .preload("evaluation", (q) =>
         q
-          .preload("employee") // ✅ pour accéder à departmentId et jobTitleId
-          .preload("evaluator")
+          .preload("employee", (e) =>
+            e.preload("department").preload("jobTitle")
+          )
+          .preload("evaluator") // ✅ affichage de l’évaluateur
       )
-      .preload(
-        "competency",
-        (q) => q.preload("category") // ✅ pour la catégorie
-      )
-      .orderBy("competency_id", "asc");
+      .preload("competency", (q) => q.preload("category"))
+      .orderBy("competency_id", "asc")
 
-    /** --- Ajout du niveau requis depuis competency_assignments --- */
+    if (evaluationId) detailsQuery.andWhere("evaluation_id", evaluationId)
+    const details = await detailsQuery
+
+    /** --- Ajout du niveau requis --- */
     for (const d of details) {
       const assignment = await CompetencyAssignment.query()
         .where("competency_id", d.competencyId)
         .andWhere("department_id", d.evaluation.employee.departmentId)
         .andWhere("job_title_id", d.evaluation.employee.jobTitleId)
-        .first();
+        .first()
 
-      d["requiredLevel"] = assignment?.requiredLevel ?? null;
+      d["requiredLevel"] = assignment?.requiredLevel ?? null
     }
 
     /** --- Format de réponse --- */
@@ -81,9 +92,14 @@ export default class CompetencyController {
         comment: d.comment,
         evaluatorType: d.evaluatorType,
         requiredLevel: d["requiredLevel"],
+        evaluator: d.evaluation.evaluator
+          ? `${d.evaluation.evaluator.firstname} ${d.evaluation.evaluator.lastname}`
+          : null,
+        evaluationId: d.evaluationId,
       })),
-    });
+    })
   }
+
 
   /**
    * ➕ Ajouter une évaluation de compétence
