@@ -23,6 +23,6 @@ export const alerts = [
 
 export const topPerformers = [
   { name: "Alice Rasoa", department: "RH", score: 94 },
-  { name: "Tiana Rakoto", department: "Informatique", score: 92 },
+  { name: "Tiana Rabekoto", department: "Informatique", score: 92 },
   { name: "Rado Andry", department: "Commercial", score: 89 },
 ];

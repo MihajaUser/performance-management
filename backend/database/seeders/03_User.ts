@@ -45,6 +45,38 @@ export default class UserSeeder extends BaseSeeder {
         matricule: 'RH-RES-002', // Département RH (RES), 2e employé
         status: 'active',
       },
+      // --- MOCK TOP PERFORMERS ---
+      {
+        firstname: 'Alice',
+        lastname: 'Rasoa',
+        email: 'alice.r@generis.mg',
+        password: await Hash.make('password'),
+        departmentId: 2, // RH
+        jobTitleId: 3,
+        matricule: 'RH-RES-003',
+        status: 'active' ,
+      },
+      {
+        firstname: 'Tiana',
+        lastname: 'Rabekoto',
+        email: 'rabekoto.r@generis.mg',
+        password: await Hash.make('password'),
+        departmentId: 1, // Informatique
+        jobTitleId: 1,
+        matricule: 'IT-INF-003',
+        status: 'active' ,
+      },
+      {
+        firstname: 'Rado',
+        lastname: 'Andry',
+        email: 'rado.a@generis.mg',
+        password: await Hash.make('password'),
+        departmentId: 5, // Commercial
+        jobTitleId: 5,
+        matricule: 'CM-COM-001',
+        status: 'active',
+      }
+      //autres utilisateurs 35...
     ])
   }
 }
