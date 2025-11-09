@@ -1,3 +1,4 @@
+//frontend/app/(protected)/dashboard/components/StatsCards.tsx
 import { Card, CardBody } from "@heroui/react"
 
 export function StatsCards({ stats }: { stats: { title: string; value: number | string }[] }) {

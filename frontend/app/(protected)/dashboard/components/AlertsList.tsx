@@ -1,3 +1,4 @@
+//frontend/app/(protected)/dashboard/components/AlertsList.tsx
 import { Badge } from "@heroui/react"
 
 export function AlertsList({ alerts }: { alerts: { id: number; message: string; severity: string }[] }) {

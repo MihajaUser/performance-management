@@ -1,3 +1,4 @@
+//frontend/app/(protected)/dashboard/components/TopPerformers.tsx
 export function TopPerformers({
   data,
 }: {
