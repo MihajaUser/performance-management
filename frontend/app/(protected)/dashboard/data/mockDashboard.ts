@@ -11,13 +11,13 @@ export const performanceByDept = [
   { name: "Ressources Humaines", score: 74 },
   { name: "Finance", score: 79 },
   { name: "Logistique", score: 68 },
-  { name: "Commercial", score: 85 },
+  { name: "Commercial", score: 50 },
 ];
- 
+
 export const alerts = [
-  { id: 1, message: "Hausse inhabituelle de commentaires négatifs dans le département Logistique.", severity: "high" },
-  { id: 2, message: "Sous-performance prédite par l’IA pour le département Commercial.", severity: "high" },
-  { id: 3, message: "Légère baisse d’engagement détectée dans le département Informatique.", severity: "medium" },
+  { id: 1, message: "Sous-performance prédite par l’IA pour le département Commercial.", severity: "high" },
+  { id: 2, message: "Hausse inhabituelle de commentaires négatifs dans le département Logistique.", severity: "medium" },
+  { id: 3, message: "Hausse inhabituelle de commentaires négatifs dans le département Informatique.", severity: "medium" },
 ];
 
 

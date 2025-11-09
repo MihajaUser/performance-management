@@ -1,7 +1,8 @@
 // frontend/app/(protected)/dashboard/components/AlertsList.tsx
 "use client";
 
-import { Badge, type BadgeProps } from "@heroui/react";
+import { type ReactNode } from "react";
+import { type BadgeProps } from "@heroui/react";
 import { AlertTriangle, TrendingDown, Info } from "lucide-react";
 
 export interface Alert {
@@ -12,7 +13,7 @@ export interface Alert {
 
 interface AlertConfig {
   color: BadgeProps["color"];
-  icon: JSX.Element;
+  icon: ReactNode;
   label: string;
   labelClass: string;
 }
