@@ -35,6 +35,9 @@ export default function Topbar({
           aria-label="Notifications"
         >
           <Bell className="w-5 h-5" />
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-semibold w-4 h-4 rounded-full flex items-center justify-center">
+            3
+          </span>
         </button>
 
         <div className="flex items-center gap-3 cursor-pointer group">

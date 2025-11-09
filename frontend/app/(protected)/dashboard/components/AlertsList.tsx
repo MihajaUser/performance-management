@@ -1,7 +1,7 @@
 // frontend/app/(protected)/dashboard/components/AlertsList.tsx
 "use client";
 
-import { Badge } from "@heroui/react";
+import { Badge, type BadgeProps } from "@heroui/react";
 import { AlertTriangle, TrendingDown, Info } from "lucide-react";
 
 export interface Alert {
@@ -10,26 +10,36 @@ export interface Alert {
   severity: "high" | "medium" | "low";
 }
 
+interface AlertConfig {
+  color: BadgeProps["color"];
+  icon: JSX.Element;
+  label: string;
+  labelClass: string;
+}
+
 export function AlertsList({ alerts }: { alerts: Alert[] }) {
-  const getConfig = (severity: Alert["severity"]) => {
+  const getConfig = (severity: Alert["severity"]): AlertConfig => {
     switch (severity) {
       case "high":
         return {
           color: "danger",
           icon: <TrendingDown className="w-4 h-4 text-red-600" />,
           label: "Critique",
+          labelClass: "text-red-700 font-semibold",
         };
       case "medium":
         return {
           color: "warning",
-          icon: <AlertTriangle className="w-4 h-4 text-orange-500" />,
+          icon: <AlertTriangle className="w-4 h-4 text-amber-500" />,
           label: "Modérée",
+          labelClass: "text-amber-700 font-medium",
         };
       default:
         return {
           color: "default",
           icon: <Info className="w-4 h-4 text-gray-500" />,
           label: "Mineure",
+          labelClass: "text-gray-600 font-medium",
         };
     }
   };
@@ -43,21 +53,28 @@ export function AlertsList({ alerts }: { alerts: Alert[] }) {
   }
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-3">
       {alerts.map((alert) => {
-        const { color, icon, label } = getConfig(alert.severity);
+        const { icon, label, labelClass } = getConfig(alert.severity);
         return (
           <li
             key={alert.id}
-            className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition p-2 rounded-lg border border-gray-200"
+            className="flex items-center justify-between bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200"
           >
-            <div className="flex items-center gap-3 text-gray-700 text-sm">
+            <div className="flex items-center gap-3">
               {icon}
-              <span>{alert.message}</span>
+              <span className="text-gray-800 text-[15px] font-medium leading-snug">
+                {alert.message}
+              </span>
             </div>
-            <Badge color={color} variant="flat">
+            <span
+              className={[
+                "px-3 py-1 text-xs rounded-full border border-gray-200 bg-gray-50",
+                labelClass,
+              ].join(" ")}
+            >
               {label}
-            </Badge>
+            </span>
           </li>
         );
       })}

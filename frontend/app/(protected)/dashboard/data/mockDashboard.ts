@@ -13,15 +13,16 @@ export const performanceByDept = [
   { name: "Logistique", score: 68 },
   { name: "Commercial", score: 85 },
 ];
-
+ 
 export const alerts = [
-  { id: 1, message: "Sous-performance observée - Département RH", severity: "high" },
-  { id: 2, message: "Commentaires négatifs répétés", severity: "high" },
-  { id: 3, message: "Retards récurrents dans les livrables IT", severity: "medium" },
+  { id: 1, message: "Hausse inhabituelle de commentaires négatifs dans le département Logistique.", severity: "high" },
+  { id: 2, message: "Sous-performance prédite par l’IA pour le département Commercial.", severity: "high" },
+  { id: 3, message: "Légère baisse d’engagement détectée dans le département Informatique.", severity: "medium" },
 ];
 
+
 export const topPerformers = [
-  { name: "Alice Rasoa", department: "Informatique", score: 94 },
-  { name: "Tiana Rakoto", department: "RH", score: 89 },
- 
+  { name: "Alice Rasoa", department: "RH", score: 94 },
+  { name: "Tiana Rakoto", department: "Informatique", score: 92 },
+  { name: "Rado Andry", department: "Commercial", score: 89 },
 ];
