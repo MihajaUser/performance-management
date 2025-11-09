@@ -30,13 +30,6 @@ type PerformancePoint = {
   predicted: number;
 };
 
-const sentimentEmoji: Record<string, string> = {
-  positive: "😊",
-  neutral: "😐",
-  negative: "💬",
-  aggressif: "😠",
-};
-
 export function EmployeeEvaluations({
   items,
   performance,
