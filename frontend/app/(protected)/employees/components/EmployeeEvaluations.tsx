@@ -1,4 +1,4 @@
-//frontend/app/(protected)/employees/[id]/page.tsx
+//frontend/app/(protected)/employees/components/EmployeeEvaluations.tsx
 "use client";
 
 import { useState, useMemo } from "react";
@@ -19,6 +19,7 @@ export type EvaluationItem = {
   period: string;
   score: number;
   sentiment: string;
+  comment: string;
   trainingRecommendations?: { title: string; url: string }[];
   createdAt: string;
 };
@@ -27,6 +28,13 @@ type PerformancePoint = {
   period: string;
   score: number;
   predicted: number;
+};
+
+const sentimentEmoji: Record<string, string> = {
+  positive: "😊",
+  neutral: "😐",
+  negative: "💬",
+  aggressif: "😠",
 };
 
 export function EmployeeEvaluations({
@@ -39,12 +47,9 @@ export function EmployeeEvaluations({
   weakestKpi?: string | null;
 }) {
   const [openId, setOpenId] = useState<number | null>(null);
+  const toggleOpen = (id: number) => setOpenId(openId === id ? null : id);
 
-  const toggleOpen = (id: number) => {
-    setOpenId(openId === id ? null : id);
-  };
-
-  // 🧩 Trier les évaluations du plus récent au plus ancien
+  // Trier du plus récent au plus ancien
   const sortedItems = useMemo(
     () =>
       [...items].sort(
@@ -56,21 +61,18 @@ export function EmployeeEvaluations({
 
   const getIntroMessage = (score: number) => {
     if (score >= 90)
-      return `Excellent travail ! Tu fais preuve d'une performance remarquable sur l'ensemble de tes indicateurs. Continue ainsi ! 👏`;
-
+      return `Excellent travail ! Performance remarquable sur l'ensemble des indicateurs. 👏`;
     if (score >= 70)
       return weakestKpi
-        ? `Très bon niveau général ! Tu pourrais encore renforcer ton efficacité sur "${weakestKpi}" pour viser l’excellence. 💪`
-        : `Très bon niveau général ! Continue à perfectionner tes compétences pour viser l’excellence. 💪`;
-
+        ? `Très bon niveau ! Continue à progresser sur "${weakestKpi}". 💪`
+        : `Très bon niveau général ! 💪`;
     if (score >= 50)
       return weakestKpi
-        ? `Performance correcte, mais des points comme "${weakestKpi}" méritent une attention particulière. 🔍`
-        : `Performance correcte dans l’ensemble, quelques axes d’amélioration possibles. 🔍`;
-
+        ? `Performance correcte, amélioration possible sur "${weakestKpi}". 🔍`
+        : `Performance correcte, quelques axes à renforcer. 🔍`;
     return weakestKpi
-      ? `Des difficultés sont observées, notamment sur "${weakestKpi}". Nous te recommandons de suivre des formations ciblées pour progresser. 🎯`
-      : `Des difficultés générales sont observées. Voici quelques formations recommandées pour t’aider à progresser. 🎯`;
+      ? `Difficultés observées, notamment sur "${weakestKpi}". 🎯`
+      : `Des points d’amélioration sont à envisager. 🎯`;
   };
 
   return (
@@ -88,14 +90,8 @@ export function EmployeeEvaluations({
                 margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                <XAxis
-                  dataKey="period"
-                  tick={{ fontSize: 12, fill: "#4B5563" }}
-                />
-                <YAxis
-                  domain={[0, 100]}
-                  tick={{ fontSize: 12, fill: "#4B5563" }}
-                />
+                <XAxis dataKey="period" tick={{ fontSize: 12, fill: "#4B5563" }} />
+                <YAxis domain={[0, 100]} tick={{ fontSize: 12, fill: "#4B5563" }} />
                 <Tooltip
                   formatter={(value: number) => value.toFixed(2)}
                   labelStyle={{ color: "#111827", fontWeight: 600 }}
@@ -112,18 +108,8 @@ export function EmployeeEvaluations({
                   iconType="circle"
                   verticalAlign="bottom"
                 />
-                <Bar
-                  dataKey="predicted"
-                  fill="#86EFAC"
-                  name="Score prédit (IA)"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
-                  dataKey="score"
-                  fill="#60A5FA"
-                  name="Score réel"
-                  radius={[4, 4, 0, 0]}
-                />
+                <Bar dataKey="predicted" fill="#86EFAC" name="Score prédit (IA)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="score" fill="#60A5FA" name="Score réel" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -133,7 +119,7 @@ export function EmployeeEvaluations({
       {/* --- Retour d’évaluation --- */}
       <div>
         <h3 className="text-base font-semibold text-gray-800 mb-3">
-         Retour d’évaluation
+          Retour d’évaluation
         </h3>
         <div className="space-y-3">
           {sortedItems.map((e) => (
@@ -143,27 +129,53 @@ export function EmployeeEvaluations({
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">{e.period}</p>
-                  
-                  <p className="text-sm text-gray-700">
-                    Sentiment IA :{" "}
-                    <span className="font-medium capitalize">
-                      {e.sentiment}
-                    </span>
+
+                  <p className="text-sm text-gray-700 mt-0.5">
+                    <span className="text-sm font-semibold text-[#002B5B] flex items-center gap-2">
+                      Observation de l’évaluateur :
+                      <span
+                        className={[
+                          "px-2 py-0.5 text-xs font-medium rounded-full border",
+                          e.sentiment === "positive"
+                            ? "bg-green-100 text-green-800 border-green-300"
+                            : e.sentiment === "neutral"
+                              ? "bg-gray-100 text-gray-800 border-gray-300"
+                              : e.sentiment === "negative"
+                                ? "bg-orange-100 text-orange-800 border-orange-300"
+                                : "bg-red-100 text-red-800 border-red-300",
+                        ].join(" ")}
+                      >
+                        {e.sentiment === "positive"
+                          ? "Positive"
+                          : e.sentiment === "neutral"
+                            ? "Neutre"
+                            : e.sentiment === "negative"
+                              ? "Critique constructive"
+                              : "Ton inapproprié"}
+                      </span>
+                    </span>{" "}
+                    {e.comment || "Aucune remarque enregistrée."}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-500">Score</p>
+                  <p className="text-sm text-gray-500">Score global</p>
                   <p className="text-lg font-semibold text-gray-700">
-                    {e.score.toFixed(2)}{' /100'}
+                    {e.score.toFixed(2)} / 100
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm text-gray-600 italic">
-                {getIntroMessage(e.score)}
-              </p>
+              {/* 🧠 Intro RH */}
+              <div className="mt-2">
+                <p className="text-sm font-semibold text-[#002B5B] mb-1">
+                  Analyse RH :
+                </p>
+                <p className="text-sm text-gray-600 italic">
+                  {getIntroMessage(e.score)}
+                </p>
+              </div>
 
+              {/* 🎓 Recommandations IA */}
               {e.trainingRecommendations?.length ? (
                 <div className="mt-2">
                   <button

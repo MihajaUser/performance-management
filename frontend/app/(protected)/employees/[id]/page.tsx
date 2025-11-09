@@ -24,6 +24,7 @@ interface EvaluationData {
   general_score: number;
   sentiment: string;
   training_recommendations?: { title: string; url: string }[];
+  comment: string;
   created_at: string;
 }
 
@@ -83,6 +84,7 @@ export default function EmployeeDetailPage() {
       sentiment: e.sentiment,
       trainingRecommendations: e.training_recommendations ?? [],
       createdAt: e.created_at,
+      comment: e.comment,
     }));
   }, [data]);
 
