@@ -1,6 +1,6 @@
 //frontend/app/(protected)/dashboard/data/mockDashboard.ts
 export const stats = [
-  { title: "Employés actifs", value: 42 },
+  { title: "Employés actifs", value: 45 },
   { title: "Managers", value: 6 },
   { title: "Départements", value: 5 },
   { title: "Alertes sous-performance", value: 3 },
