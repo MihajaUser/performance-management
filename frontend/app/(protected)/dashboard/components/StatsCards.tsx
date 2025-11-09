@@ -3,13 +3,14 @@
 
 import { Card, CardBody } from "@heroui/react";
 import { Users, Briefcase, Building2, AlertTriangle } from "lucide-react";
+import { ReactNode } from "react";
 
 interface Stat {
   title: string;
   value: number | string;
 }
 
-const iconMap: Record<string, JSX.Element> = {
+const iconMap: Record<string, ReactNode> = {
   "Employés actifs": <Users className="w-6 h-6 text-blue-500" />,
   Managers: <Briefcase className="w-6 h-6 text-green-500" />,
   Départements: <Building2 className="w-6 h-6 text-indigo-500" />,
