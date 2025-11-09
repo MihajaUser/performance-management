@@ -3,15 +3,17 @@ export const stats = [
   { title: "Employés actifs", value: 42 },
   { title: "Managers", value: 6 },
   { title: "Départements", value: 5 },
-  { title: "Alertes IA", value: 3 },
+  { title: "Alertes sous-performance", value: 3 },
 ]
 
 export const performanceByDept = [
   { name: "Informatique", score: 4.2 },
-  { name: "RH", score: 3.8 },
+  { name: "Ressources Humaines", score: 3.8 },
   { name: "Finance", score: 4.0 },
   { name: "Logistique", score: 3.7 },
-]
+  { name: "Commercial", score: 4.3 },
+];
+
 
 export const alerts = [
   { id: 1, message: "Commentaires négatifs répétés", severity: "high" },
