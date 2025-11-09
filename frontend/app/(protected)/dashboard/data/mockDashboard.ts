@@ -16,12 +16,12 @@ export const performanceByDept = [
 
 export const alerts = [
   { id: 1, message: "Sous-performance observée - Département RH", severity: "high" },
-  { id: 2, message: "Baisse de productivité en Logistique", severity: "medium" },
+  { id: 2, message: "Commentaires négatifs répétés", severity: "high" },
   { id: 3, message: "Retards récurrents dans les livrables IT", severity: "medium" },
 ];
 
 export const topPerformers = [
   { name: "Alice Rasoa", department: "Informatique", score: 94 },
   { name: "Tiana Rakoto", department: "RH", score: 89 },
-  { name: "Rado Andry", department: "Commercial", score: 92 },
+ 
 ];
