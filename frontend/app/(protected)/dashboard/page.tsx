@@ -15,7 +15,7 @@ import {
 
 export default function DashboardPage() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3.5 space-y-3.5">
       <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
         Tableau de bord
       </h1>
