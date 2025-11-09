@@ -4,7 +4,7 @@
 import { Badge } from "@heroui/react";
 import { AlertTriangle, TrendingDown, Info } from "lucide-react";
 
-interface Alert {
+export interface Alert {
   id: number;
   message: string;
   severity: "high" | "medium" | "low";

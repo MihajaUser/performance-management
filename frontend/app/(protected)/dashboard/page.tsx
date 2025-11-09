@@ -4,7 +4,7 @@
 import { Card, CardHeader, CardBody } from "@heroui/react";
 import { StatsCards } from "./components/StatsCards";
 import { PerformanceChart } from "./components/PerformanceChart";
-import { AlertsList } from "./components/AlertsList";
+import { Alert, AlertsList } from "./components/AlertsList";
 import { TopPerformers } from "./components/TopPerformers";
 import {
   stats,
@@ -50,7 +50,7 @@ export default function DashboardPage() {
             <h2 className="text-lg font-semibold text-gray-700">Alertes IA</h2>
           </CardHeader>
           <CardBody>
-            <AlertsList alerts={alerts} />
+            <AlertsList alerts={alerts as Alert[]} />
           </CardBody>
         </Card>
       </div>
