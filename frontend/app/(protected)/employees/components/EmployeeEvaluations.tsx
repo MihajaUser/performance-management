@@ -19,6 +19,7 @@ export type EvaluationItem = {
   score: number;
   sentiment: string;
   trainingRecommendations?: { title: string; url: string }[];
+  createdAt: string;
 };
 
 type PerformancePoint = {
