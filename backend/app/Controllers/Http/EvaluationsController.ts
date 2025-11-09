@@ -6,6 +6,9 @@ import UserCompetency from "App/Models/UserCompetency";
 import UserKpi from "App/Models/UserKpi";
 import AiService from "App/services/Services/AiService";
 import { AiAnalysisResult } from "App/Types/ai";
+import PerformanceScore from "App/Models/PerformanceScore";
+import CompetencyTemplate from "App/Models/CompetencyTemplate";
+import CompetencyResult from "App/Models/CompetencyResult";
 
 export default class EvaluationController {
   public async index({ request }: HttpContextContract) {
@@ -94,6 +97,12 @@ export default class EvaluationController {
       schema: EvaluationValidator.storeFull,
     });
 
+    // ✅ Calculer un score général basé sur les KPI si disponibles
+    const generalScore =
+      payload.kpis?.length && payload.kpis.length > 0
+        ? payload.kpis.reduce((sum, k) => sum + k.score, 0) / payload.kpis.length
+        : 0;
+
     // ✅ 1. Créer l’évaluation principale
     const evaluation = await Evaluation.create({
       employeeId: payload.employeeId,
@@ -101,7 +110,7 @@ export default class EvaluationController {
       type: payload.type,
       period: payload.period,
       comment: payload.comment,
-      generalScore: 0,
+      generalScore,
       sentiment: "neutral",
     });
 
@@ -160,7 +169,47 @@ export default class EvaluationController {
     });
 
 
-    // ✅ 7. Retour API complet
+    // ✅ 7. Si ce n’est pas une auto-évaluation → enregistrer Performance + CompetencyResult
+    if (payload.type !== "auto") {
+      // --- 🧠 Enregistrer la performance globale ---
+      const finalScore =
+        payload.kpis?.length && payload.kpis.length > 0
+          ? payload.kpis.reduce((sum, k) => sum + k.score, 0) /
+          payload.kpis.length
+          : 0;
+
+      await PerformanceScore.create({
+        userId: payload.employeeId,
+        period: evaluation.period,
+        scoreManager: finalScore,
+        scoreFinal: finalScore, // pourra être ajusté plus tard
+        predictedScore: 77 // a ajuster plus tard
+      });
+
+      // --- 🧩 Enregistrer le résultat moyen par catégorie de compétence ---
+      const groupedByCategory: Record<number, number[]> = {};
+
+      for (const c of payload.competencies ?? []) {
+        const competency = await CompetencyTemplate.find(c.competencyId);
+        if (competency) {
+          const catId = competency.categoryId;
+          if (!groupedByCategory[catId]) groupedByCategory[catId] = [];
+          groupedByCategory[catId].push(c.score);
+        }
+      }
+
+      for (const [categoryId, scores] of Object.entries(groupedByCategory)) {
+        const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+        await CompetencyResult.create({
+          evaluationId: evaluation.id,
+          categoryId: Number(categoryId),
+          averageScore: avg,
+          commentSummary: `Moyenne des compétences de la catégorie`,
+        });
+      }
+    }
+
+    // ✅ 8. Retour API complet
     return response.created({
       message: "Évaluation complète créée avec succès",
       evaluation: {

@@ -74,12 +74,6 @@ export function KpiSection({ items, onChange }: KpiSectionProps) {
           </tbody>
         </table>
       </div>
-      <p className="text-right mt-3 text-sm text-gray-700">
-        Moyenne pondérée KPI :{" "}
-        <span className="font-semibold text-[#002B5B]">
-          {average.toFixed(1)} / 100
-        </span>
-      </p>
     </div>
   );
 }
