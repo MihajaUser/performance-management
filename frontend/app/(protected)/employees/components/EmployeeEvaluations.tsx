@@ -42,7 +42,7 @@ export function EmployeeEvaluations({
   const [openId, setOpenId] = useState<number | null>(null);
   const toggleOpen = (id: number) => setOpenId(openId === id ? null : id);
 
-  // Trier du plus récent au plus ancien
+ 
   const sortedItems = useMemo(
     () =>
       [...items].sort(
