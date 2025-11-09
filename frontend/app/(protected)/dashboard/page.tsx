@@ -50,7 +50,7 @@ export default function DashboardPage() {
             <h2 className="text-lg font-semibold text-gray-700">Alertes IA</h2>
           </CardHeader>
           <CardBody>
-            <AlertsList alerts={alerts as Alert[]} />
+            <AlertsList alerts={alerts as Alert []} />
           </CardBody>
         </Card>
       </div>
