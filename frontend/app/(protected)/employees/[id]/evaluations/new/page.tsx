@@ -70,43 +70,43 @@ export default function NewEvaluationPage() {
     weight: k.kpiTemplate.weight ?? 25,
     comment: "",
   })) ?? [
-    {
-      id: 1,
-      name: "Bugs corrigés / sprint",
-      target: 30,
-      actual: 28,
-      score: 0,
-      weight: 25,
-      comment: "",
-    },
-    {
-      id: 2,
-      name: "Qualité du code",
-      target: 85,
-      actual: 88,
-      score: 0,
-      weight: 25,
-      comment: "",
-    },
-    {
-      id: 3,
-      name: "Respect des délais",
-      target: 95,
-      actual: 92,
-      score: 0,
-      weight: 25,
-      comment: "",
-    },
-    {
-      id: 4,
-      name: "Documentation technique",
-      target: 10,
-      actual: 9,
-      score: 0,
-      weight: 25,
-      comment: "",
-    },
-  ];
+      {
+        id: 1,
+        name: "Bugs corrigés / sprint",
+        target: 30,
+        actual: 28,
+        score: 0,
+        weight: 25,
+        comment: "",
+      },
+      {
+        id: 2,
+        name: "Qualité du code",
+        target: 85,
+        actual: 88,
+        score: 0,
+        weight: 25,
+        comment: "",
+      },
+      {
+        id: 3,
+        name: "Respect des délais",
+        target: 95,
+        actual: 92,
+        score: 0,
+        weight: 25,
+        comment: "",
+      },
+      {
+        id: 4,
+        name: "Documentation technique",
+        target: 10,
+        actual: 9,
+        score: 0,
+        weight: 25,
+        comment: "",
+      },
+    ];
 
   // === 🔹 FAKE COMPETENCIES DATA (à remplacer par compData.details) ===
   const fakeCompetencies: CompetencyItem[] = compData?.details?.map(
@@ -120,24 +120,34 @@ export default function NewEvaluationPage() {
       comment: "",
     })
   ) ?? [
-    {
-      id: 1,
-      name: "Programmation JavaScript",
-      category: "Techniques",
-      requiredLevel: "M",
-      score: 0,
-      comment: "",
-    },
-    {
-      id: 2,
-      name: "Communication d'équipe",
-      category: "Comportementales",
-      requiredLevel: "I",
-      score: 0,
-      comment: "",
-    },
-  ];
+      {
+        id: 1,
+        name: "Programmation JavaScript",
+        category: "Techniques",
+        requiredLevel: "M",
+        score: 0,
+        comment: "",
+      },
+      {
+        id: 2,
+        name: "Communication d'équipe",
+        category: "Comportementales",
+        requiredLevel: "I",
+        score: 0,
+        comment: "",
+      },
+    ];
 
+  const getCurrentPeriod = (): string => {
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = now.getMonth() + 1
+
+    const quarter =
+      month <= 3 ? 'Q1' : month <= 6 ? 'Q2' : month <= 9 ? 'Q3' : 'Q4'
+
+    return `${quarter}-${year}`
+  }
   const handleSubmit = async (data: {
     employeeId: number;
     kpis: KpiData[];
@@ -148,7 +158,7 @@ export default function NewEvaluationPage() {
       await createEvaluation({
         employeeId: data.employeeId,
         evaluatorId: 2, // 👈 temporaire pour test (manager Bema)
-        period: "Q3-2025",
+        period: getCurrentPeriod(),
         type: "manager",
         generalScore: Math.round(
           data.kpis.reduce((sum, k) => sum + k.score, 0) / data.kpis.length
