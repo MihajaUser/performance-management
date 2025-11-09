@@ -14,8 +14,8 @@ import { EmployeeKpis, type KpiItem } from "../components/EmployeeKpis";
 import { EmployeeCompetenciesTable } from "../components/EmployeeCompetenciesTable";
 import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesChart";
 import { LoadingScreen } from "@/components/LoadingScreen";
-import { EmployeeHeader } from "../components/EmployeeHeader"; // ✅ nouveau composant
-import { useState } from "react";
+import { EmployeeHeader } from "../components/EmployeeHeader";
+import { useEffect, useState } from "react";
 import { EmployeeTimeline } from "../components/EmployeeTimeline";
 
 interface EvaluationData {
@@ -49,17 +49,29 @@ interface PerformanceData {
 }
 
 export default function EmployeeDetailPage() {
+
   const params = useParams<{ id: string }>();
+
   const id = Number(params.id);
+
   const [selectedEvaluationId, setSelectedEvaluationId] = useState<number | null>(null);
 
 
   const { data, isLoading, isError } = useEmployeeDetailQuery(id);
+
   const { data: compData, isLoading: compLoading } =
     useEmployeeCompetenciesQuery(id, selectedEvaluationId);
-    
-  console.log(selectedEvaluationId)
-  console.log(compData)
+
+  useEffect(() => {
+    if (data?.evaluationsReceived?.length && !selectedEvaluationId) {
+      const lastEval = data.evaluationsReceived[data.evaluationsReceived.length - 1];
+      
+      requestAnimationFrame(() => {
+        setSelectedEvaluationId(Number(lastEval.id));
+      });
+    }
+  }, [data, selectedEvaluationId]);
+
   if (isLoading || compLoading)
     return (
       <LoadingScreen message="Chargement des informations de l'employé..." />
@@ -68,6 +80,9 @@ export default function EmployeeDetailPage() {
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
     );
+
+
+
 
   const employee: Employee = {
     id: data.id,
