@@ -24,11 +24,17 @@ export interface EmployeeCompetencies {
   details: CompetencyDetail[];
 }
 
-export function useEmployeeCompetenciesQuery(userId: number) {
+/**
+ * 🧠 Récupère les compétences d’un employé, filtrées par évaluation si précisé
+ */
+export function useEmployeeCompetenciesQuery(userId: number, evaluationId?: number | null) {
   return useQuery<EmployeeCompetencies>({
-    queryKey: ["employeeCompetencies", userId],
+    queryKey: ["employeeCompetencies", userId, evaluationId],
     queryFn: async () => {
-      const { data } = await api.get(`/competencies/user/${userId}`);
+      const url = evaluationId
+        ? `/competencies/user/${userId}?evaluationId=${evaluationId}` // ✅ camelCase
+        : `/competencies/user/${userId}`;
+      const { data } = await api.get(url);
       return data;
     },
     enabled: !!userId,

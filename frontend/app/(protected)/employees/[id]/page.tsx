@@ -15,6 +15,8 @@ import { EmployeeCompetenciesTable } from "../components/EmployeeCompetenciesTab
 import { EmployeeCompetenciesChart } from "../components/EmployeeCompetenciesChart";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { EmployeeHeader } from "../components/EmployeeHeader"; // ✅ nouveau composant
+import { useState } from "react";
+import { EmployeeTimeline } from "../components/EmployeeTimeline";
 
 interface EvaluationData {
   id: string | number;
@@ -49,11 +51,15 @@ interface PerformanceData {
 export default function EmployeeDetailPage() {
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
+  const [selectedEvaluationId, setSelectedEvaluationId] = useState<number | null>(null);
+
 
   const { data, isLoading, isError } = useEmployeeDetailQuery(id);
   const { data: compData, isLoading: compLoading } =
-    useEmployeeCompetenciesQuery(id);
-
+    useEmployeeCompetenciesQuery(id, selectedEvaluationId);
+    
+  console.log(selectedEvaluationId)
+  console.log(compData)
   if (isLoading || compLoading)
     return (
       <LoadingScreen message="Chargement des informations de l'employé..." />
@@ -62,7 +68,7 @@ export default function EmployeeDetailPage() {
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
     );
- 
+
   const employee: Employee = {
     id: data.id,
     firstname: data.firstname,
@@ -101,8 +107,8 @@ export default function EmployeeDetailPage() {
   }));
 
   const weakestKpi = kpis.length
-  ? [...kpis].sort((a, b) => a.score - b.score)[0].name
-  : null;
+    ? [...kpis].sort((a, b) => a.score - b.score)[0].name
+    : null;
 
   return (
     <div className="space-y-8">
@@ -114,6 +120,11 @@ export default function EmployeeDetailPage() {
         jobTitle={employee.jobTitle}
         status={employee.status}
         matricule={employee.matricule?.toString()}
+      />
+      <EmployeeTimeline
+        evaluations={evaluations}
+        selectedId={selectedEvaluationId}
+        onSelect={setSelectedEvaluationId}
       />
 
       {/* FICHE AVEC TABS */}
@@ -144,7 +155,7 @@ export default function EmployeeDetailPage() {
               <EmployeeEvaluations
                 items={evaluations}
                 performance={performance}
-                  weakestKpi={weakestKpi}
+                weakestKpi={weakestKpi}
               />
             </Tab>
 

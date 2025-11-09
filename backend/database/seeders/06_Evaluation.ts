@@ -8,7 +8,7 @@ export default class EvaluationSeeder extends BaseSeeder {
         employeeId: 1,
         evaluatorId: 2,
         type: "manager",
-        period: "Q1-2025",
+        period: "Q1-2024",
         generalScore: 80,
         comment:
           "Très bonne performance d’ensemble, mais un léger retard dans la documentation technique.",
