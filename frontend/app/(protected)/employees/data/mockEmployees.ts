@@ -20,7 +20,7 @@ export const employees = [
 ]
 
 export const evaluations = [
-  { id: 1, period: "Q1-2025", score: 4.1, sentiment: "Positif" },
+  { id: 1, period: "Q3-2025", score: 4.1, sentiment: "Positif" },
   { id: 2, period: "Q2-2025", score: 4.3, sentiment: "Positif" },
 ]
 
@@ -35,6 +35,6 @@ export const competencies = [
 ]
 
 export const performance = [
-  { period: "Q1-2025", score: 4.2, predicted: 4.3 },
+  { period: "Q3-2025", score: 4.2, predicted: 4.3 },
   { period: "Q2-2025", score: 4.3, predicted: 4.4 },
 ]

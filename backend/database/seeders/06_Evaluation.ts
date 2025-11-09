@@ -8,7 +8,7 @@ export default class EvaluationSeeder extends BaseSeeder {
         employeeId: 1,
         evaluatorId: 2,
         type: "manager",
-        period: "Q1-2024",
+        period: "Q3-2025",
         generalScore: 80,
         comment:
           "Très bonne performance d’ensemble, mais un léger retard dans la documentation technique.",
@@ -30,7 +30,7 @@ export default class EvaluationSeeder extends BaseSeeder {
         employeeId: 3,
         evaluatorId: 4,
         type: "manager",
-        period: "Q1-2025",
+        period: "Q3-2025",
         generalScore: 78,
         comment:
           "Bon trimestre, mais quelques retards sur les recrutements et communication interne à améliorer.",

@@ -148,7 +148,7 @@ export default function NewEvaluationPage() {
       await createEvaluation({
         employeeId: data.employeeId,
         evaluatorId: 2, // 👈 temporaire pour test (manager Bema)
-        period: "Q1-2025",
+        period: "Q3-2025",
         type: "manager",
         generalScore: Math.round(
           data.kpis.reduce((sum, k) => sum + k.score, 0) / data.kpis.length
@@ -186,7 +186,7 @@ export default function NewEvaluationPage() {
         jobTitle={employee.jobTitle.name}
         status={employee.status}
         matricule={employee.matricule}
-        period="Q1-2025"
+        period="Q4-2025"
       />
 
       {/* 🧾 FORMULAIRE D'ÉVALUATION */}
