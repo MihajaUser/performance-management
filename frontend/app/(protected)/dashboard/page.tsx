@@ -1,3 +1,4 @@
+//frontend/app/(protected)/dashboard/page.tsx
 "use client";
 
 import { Card, CardHeader, CardBody } from "@heroui/react";

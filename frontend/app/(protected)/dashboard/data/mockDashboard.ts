@@ -1,3 +1,4 @@
+//frontend/app/(protected)/dashboard/data/mockDashboard.ts
 export const stats = [
   { title: "Employés actifs", value: 42 },
   { title: "Managers", value: 6 },
