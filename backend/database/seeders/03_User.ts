@@ -18,7 +18,7 @@ export default class UserSeeder extends BaseSeeder {
       {
         firstname: 'Bema',
         lastname: 'Andry',
-        email: 'bema.a@generis.mg',
+        email: 'bema.r@generis.mg',
         password: await Hash.make('password'),
         departmentId: 1, // Informatique
         jobTitleId: 2, // Administrateur Réseau
