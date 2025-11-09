@@ -135,7 +135,6 @@ export default function EmployeeDetailPage() {
   if (isError || !data || !compData)
     return <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>;
 
-  /* -------------------- Affichage principal -------------------- */
   const employee: Employee = {
     id: data.id,
     firstname: data.firstname,

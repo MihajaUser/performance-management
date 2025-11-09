@@ -130,10 +130,10 @@ export function EmployeeEvaluations({
         </div>
       </div>
 
-      {/* --- Historique des évaluations --- */}
+      {/* --- Retour d’évaluation --- */}
       <div>
         <h3 className="text-base font-semibold text-gray-800 mb-3">
-          Historique des évaluations
+         Retour d’évaluation
         </h3>
         <div className="space-y-3">
           {sortedItems.map((e) => (
@@ -144,14 +144,7 @@ export function EmployeeEvaluations({
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-500">{e.period}</p>
-                  <p className="text-xs text-gray-400">
-                    Créé le{" "}
-                    {new Date(e.createdAt).toLocaleDateString("fr-FR", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </p>
+                  
                   <p className="text-sm text-gray-700">
                     Sentiment IA :{" "}
                     <span className="font-medium capitalize">
