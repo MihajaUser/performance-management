@@ -455,7 +455,7 @@ export default class UserSeeder extends BaseSeeder {
         departmentId: 5,
         jobTitleId: 10,
         matricule: 'CM-COM-009',
-        status: 'active',
+        status: 'terminated',
       }
     ])
   }

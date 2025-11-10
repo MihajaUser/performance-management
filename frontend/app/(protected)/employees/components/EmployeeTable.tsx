@@ -87,13 +87,12 @@ export function EmployeeTable({ rows }: { rows: Row[] }) {
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span
-                  className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                    r.status === "active"
+                  className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${r.status === "active"
                       ? "bg-green-100 text-green-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
+                      : "bg-gray-200 text-gray-800"
+                    }`}
                 >
-                  {r.status === "active" ? "Actif" : r.status || "-"}
+                  {r.status === "active" ? "Actif" : 'Inactif'}
                 </span>
               </td>
 
