@@ -246,7 +246,8 @@ export default function EmployeesPage() {
                     classNames={{
                       wrapper: "gap-2",
                       item: "w-8 h-8 text-sm",
-                      cursor: "bg-[#002B5B] text-white font-medium",
+                      cursor:
+                        "bg-[#002B5B] text-white font-medium rounded-full shadow-sm transition-all",
                     }}
                   />
                 </div>
