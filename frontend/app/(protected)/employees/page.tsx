@@ -237,21 +237,20 @@ export default function EmployeesPage() {
                     Page {meta.current_page} sur {meta.last_page} - {meta.total}{" "}
                     employé{meta.total > 1 ? "s" : ""}
                   </div>
-                 <Pagination
-  showControls
-  total={meta.last_page}
-  page={currentPage}
-  onChange={setCurrentPage}
-  classNames={{
-    wrapper: "gap-2",
-    item: "w-8 h-8 text-sm",
-    cursor:
-      "bg-[#002B5B] text-white font-medium rounded-full shadow-sm transition-all",
-    prev: "[&>svg]:hidden before:content-['‹'] before:text-base",
-    next: "[&>svg]:hidden before:content-['›'] before:text-base",
-  }}
-/>
-
+                  <Pagination
+                    showControls
+                    total={meta.last_page}
+                    page={currentPage}
+                    onChange={setCurrentPage}
+                    classNames={{
+                      wrapper: "gap-2",
+                      item: "w-8 h-8 text-sm",
+                      cursor:
+                        "bg-[#002B5B] text-white font-medium rounded-full shadow-sm transition-all",
+                      prev: "[&>svg]:hidden before:content-['‹'] before:text-lg",
+                      next: "[&>svg]:hidden before:content-['›'] before:text-lg",
+                    }}
+                  />
                 </div>
               )}
             </>
