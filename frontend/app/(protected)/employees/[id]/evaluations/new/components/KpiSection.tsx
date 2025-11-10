@@ -72,15 +72,14 @@ export function KpiSection({ items, onChange }: KpiSectionProps) {
                   />
                 </td>
                 <td className="px-4 py-2">
-                  <input
-                    type="text"
+                  <textarea
                     value={kpi.comment}
                     onChange={(e) =>
                       updateItem(kpi.id, "comment", e.target.value)
                     }
                     className="w-full border border-gray-300 rounded px-2 py-1
              focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
-             shadow-sm"
+             shadow-sm resize-none text-sm"
                   />
                 </td>
               </tr>

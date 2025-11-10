@@ -78,16 +78,15 @@ export function CompetencySection({ items, onChange }: CompetencySectionProps) {
                   />
                 </td>
                 <td className="px-4 py-2">
-                  <input
-                    type="text"
+                  <textarea
                     value={comp.comment}
-                    onChange={(e) =>
-                      updateItem(comp.id, "comment", e.target.value)
-                    }
+                    onChange={(e) => updateItem(comp.id, "comment", e.target.value)}
+                    rows={2}
                     className="w-full border border-gray-300 rounded px-2 py-1
              focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
-             shadow-sm"
+             shadow-sm resize-none text-sm"
                   />
+
                 </td>
               </tr>
             ))}
