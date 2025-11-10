@@ -54,7 +54,7 @@ export function CompetencySection({ items, onChange }: CompetencySectionProps) {
               <th className="px-4 py-2 text-left">Commentaire</th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
+          <tbody className="divide-y divide-gray-100 bg-white ">
             {items.map((comp) => (
               <tr key={comp.id}>
                 <td className="px-4 py-2">{comp.name}</td>
