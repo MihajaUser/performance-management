@@ -49,7 +49,8 @@ export function CompetencySection({ items, onChange }: CompetencySectionProps) {
               <th className="px-4 py-2 text-left">Compétence</th>
               <th className="px-4 py-2 text-left">Catégorie</th>
               <th className="px-4 py-2 text-center">Niveau requis</th>
-              <th className="px-4 py-2 text-center">Score (1–5)</th>
+              <th className="px-4 py-2 text-center">{'Score / 5 '}</th>
+
               <th className="px-4 py-2 text-left">Commentaire</th>
             </tr>
           </thead>

@@ -47,7 +47,7 @@ export function KpiSection({ items, onChange }: KpiSectionProps) {
               <th className="px-4 py-2 text-left">Intitulé du KPI</th>
               <th className="px-4 py-2 text-center">Objectif</th>
               <th className="px-4 py-2 text-center">Réalisé</th>
-              <th className="px-4 py-2 text-center">Score</th>
+              <th className="pl-4 py-2 text-center">{'Score / 100'}</th>
               <th className="px-4 py-2 text-left">Commentaire</th>
             </tr>
           </thead>
