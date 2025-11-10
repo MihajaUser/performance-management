@@ -1,5 +1,6 @@
 //frontend/app/layout.tsx
 import "./globals.css";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -8,7 +9,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">{children}  <Toaster richColors position="bottom-right" /></body>
     </html>
   );
 }
+  

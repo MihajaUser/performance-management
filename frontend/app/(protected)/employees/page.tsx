@@ -190,7 +190,7 @@ export default function EmployeesPage() {
                 </SelectItem>
 
                 <SelectItem
-                  key="inactive"
+                  key="terminated"
                   className="text-sm font-medium text-gray-700
              data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
              data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"

@@ -11,6 +11,7 @@ import { CompetencyItem } from "./components/CompetencySection";
 import { EvaluationForm } from "./components/EvaluationForm";
 import { KpiData } from "./components/KpiSection";
 import { useCreateEvaluation } from "./hooks/useCreateEvaluation";
+import { toast } from "sonner";
 
 interface RawKpi {
   id: number;
@@ -172,8 +173,8 @@ export default function NewEvaluationPage() {
         })),
       });
 
-      alert("✅ Évaluation enregistrée avec succès !");
-      router.push(`/employees/${id}`);
+      toast.success("Évaluation enregistrée avec succès !");
+      setTimeout(() => router.push(`/employees/${id}`), 2000);
     } catch (err) {
       console.error(err);
       alert("❌ Erreur lors de l'enregistrement de l'évaluation.");
