@@ -17,16 +17,22 @@ interface KpiSectionProps {
 }
 
 export function KpiSection({ items, onChange }: KpiSectionProps) {
-  const updateItem = (id: number, field: keyof KpiData, value: string | number) => {
+  const updateItem = (
+    id: number,
+    field: keyof KpiData,
+    value: string | number
+  ) => {
     onChange(
       items.map((kpi) =>
-        kpi.id === id ? { ...kpi, [field]: field === "score" ? Number(value) : value } : kpi
+        kpi.id === id
+          ? { ...kpi, [field]: field === "score" ? Number(value) : value }
+          : kpi
       )
     );
   };
 
   const average =
-    items.reduce((sum, k) => sum + (k.score * (k.weight ?? 1)), 0) /
+    items.reduce((sum, k) => sum + k.score * (k.weight ?? 1), 0) /
     (items.length || 1);
 
   return (
@@ -57,16 +63,24 @@ export function KpiSection({ items, onChange }: KpiSectionProps) {
                     min="0"
                     max="100"
                     value={kpi.score}
-                    onChange={(e) => updateItem(kpi.id, "score", e.target.value)}
-                    className="w-20 border border-gray-300 rounded px-2 py-1 text-center"
+                    onChange={(e) =>
+                      updateItem(kpi.id, "score", e.target.value)
+                    }
+                    className="w-16 border border-gray-300 rounded px-2 py-1 text-center
+             focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
+             shadow-sm"
                   />
                 </td>
                 <td className="px-4 py-2">
                   <input
                     type="text"
                     value={kpi.comment}
-                    onChange={(e) => updateItem(kpi.id, "comment", e.target.value)}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
+                    onChange={(e) =>
+                      updateItem(kpi.id, "comment", e.target.value)
+                    }
+                    className="w-full border border-gray-300 rounded px-2 py-1
+             focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
+             shadow-sm"
                   />
                 </td>
               </tr>
