@@ -53,10 +53,6 @@ export default function NewEvaluationPage() {
     return (
       <p className="text-red-500 text-sm">Erreur : employé introuvable.</p>
     );
-  if (isCreating)
-    return (
-      <LoadingScreen message="Soumission du formulaire d’évaluation en cours..." />
-    );
 
   const fakeKpis: KpiData[] = employee.userKpis?.map((k: RawKpi) => ({
     id: k.id,
@@ -203,7 +199,9 @@ export default function NewEvaluationPage() {
             kpis={fakeKpis}
             competencies={fakeCompetencies}
             onSubmit={handleSubmit}
+            isLoading={isCreating}
           />
+
         </CardBody>
       </Card>
     </div>

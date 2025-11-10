@@ -11,6 +11,7 @@ interface EvaluationFormProps {
   employeeId: number;
   kpis: KpiData[];
   competencies: CompetencyItem[];
+  isLoading?: boolean;
   onSubmit: (data: EvaluationPayload) => void;
 }
 
@@ -19,12 +20,14 @@ interface EvaluationPayload {
   kpis: KpiData[];
   competencies: CompetencyItem[];
   comment: string;
+
 }
 
 export function EvaluationForm({
   employeeId,
   kpis,
   competencies,
+  isLoading,
   onSubmit,
 }: EvaluationFormProps) {
   const [formData, setFormData] = useState<EvaluationPayload>({
@@ -83,18 +86,20 @@ export function EvaluationForm({
         <Button
           color="primary"
           type="submit"
+          isLoading={isLoading}
+          spinner={<span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}  
           isDisabled={
-            !allValid || !isAnalyzed || commentSentiment === "aggressif"
-          } // ✅ toutes les conditions
+            isLoading || !allValid || !isAnalyzed || commentSentiment === "aggressif"
+          }
           className={`transition-all duration-200 px-6 py-2.5 rounded-lg shadow-sm font-medium text-sm
-    ${
-      allValid && isAnalyzed && commentSentiment !== "aggressif"
-        ? "bg-[#002B5B] hover:bg-[#003a78] text-white"
-        : "bg-gray-200 text-gray-400 cursor-not-allowed"
-    }`}
+    ${allValid && isAnalyzed && commentSentiment !== "aggressif"
+              ? "bg-[#002B5B] hover:bg-[#003a78] text-white"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }`}
         >
-          Enregistrer l’évaluation
+          {isLoading ? "Enregistrement..." : "Enregistrer l’évaluation"}
         </Button>
+
       </div>
     </form>
   );
