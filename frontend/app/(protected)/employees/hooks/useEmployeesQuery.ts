@@ -7,7 +7,7 @@ export interface Employee {
   firstname: string;
   lastname: string;
   email: string;
-  department: { name: string };
+  departmentId: string;
   jobTitle: { name: string };
   status: string;
   score?: number;
@@ -15,7 +15,7 @@ export interface Employee {
 
 export function useEmployeesQuery(params?: {
   search?: string;
-  department?: string;
+  departmentId?: string;
   status?: string;
   page?: number;
   limit?: number;

@@ -17,13 +17,13 @@ import { EmployeeTable } from "./components/EmployeeTable";
 
 export default function EmployeesPage() {
   const [search, setSearch] = useState("");
-  const [department, setDepartment] = useState<string>("");
+  const [departmentId, setDepartmentId] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, isError } = useEmployeesQuery({
     search,
-    department,
+    departmentId,
     status,
     page: currentPage,
   });
@@ -64,9 +64,9 @@ export default function EmployeesPage() {
                 placeholder="Département"
                 variant="bordered"
                 size="sm"
-                selectedKeys={department ? [department] : []}
+                selectedKeys={departmentId ? [departmentId] : []}
                 onSelectionChange={(keys) =>
-                  setDepartment(String(Array.from(keys)[0] ?? ""))
+                  setDepartmentId(String(Array.from(keys)[0] ?? ""))
                 }
                 classNames={{
                   trigger: [
