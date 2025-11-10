@@ -64,16 +64,22 @@ export function CompetencySection({ items, onChange }: CompetencySectionProps) {
                     max="5"
                     value={comp.score}
                     onChange={(e) => updateItem(comp.id, "score", e.target.value)}
-                    className="w-16 border border-gray-300 rounded px-2 py-1 text-center"
+                    className="w-16 border border-gray-300 rounded px-2 py-1 text-center
+             focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
+             shadow-sm"
                   />
+
                 </td>
                 <td className="px-4 py-2">
                   <input
                     type="text"
                     value={comp.comment}
                     onChange={(e) => updateItem(comp.id, "comment", e.target.value)}
-                    className="w-full border border-gray-300 rounded px-2 py-1"
+                    className="w-full border border-gray-300 rounded px-2 py-1
+             focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
+             shadow-sm"
                   />
+
                 </td>
               </tr>
             ))}
