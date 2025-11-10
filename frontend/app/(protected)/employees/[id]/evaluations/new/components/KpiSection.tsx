@@ -71,7 +71,7 @@ export function KpiSection({ items, onChange }: KpiSectionProps) {
              shadow-sm"
                   />
                 </td>
-                <td className="px-4 py-2">
+                <td className="px-4 py-2 w-[30%]">
                   <textarea
                     value={kpi.comment}
                     onChange={(e) =>
