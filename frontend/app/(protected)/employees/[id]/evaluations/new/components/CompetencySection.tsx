@@ -23,10 +23,16 @@ const LEVEL_LABELS: Record<string, string> = {
 };
 
 export function CompetencySection({ items, onChange }: CompetencySectionProps) {
-  const updateItem = (id: number, field: keyof CompetencyItem, value: string | number) => {
+  const updateItem = (
+    id: number,
+    field: keyof CompetencyItem,
+    value: string | number
+  ) => {
     onChange(
       items.map((c) =>
-        c.id === id ? { ...c, [field]: field === "score" ? Number(value) : value } : c
+        c.id === id
+          ? { ...c, [field]: field === "score" ? Number(value) : value }
+          : c
       )
     );
   };
@@ -63,23 +69,25 @@ export function CompetencySection({ items, onChange }: CompetencySectionProps) {
                     min="1"
                     max="5"
                     value={comp.score}
-                    onChange={(e) => updateItem(comp.id, "score", e.target.value)}
+                    onChange={(e) =>
+                      updateItem(comp.id, "score", e.target.value)
+                    }
                     className="w-16 border border-gray-300 rounded px-2 py-1 text-center
              focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
              shadow-sm"
                   />
-
                 </td>
                 <td className="px-4 py-2">
                   <input
                     type="text"
                     value={comp.comment}
-                    onChange={(e) => updateItem(comp.id, "comment", e.target.value)}
+                    onChange={(e) =>
+                      updateItem(comp.id, "comment", e.target.value)
+                    }
                     className="w-full border border-gray-300 rounded px-2 py-1
              focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40
              shadow-sm"
                   />
-
                 </td>
               </tr>
             ))}
