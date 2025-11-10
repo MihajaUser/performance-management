@@ -37,14 +37,11 @@ export default function NewEvaluationPage() {
   const id = Number(params.id);
   const router = useRouter();
 
-  // ✅ Fetch employé
   const { data: employee, isLoading, isError } = useEmployeeDetailQuery(id);
 
-  // ✅ Fetch compétences
   const { data: compData, isLoading: compLoading } =
     useEmployeeCompetenciesQuery(id);
 
-  // === 🔹 Soumission - DÉPLACER ICI (avant les early returns) ===
   const { mutateAsync: createEvaluation, isPending: isCreating } =
     useCreateEvaluation();
 
@@ -60,7 +57,6 @@ export default function NewEvaluationPage() {
       <LoadingScreen message="Soumission du formulaire d’évaluation en cours..." />
     );
 
-  // === 🔹 FAKE KPI DATA (en attendant backend dédié) ===
   const fakeKpis: KpiData[] = employee.userKpis?.map((k: RawKpi) => ({
     id: k.id,
     name: k.kpiTemplate.name,
@@ -108,7 +104,6 @@ export default function NewEvaluationPage() {
       },
     ];
 
-  // === 🔹 FAKE COMPETENCIES DATA (à remplacer par compData.details) ===
   const fakeCompetencies: CompetencyItem[] = compData?.details?.map(
     (c: RawCompetency) => ({
       id: c.id,
