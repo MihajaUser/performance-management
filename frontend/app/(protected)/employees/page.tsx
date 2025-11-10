@@ -47,20 +47,19 @@ export default function EmployeesPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end flex-1">
               {/* Champ recherche */}
-              <Input
-                aria-label="Recherche d'employé"
-                placeholder="  Recherche nom, prenom ou email ..."
-                startContent={<Search className="text-gray-400 w-5 h-5" />}
-                value={search}
-                onValueChange={setSearch}
-                variant="bordered"
-                size="sm"
-                classNames={{
-                  inputWrapper:
-                    "bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
-                  input: "text-gray-800 placeholder:text-gray-400 text-sm",
-                }}
-              />
+              <div className="relative">
+                <Search className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Recherche nom, prénom ou email..."
+                  className="pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg h-11 w-full text-gray-700 bg-white 
+               focus:outline-none focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40 
+               shadow-sm hover:shadow transition-all duration-150"
+                />
+              </div>
+
 
               {/* Département */}
               <Select
