@@ -5,7 +5,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Input,
   Select,
   SelectItem,
   Button,
@@ -71,8 +70,11 @@ export default function EmployeesPage() {
                   setDepartment(String(Array.from(keys)[0] ?? ""))
                 }
                 classNames={{
-                  trigger:
-                    "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
+                  trigger: [
+                    "relative bg-white border border-gray-300 hover:border-gray-400",
+                    "h-11 rounded-lg transition-all",
+                    "shadow-sm hover:shadow focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40",
+                  ].join(" "),
                   value: "text-gray-800 text-sm",
                   selectorIcon:
                     "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
@@ -86,12 +88,11 @@ export default function EmployeesPage() {
               >
                 <SelectItem key="">Tous</SelectItem>
                 <SelectItem key="Informatique">Informatique</SelectItem>
-                <SelectItem key="Ressources Humaines">
-                  Ressources Humaines
-                </SelectItem>
+                <SelectItem key="Ressources Humaines">Ressources Humaines</SelectItem>
                 <SelectItem key="Finance">Finance</SelectItem>
                 <SelectItem key="Marketing">Marketing</SelectItem>
               </Select>
+
 
               {/* Statut */}
               <Select
@@ -103,8 +104,11 @@ export default function EmployeesPage() {
                   setStatus(String(Array.from(keys)[0] ?? ""))
                 }
                 classNames={{
-                  trigger:
-                    "relative bg-white border-gray-300 hover:border-gray-400 shadow-sm h-11 rounded-lg transition-all",
+                  trigger: [
+                    "relative bg-white border border-gray-300 hover:border-gray-400",
+                    "h-11 rounded-lg transition-all",
+                    "shadow-sm hover:shadow focus:ring-1 focus:ring-[#002B5B]/30 focus:border-[#002B5B]/40",
+                  ].join(" "),
                   value: "text-gray-800 text-sm",
                   selectorIcon:
                     "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
@@ -121,6 +125,7 @@ export default function EmployeesPage() {
                 <SelectItem key="on_leave">En congé</SelectItem>
                 <SelectItem key="inactive">Inactif</SelectItem>
               </Select>
+
             </div>
 
             {/* Bouton Ajouter */}
