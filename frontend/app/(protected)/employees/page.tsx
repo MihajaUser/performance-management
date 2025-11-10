@@ -59,7 +59,6 @@ export default function EmployeesPage() {
                 />
               </div>
 
-
               {/* Département */}
               <Select
                 placeholder="Département"
@@ -86,14 +85,55 @@ export default function EmployeesPage() {
                   className: "z-[60]",
                 }}
               >
-                <SelectItem key="">Tous</SelectItem>
-                <SelectItem key="1">Informatique</SelectItem>
-                <SelectItem key="2">Ressources Humaines</SelectItem>
-                <SelectItem key="3">Finance</SelectItem>
-                <SelectItem key="4">Logistique</SelectItem>
-                <SelectItem key="5">Commercial</SelectItem>
+                <SelectItem
+                  key=""
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Tous
+                </SelectItem>
+                <SelectItem
+                  key="1"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Informatique
+                </SelectItem>
+                <SelectItem
+                  key="2"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Ressources Humaines
+                </SelectItem>
+                <SelectItem
+                  key="3"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Finance
+                </SelectItem>
+                <SelectItem
+                  key="4"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Logistique
+                </SelectItem>
+                <SelectItem
+                  key="5"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002b5b]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Commercial
+                </SelectItem>
               </Select>
-
 
               {/* Statut */}
               <Select
@@ -122,13 +162,42 @@ export default function EmployeesPage() {
                   className: "z-[60]",
                 }}
               >
-                <SelectItem key="">Tous</SelectItem>
-                <SelectItem key="active">Actif</SelectItem>
-                <SelectItem key="on_leave">En congé</SelectItem>
-                <SelectItem key="inactive">Inactif</SelectItem>
+                <SelectItem
+                  key=""
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Tous
+                </SelectItem>
+
+                <SelectItem
+                  key="active"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Actif
+                </SelectItem>
+
+                <SelectItem
+                  key="on_leave"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  En congé
+                </SelectItem>
+
+                <SelectItem
+                  key="inactive"
+                  className="text-sm font-medium text-gray-700
+             data-[hover=true]:bg-gray-100 data-[hover=true]:text-[#002B5B]
+             data-[selected=true]:bg-[#002B5B]/10 data-[selected=true]:text-[#002B5B]"
+                >
+                  Inactif
+                </SelectItem>
               </Select>
-
-
             </div>
 
             {/* Bouton Ajouter */}
