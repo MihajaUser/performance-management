@@ -79,7 +79,7 @@ export default function EmployeesPage() {
                   selectorIcon:
                     "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
                   popoverContent:
-                    "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
+                    "z-[50] bg-white border border-gray-200 rounded-lg [&_[data-selected=true]]:bg-[#002B5B]/10 [&_[data-selected=true]]:text-[#002B5B]",
                 }}
                 popoverProps={{
                   placement: "bottom-start",
@@ -87,10 +87,11 @@ export default function EmployeesPage() {
                 }}
               >
                 <SelectItem key="">Tous</SelectItem>
-                <SelectItem key="Informatique">Informatique</SelectItem>
-                <SelectItem key="Ressources Humaines">Ressources Humaines</SelectItem>
-                <SelectItem key="Finance">Finance</SelectItem>
-                <SelectItem key="Marketing">Marketing</SelectItem>
+                <SelectItem key="1">Informatique</SelectItem>
+                <SelectItem key="2">Ressources Humaines</SelectItem>
+                <SelectItem key="3">Finance</SelectItem>
+                <SelectItem key="4">Logistique</SelectItem>
+                <SelectItem key="5">Commercial</SelectItem>
               </Select>
 
 
@@ -112,8 +113,9 @@ export default function EmployeesPage() {
                   value: "text-gray-800 text-sm",
                   selectorIcon:
                     "absolute right-3 text-gray-400 w-4 h-4 pointer-events-none",
+
                   popoverContent:
-                    "z-[50] bg-white shadow-lg border border-gray-200 rounded-lg",
+                    "z-[50] bg-white border border-gray-200 rounded-lg [&_[data-selected=true]]:bg-[#002B5B]/10 [&_[data-selected=true]]:text-[#002B5B]",
                 }}
                 popoverProps={{
                   placement: "bottom-start",
@@ -125,6 +127,7 @@ export default function EmployeesPage() {
                 <SelectItem key="on_leave">En congé</SelectItem>
                 <SelectItem key="inactive">Inactif</SelectItem>
               </Select>
+
 
             </div>
 
