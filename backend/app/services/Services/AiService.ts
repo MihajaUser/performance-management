@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AiAnalysisResult } from "App/Types/ai";
-
+import Env from '@ioc:Adonis/Core/Env'
 export default class AiService {
   /**
    * Analyse IA : sentiment + recommandation de cours basées sur les KPI
@@ -11,14 +11,15 @@ export default class AiService {
     job: string
   ): Promise<AiAnalysisResult> {
     try {
+      const AI_SERVICE_URL = Env.get('AI_SERVICE_URL')
       // === 1️⃣ Analyse de sentiment ===
       const sentimentRes = await axios.post(
-        "http://localhost:8001/analyze-sentiment",
+        `${AI_SERVICE_URL}/analyze-sentiment`,
         {
           text: comment,
         }
       );
-
+ 
       const sentiment = sentimentRes.data
         .sentiment as AiAnalysisResult["sentiment"];
 
@@ -31,7 +32,7 @@ export default class AiService {
       if (sentiment !== "aggressif" && weakest.length > 0) {
         const queryText = weakest.join(" ");
         const courseRes = await axios.post(
-          "http://localhost:8001/recommend-course",
+          `${AI_SERVICE_URL}/recommend-course`,
           {
             kpi: queryText,
             job: job ?? "employee",
