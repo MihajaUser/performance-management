@@ -238,6 +238,7 @@ export default function EmployeesPage() {
                     employé{meta.total > 1 ? "s" : ""}
                   </div>
                   <Pagination
+                    dir="ltr"
                     showControls
                     total={meta.last_page}
                     page={currentPage}
