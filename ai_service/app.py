@@ -22,19 +22,23 @@ default_origins = [
     "http://backend:3333",          # pour permettre aux appels du backend
 ]
 
-# Optionnel : surcharge via variable d’environnement
+# lire la variable d'environnement
 env_origins = os.getenv("AI_CORS_ORIGINS")
-allowed_origins = (
-    [o.strip() for o in env_origins.split(",")] if env_origins else default_origins
-)
 
+# si vide → autoriser toutes les origines (mode développement)
+if env_origins in (None, "", "*"):
+    allowed_origins = ["*"]
+else:
+    allowed_origins = [o.strip() for o in env_origins.split(",")]
+    
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # === 🧠 Chargement des modèles ===
 try:
