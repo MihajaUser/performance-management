@@ -9,6 +9,8 @@ import { AiAnalysisResult } from "App/Types/ai";
 import PerformanceScore from "App/Models/PerformanceScore";
 import CompetencyTemplate from "App/Models/CompetencyTemplate";
 import CompetencyResult from "App/Models/CompetencyResult";
+import User from "App/Models/User";
+import PredictionService from "App/services/Services/PredictionService";
 
 export default class EvaluationController {
   public async index({ request }: HttpContextContract) {
@@ -97,11 +99,34 @@ export default class EvaluationController {
       schema: EvaluationValidator.storeFull,
     });
 
-    // ✅ Calculer un score général basé sur les KPI si disponibles
-    const generalScore =
-      payload.kpis?.length && payload.kpis.length > 0
+    const employee = await User.find(payload.employeeId);
+
+    const seniority = employee
+      ? Math.floor(
+        (Date.now() - employee.createdAt.toJSDate().getTime()) /
+        (1000 * 60 * 60 * 24 * 365)
+      )
+      : 0;
+
+    // ✅ Calculer les score
+    const kpi_score =
+      payload.kpis && payload.kpis.length > 0
         ? payload.kpis.reduce((sum, k) => sum + k.score, 0) / payload.kpis.length
         : 0;
+
+    const competency_score =
+      payload.competencies && payload.competencies.length > 0
+        ? payload.competencies.reduce((sum, c) => sum + c.score, 0) / payload.competencies.length
+        : 0;
+
+    const generalScore = (kpi_score * 0.7) + (competency_score * 0.3);
+
+    const predicted = await PredictionService.predictPerformance({
+      kpi_score,
+      competency_score,
+      seniority,
+    });
+
 
     // ✅ 1. Créer l’évaluation principale
     const evaluation = await Evaluation.create({
@@ -183,7 +208,7 @@ export default class EvaluationController {
         period: evaluation.period,
         scoreManager: finalScore,
         scoreFinal: finalScore, // pourra être ajusté plus tard
-        predictedScore: 77 // a ajuster plus tard
+        predictedScore: predicted, // a ajuster plus tard
       });
 
       // --- 🧩 Enregistrer le résultat moyen par catégorie de compétence ---
