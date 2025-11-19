@@ -1,0 +1,30 @@
+➤ Commande à exécuter une fois par semaine :
+-docker system prune -a -f
+-docker volume prune -f
+
+👉 Ça supprime :
+
+tous les conteneurs et images non utilisés, les volumes temporaires, et les caches.
+
+💡 Pour vérifier combien Docker prend d’espace :
+-sudo du -sh /var/lib/docker
+
+
+🧩 2. Nettoyer le cache APT (mises à jour Ubuntu)
+➤ À faire une fois par mois :
+-sudo apt-get clean
+-sudo apt-get autoremove -y
+
+
+
+🧩 3. Supprimer le cache Hugging Face (modèles IA)
+-rm -rf ~/.cache/huggingface/*
+
+
+🧩 4. Nettoyer les logs système
+-sudo journalctl --vacuum-time=3d
+-sudo rm -rf /var/log/*
+
+
+🧩 5. Vérifier l’espace libre en un coup d’œil
+-df -h

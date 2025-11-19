@@ -1,3 +1,4 @@
+# ai_service/app.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
@@ -14,8 +15,11 @@ app = FastAPI(title="AI Service – Performance Manager")
 
 # === 🔐 CORS Middleware ===
 default_origins = [
-    "http://localhost:3000",
+    "http://localhost:3000",        # développement local
     "http://127.0.0.1:3000",
+    "http://frontend:3000",         # nom du conteneur Docker du frontend
+    "http://frontend:3400",         # si tu changes le port interne
+    "http://backend:3333",          # pour permettre aux appels du backend
 ]
 
 # Optionnel : surcharge via variable d’environnement
@@ -39,7 +43,7 @@ except Exception:
     sentiment_model = None
 
 try:
-    prediction_model = joblib.load("model/prediction.joblib")
+    prediction_model = joblib.load("model/performance.joblib")
 except Exception:
     prediction_model = None
 
@@ -71,9 +75,9 @@ class SentimentRequest(BaseModel):
 
 
 class PredictionRequest(BaseModel):
-    auto: float
-    manager: float
-    competencies: float
+    kpi_score: float
+    competency_score: float
+    seniority: float
 
 
 class CourseRequest(BaseModel):
@@ -143,11 +147,19 @@ def predict_performance(req: PredictionRequest):
     if prediction_model is None:
         raise HTTPException(status_code=500, detail="Prediction model not loaded.")
     try:
-        features = [[req.auto, req.manager, req.competencies]]
+        features = [[
+            req.kpi_score,
+            req.competency_score,
+            req.seniority
+        ]]
         prediction = prediction_model.predict(features)[0]
-        return {"inputs": req.dict(), "predicted_score": round(float(prediction), 2)}
+        return {
+            "inputs": req.dict(),
+            "predicted_score": round(float(prediction), 2)
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 
 @app.post("/recommend-course")
