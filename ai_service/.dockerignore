@@ -1,3 +1,17 @@
+# === EXCLUSIONS IA LOURDES ===
+# Empêcher les modèles HuggingFace de gonfler l'image Docker
+model/finetuned-sentiment/
+model/*.bin
+model/*.pt
+model/*.pth
+model/*.joblib
+huggingface/
+*.joblib
+*.pt
+*.bin
+# Empêcher les datasets de se retrouver dans Docker
+data/*.csv
+
 # Environnements virtuels
 venv/
 */venv/
