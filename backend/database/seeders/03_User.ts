@@ -168,9 +168,9 @@ export default class UserSeeder extends BaseSeeder {
         status: 'active',
       },
       {
-        firstname: 'Patrick',
-        lastname: 'Ravelomanana',
-        email: 'patrick.r@generis.mg',
+        firstname: 'Randriarisoa',
+        lastname: 'Tojo',
+        email: 'randriarisoatojo.r@generis.mg',
         password: await Hash.make('password'),
         departmentId: 2,
         jobTitleId: 4,
