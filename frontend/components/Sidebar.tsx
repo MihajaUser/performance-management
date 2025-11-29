@@ -11,6 +11,7 @@ import {
   Award,
   LogOut,
   Briefcase,
+  FileText
 } from "lucide-react";
 import Image from "next/image";
 import performanceIcon from "@/assets/icons/performance.svg";
@@ -21,6 +22,7 @@ interface SidebarProps {
 
 const links = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/fiche", label: "Fiche", icon: FileText },
   { href: "/employees", label: "Employés", icon: Users },
   { href: "/evaluations", label: "Évaluations", icon: ClipboardList },
   { href: "/competencies", label: "Compétences", icon: Award },
@@ -39,15 +41,13 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
 
   return (
     <aside
-      className={`${
-        isCollapsed ? "w-20" : "w-64"
-      } h-screen bg-white border-r border-gray-200 transition-all duration-300 flex flex-col overflow-hidden`}
+      className={`${isCollapsed ? "w-20" : "w-64"
+        } h-screen bg-white border-r border-gray-200 transition-all duration-300 flex flex-col overflow-hidden`}
     >
       {/* --- Header (logo + titre) --- */}
       <div
-        className={`p-4 border-b border-gray-200 flex items-center ${
-          isCollapsed ? "justify-center" : "justify-start"
-        }  shrink-0`}
+        className={`p-4 border-b border-gray-200 flex items-center ${isCollapsed ? "justify-center" : "justify-start"
+          }  shrink-0`}
       >
         <div className="flex items-center gap-2">
           <Image
@@ -76,18 +76,16 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
               href={link.href}
               className={`
                 flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
-                ${
-                  isActive
-                    ? "bg-[#002B5B]/10 text-[#002B5B] font-medium"
-                    : "text-gray-700 hover:bg-gray-100"
+                ${isActive
+                  ? "bg-[#002B5B]/10 text-[#002B5B] font-medium"
+                  : "text-gray-700 hover:bg-gray-100"
                 }
               `}
               title={isCollapsed ? link.label : undefined}
             >
               <Icon
-                className={`w-5 h-5 flex-shrink-0 ${
-                  isActive ? "text-[#002B5B]" : "text-gray-500"
-                }`}
+                className={`w-5 h-5 flex-shrink-0 ${isActive ? "text-[#002B5B]" : "text-gray-500"
+                  }`}
               />
               {!isCollapsed && <span className="text-sm">{link.label}</span>}
             </Link>
