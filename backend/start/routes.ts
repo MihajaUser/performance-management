@@ -40,11 +40,26 @@ Route.group(() => {
 }).prefix("/evaluations");
 
 Route.group(() => {
-  Route.get("/", "CompetenciesController.index");
-  Route.get("/user/:id", "CompetenciesController.byUser");
-  Route.post("/", "CompetenciesController.store");
-  Route.put("/:id", "CompetenciesController.update");
+  Route.get("/", "CompetenciesController.index")
+    .middleware(["auth", "privilege:competency.view"]);
+
+  Route.get("/user/:id", "CompetenciesController.byUser")
+    .middleware(["auth", "privilege:competency.view"]);
+
+  Route.get("/:id", "CompetenciesController.show")
+    .middleware(["auth", "privilege:competency.view"]);
+
+  Route.post("/", "CompetenciesController.store")
+    .middleware(["auth", "privilege:competency.create"]);
+
+  Route.put("/:id", "CompetenciesController.update")
+    .middleware(["auth", "privilege:competency.update"]);
+
+  Route.delete("/:id", "CompetenciesController.destroy")
+    .middleware(["auth", "privilege:competency.delete"]);
 }).prefix("/competencies");
+
+
 
 Route.group(() => {
   Route.get("/", "PerformanceScoresController.index");
