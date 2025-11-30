@@ -22,5 +22,3 @@ A web application to manage and track employee performance, including AI-based s
   - Sentiment analysis of comments  
   - Prediction of future performance based on historical data  
 
-## Project Structure
-
