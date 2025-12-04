@@ -1,0 +1,241 @@
+Use the template "Modern AI Technology Business Presentation" with template id: ab7bc3f3-4107-4d73-868e-89eea5a6e8b4 to create a presentation.
+Génère une présentation en slides pour une soutenance de stage sur le projet GPerformance.
+Important :
+
+Ajouter une page de garde avec :
+
+GPerformance
+
+RANDRIANARISOA Lalatiana Mihaja Antonio
+
+Encadreur : M. RAKOTONIAINA Avotra Diamondra
+pas besoin ecrire ce qui
+Mettre les numéros de page sur tous les slides sauf la page de garde.
+
+Favoriser une présentation sous forme de points clés (pas de paragraphes).
+
+Structure et contenu EXACTS des slides :
+
+PAGE DE GARDE (sans numéro)
+
+TEXTE SUR LE SLIDE :
+GPerformance
+Projet de gestion de la performance intégrant un module IA
+RANDRIANARISOA Lalatiana Mihaja Antonio
+Encadreur : M. RAKOTONIAINA Avotra Diamondra
+
+COMMENTAIRE :
+Présentation générale du projet, du candidat et de l’encadreur.
+
+SLIDE 1 – Présentation de l’entreprise
+
+TEXTE SUR LE SLIDE :
+• Generis Madagascar
+• Innovation, digital, IA
+• Environnement multi-domaines
+
+COMMENTAIRE :
+Generis est un groupe fondé en 2019, actif dans la formation, le digital, l’IA et la transformation d’entreprise. Le stage s’est déroulé dans l’équipe numérique.
+
+SLIDE 2 – Contexte & Problématique
+
+TEXTE SUR LE SLIDE :
+• Processus manuel
+• Données dispersées
+• Pas d’analyse automatique
+
+COMMENTAIRE :
+L’entreprise utilise Excel, PDF et e-mails. Aucun tableau de bord, aucune automatisation, manque de cohérence et forte perte de temps.
+
+SLIDE 3 – Pourquoi ce stage ?
+
+TEXTE SUR LE SLIDE :
+• Modernisation RH
+• Besoin d’un outil unique
+• Automatisation & IA
+
+COMMENTAIRE :
+Le stage répond au besoin stratégique de digitaliser le suivi de performance et d’automatiser une partie de l’analyse.
+
+SLIDE 4 – Objectifs du stage
+
+TEXTE SUR LE SLIDE :
+• Centralisation des données
+• Évaluations standardisées
+• IA : sentiment + score
+• UX améliorée
+
+COMMENTAIRE :
+Livrer une plateforme complète, modulable et évolutive utilisée par RH, managers et employés.
+
+SLIDE 5 – État de l’art : critères
+
+TEXTE SUR LE SLIDE :
+• Centralisation
+• Automatisation
+• KPI / compétences
+• Reporting
+• Coût
+
+COMMENTAIRE :
+Ces critères ont permis de comparer méthodes traditionnelles, outils généralistes et plateformes RH spécialisées.
+
+SLIDE 6 – Conclusion de l’état de l’art
+
+TEXTE SUR LE SLIDE :
+❌ Excel/PDF = limites
+❌ Outils généralistes = incomplets
+❌ RH spécialisées = coût élevé
+✔️ Solution interne = adaptée
+
+COMMENTAIRE :
+La solution interne est plus flexible, économique et totalement alignée aux besoins de Generis.
+
+SLIDE 7 – Ce qui a été réalisé
+
+TEXTE SUR LE SLIDE :
+• Plateforme complète
+• IA intégrée
+• Architecture modulaire
+• RBAC avancé
+• Dockerisation
+
+COMMENTAIRE :
+Le projet dépasse un simple CRUD : il s’agit d’une plateforme moderne, sécurisée et extensible.
+
+SLIDE 8 – Démarche & Méthode
+
+TEXTE SUR L’SLIDE :
+• Méthode Agile (4 sprints)
+• Besoins → Conception → Dev → Tests
+
+COMMENTAIRE :
+Livraison itérative : BD, UI, Backend, IA. Tests continus avec le tuteur.
+
+SLIDE 9 – Planification & Rôles
+
+TEXTE SUR LE SLIDE :
+• Client : RH, managers, employés
+• Chef de projet : organisation & suivi
+• Développeur : fullstack + IA
+• DevOps : déploiement VPS/Docker
+
+COMMENTAIRE :
+Mon rôle : développement complet (frontend, backend, IA), CI/CD, conteneurs Docker prêts au déploiement.
+
+SLIDE 10 – Conception des données
+
+TEXTE SUR LE SLIDE :
+• MPD (19 tables)
+• Employés, KPI, compétences, évaluations
+• Modèle adapté au RBAC
+
+COMMENTAIRE :
+Schéma pensé pour évoluer et supporter plusieurs modules métier.
+
+SLIDE 11 – Architecture logicielle
+
+TEXTE SUR LE SLIDE :
+• Frontend : Next.js
+• Backend : AdonisJS
+• IA : FastAPI
+• PostgreSQL
+• Docker Compose
+
+COMMENTAIRE (schéma à présenter oralement) :
+Architecture en plusieurs couches :
+
+Présentation (Next.js)
+
+Backend métier + RBAC (AdonisJS)
+
+Microservice IA (FastAPI)
+
+Base PostgreSQL
+
+Conteneurs isolés via Docker Compose
+
+process dans ordre pas besoin ecrire ce qui est en parathese apartir dici: 
+next appelle ->backend
+backend appelle ->bdd (pour creation)
+backend appelle -> fast api (pour analyse commentaire et prediction)
+backend appellle ->bdd(pour enregistre le toi)
+c'est a dire fast api n'appelle jamais bdd
+
+SLIDE 12 – Fonctionnalités réalisées
+
+TEXTE SUR LE SLIDE :
+• Gestion employés & évaluations
+• Objectifs & KPI
+• Analyse IA (sentiment)
+• IA : score global
+• RBAC : rôles + privilèges
+
+COMMENTAIRE :
+On parle en termes de capacités, pas de CRUD : gestion des utilisateurs, automatisation, analyse IA, sécurité avancée.
+
+SLIDE 13 – Pourquoi ce RBAC ?
+
+TEXTE SUR LE SLIDE :
+RBAC vs ACL vs ABAC
+→ RBAC = clair, scalable, adapté RH
+
+COMMENTAIRE :
+ACL = trop complexe à maintenir
+ABAC = trop lourd pour un projet interne
+RBAC avec privilèges = lisible, sécurisé et évolutif
+
+SLIDE 14 – Démo vidéo
+
+TEXTE SUR LE SLIDE :
+• Navigation
+• Évaluation
+• Analyse IA
+• Score prédictif
+
+COMMENTAIRE :
+Montrer un parcours simple : se connecter, évaluer, analyser et prédire.
+
+SLIDE 15 – Bilan pour l’entreprise
+
+TEXTE SUR LE SLIDE :
+• Outil moderne
+• Base centralisée
+• IA intégrée
+• Déploiement réalisé
+
+COMMENTAIRE :
+La plateforme est prête à l’usage interne et constitue une base pour un futur SIRH.
+
+SLIDE 16 – Bilan personnel
+
+TEXTE SUR LE SLIDE :
+• Architecture logicielle
+• Fullstack
+• IA appliquée
+• Docker & CI/CD
+
+COMMENTAIRE :
+Ce stage m’a permis de travailler sur un vrai produit complet, renforçant mes compétences techniques et méthodologiques.
+
+SLIDE 17 – Perspectives
+
+TEXTE SUR LE SLIDE :
+• IA plus précise
+• Feedback 360
+• Recommandations
+
+COMMENTAIRE (raisons) :
+• IA plus précise → meilleure compréhension du langage RH, réduction des biais, prédictions plus fiables.
+• Feedback 360 → vision plus complète des performances (pairs, managers, collaborateurs).
+• Recommandations → suggestions automatiques de formation, actions d’amélioration, détection d’anomalies.
+
+SLIDE 18 – Conclusion
+
+TEXTE SUR LE SLIDE :
+• Objectifs atteints
+• Plateforme fonctionnelle
+• Base solide pour la suite
+
+COMMENTAIRE :
+Clôturer en rappelant la valeur ajoutée pour Generis et la continuité du projet.
