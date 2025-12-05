@@ -17,9 +17,6 @@
 # sudo systemctl stop postgresql
 # sudo systemctl status postgresql
 # sudo systemctl start postgresql
-
-version: "3.8"
-
 services:
   # 🔒 Nginx Reverse Proxy avec SSL/TLS
   nginx:
