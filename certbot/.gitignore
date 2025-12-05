@@ -1,0 +1,6 @@
+# Ignore les certificats et fichiers temporaires
+conf/
+www/
+*.pem
+*.crt
+*.key

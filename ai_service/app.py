@@ -15,11 +15,8 @@ app = FastAPI(title="AI Service – Performance Manager")
 
 # === 🔐 CORS Middleware ===
 default_origins = [
-    "http://localhost:3000",        # développement local
-    "http://127.0.0.1:3000",
-    "http://frontend:3000",         # nom du conteneur Docker du frontend
-    "http://frontend:3400",         # si tu changes le port interne
-    "http://backend:3333",          # pour permettre aux appels du backend
+    "https://perfmanagement.mild-mg.com",         # nom du conteneur Docker du frontend
+    "https://back.mild-mg.com",          # pour permettre aux appels du backend
 ]
 
 # lire la variable d'environnement
