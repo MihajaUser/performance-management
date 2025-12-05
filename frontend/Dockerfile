@@ -16,7 +16,12 @@ WORKDIR /app
 
 # Copier les fichiers nécessaires
 COPY package*.json ./
-RUN npm install
+
+# Configurer npm pour plus de robustesse
+RUN npm config set fetch-retries 5 && \
+    npm config set fetch-retry-mintimeout 20000 && \
+    npm config set fetch-retry-maxtimeout 120000 && \
+    npm install
 
 # Copier tout le code
 COPY . .
