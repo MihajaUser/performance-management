@@ -80,15 +80,6 @@ export function EmployeeKpis({ items }: { items: KpiItem[] }) {
           </tbody>
         </table>
       </div>
-
-      <div className="mt-4 text-left">
-        <p className="text-sm text-gray-700">
-          <span className="font-semibold text-[#002B5B]">
-            Moyenne pondérée KPI :
-          </span>{" "}
-          {weightedAverage.toFixed(1)} / 100
-        </p>
-      </div>
     </div>
   );
 }
