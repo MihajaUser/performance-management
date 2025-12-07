@@ -14,6 +14,8 @@ Mettre les numéros de page sur tous les slides sauf la page de garde.
 
 Favoriser une présentation sous forme de points clés (pas de paragraphes).
 
+contenu bien aerer, espace haut et bas la meme et gauche droite aussi
+
 Structure et contenu EXACTS des slides :
 
 PAGE DE GARDE (sans numéro)
@@ -239,3 +241,7 @@ TEXTE SUR LE SLIDE :
 
 COMMENTAIRE :
 Clôturer en rappelant la valeur ajoutée pour Generis et la continuité du projet.
+
+
+SLIDE 19 – Remerciement
+un simple mot Merci, bien centrer
