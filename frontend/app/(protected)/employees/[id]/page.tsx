@@ -64,15 +64,6 @@ export default function EmployeeDetailPage() {
   };
 
 
-  useEffect(() => {
-    if (data?.evaluationsReceived?.length && !selectedEvaluationId) {
-      const recentId = getMostRecentEvaluationId(data.evaluationsReceived);
-      if (recentId) {
-        const frame = requestAnimationFrame(() => setSelectedEvaluationId(recentId));
-        return () => cancelAnimationFrame(frame);
-      }
-    }
-  }, [data?.evaluationsReceived, selectedEvaluationId]);
 
 
   const evaluations: EvaluationItem[] = useMemo(() => {
@@ -161,9 +152,10 @@ export default function EmployeeDetailPage() {
 
       <EvaluationTimeline
         evaluations={data.evaluationsReceived}
-        selectedId={selectedEvaluationId}
+        selectedId={selectedEvaluationId ?? getMostRecentEvaluationId(data.evaluationsReceived)}
         onSelect={(id) => setSelectedEvaluationId(id)}
       />
+
 
       <Card shadow="sm" className="border border-gray-200">
         <CardHeader className="border-b border-gray-200 bg-gray-50" />

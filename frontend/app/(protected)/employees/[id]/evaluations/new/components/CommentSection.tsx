@@ -28,22 +28,22 @@ export function CommentSection({
   const { mutateAsync: analyze, isPending: isAnalyzing } =
     useSentimentAnalysis();
 
-const analyzeSentiment = async () => {
-  if (!value.trim()) return;
-  setSentiment(null);
-  onAnalyzedChange?.(false); // 🆕 reset avant analyse
+  const analyzeSentiment = async () => {
+    if (!value.trim()) return;
+    setSentiment(null);
+    onAnalyzedChange?.(false); // 🆕 reset avant analyse
 
-  try {
-    const data = await analyze(value);
-    setSentiment(data.sentiment);
-    onSentimentChange?.(data.sentiment); // 🆕 transmettre à parent
-    onAnalyzedChange?.(true);
-  } catch (err) {
-    console.error(err);
-    setSentiment("erreur");
-    onAnalyzedChange?.(true);
-  }
-};
+    try {
+      const data = await analyze(value);
+      setSentiment(data.sentiment);
+      onSentimentChange?.(data.sentiment); // 🆕 transmettre à parent
+      onAnalyzedChange?.(true);
+    } catch (err) {
+      console.error(err);
+      setSentiment("erreur");
+      onAnalyzedChange?.(true);
+    }
+  };
 
 
   const getSentimentDisplay = () => {
@@ -66,7 +66,7 @@ const analyzeSentiment = async () => {
         return (
           <span className="flex items-center gap-1 text-amber-600 text-sm font-medium">
             <AlertTriangle className="w-4 h-4" />
-            Critique constructive (formulation correcte)
+            Critique constructive
           </span>
         );
       case "aggressif":
@@ -94,14 +94,13 @@ const analyzeSentiment = async () => {
         onChange={(e) => onChange(e.target.value)}
         placeholder="Rédigez ici le commentaire global de l’évaluation..."
         className={`w-full border rounded-lg px-3 py-2 text-sm min-h-[100px] transition-colors focus:outline-none
-          ${
-            sentiment === "aggressif"
-              ? "border-red-500 bg-red-50"
-              : sentiment === "negative"
+          ${sentiment === "aggressif"
+            ? "border-red-500 bg-red-50"
+            : sentiment === "negative"
               ? "border-amber-400 bg-amber-50"
               : sentiment === "positive"
-              ? "border-green-500 bg-green-50"
-              : "border-gray-300 bg-white"
+                ? "border-green-500 bg-green-50"
+                : "border-gray-300 bg-white"
           }`}
       />
 
@@ -125,11 +124,6 @@ const analyzeSentiment = async () => {
         {getSentimentDisplay()}
       </div>
 
-      {sentiment === "aggressif" && (
-        <p className="mt-2 text-xs text-red-600 italic">
-          Vous ne pouvez pas soumettre tant que le ton est jugé agressif.
-        </p>
-      )}
     </div>
   );
 }
