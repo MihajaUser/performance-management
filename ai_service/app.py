@@ -127,8 +127,8 @@ def analyze_sentiment(req: SentimentRequest):
 
             return {
                 "text": req.text,
-                "sentiment": sentiment,
-                "raw_label": label,
+                "sentiment": 'negative',
+                "raw_label":'negative',
                 "confidence": round(result["score"], 3),
             }
 

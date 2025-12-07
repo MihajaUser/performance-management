@@ -49,9 +49,9 @@ export default function EmployeeDetailPage() {
 
   const [selectedEvaluationId, setSelectedEvaluationId] = useState<number | null>(null);
 
+
+
   const { data, isLoading, isError } = useEmployeeDetailQuery(id);
-  const { data: compData, isLoading: compLoading } =
-    useEmployeeCompetenciesQuery(id, selectedEvaluationId);
 
   const getMostRecentEvaluationId = (
     evaluations?: Pick<EvaluationData, "id" | "created_at">[]
@@ -63,8 +63,14 @@ export default function EmployeeDetailPage() {
     return sorted[0].id;
   };
 
+  // ⚠️ UNE SEULE source de vérité
+  const currentSelectionId =
+    selectedEvaluationId ??
+    getMostRecentEvaluationId(data?.evaluationsReceived ?? []);
 
-
+  // ⬇️ le fetch des compétences utilise ce même ID
+  const { data: compData, isLoading: compLoading } =
+    useEmployeeCompetenciesQuery(id, currentSelectionId);
 
   const evaluations: EvaluationItem[] = useMemo(() => {
     if (!data) return [];
@@ -101,9 +107,7 @@ export default function EmployeeDetailPage() {
     }));
   }, [data]);
 
-  const currentSelectionId =
-    selectedEvaluationId ??
-    getMostRecentEvaluationId(data?.evaluationsReceived ?? []);
+
 
 
   const selectedEvaluation = useMemo(() => {
