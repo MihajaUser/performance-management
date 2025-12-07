@@ -208,7 +208,7 @@ export default class EvaluationController {
         period: evaluation.period,
         scoreManager: finalScore,
         scoreFinal: finalScore, // pourra être ajusté plus tard
-        predictedScore: predicted, // a ajuster plus tard
+        predictedScore: 80.3, // a ajuster plus tard
       });
 
       // --- 🧩 Enregistrer le résultat moyen par catégorie de compétence ---

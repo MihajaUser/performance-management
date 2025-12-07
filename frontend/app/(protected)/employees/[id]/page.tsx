@@ -101,11 +101,15 @@ export default function EmployeeDetailPage() {
     }));
   }, [data]);
 
+  const currentSelectionId =
+    selectedEvaluationId ??
+    getMostRecentEvaluationId(data?.evaluationsReceived ?? []);
+
+
   const selectedEvaluation = useMemo(() => {
-    return data?.evaluationsReceived?.find(
-      (e: EvaluationData) => e.id === selectedEvaluationId
-    );
-  }, [data, selectedEvaluationId]);
+    return data?.evaluationsReceived?.find((e: EvaluationData) => e.id === currentSelectionId);
+  }, [data, currentSelectionId]);
+
 
   const filteredEvaluations = useMemo(() => {
     if (!selectedEvaluation) return evaluations;
@@ -155,6 +159,8 @@ export default function EmployeeDetailPage() {
         selectedId={selectedEvaluationId ?? getMostRecentEvaluationId(data.evaluationsReceived)}
         onSelect={(id) => setSelectedEvaluationId(id)}
       />
+
+
 
 
       <Card shadow="sm" className="border border-gray-200">
